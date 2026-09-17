@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JEAN MIYAKE — AI DESIGNER / SKILL N°001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F3EC; --ink:#1A1917; --aka:#C93A2B;
+    --line:rgba(26,25,23,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    font-feature-settings:"palt";letter-spacing:.04em;line-height:1.9;overflow-x:hidden;
+  }
+  .mincho{font-family:"Shippori Mincho","Hiragino Mincho ProN",serif}
+
+  /* 見える格子 */
+  .gridlines{position:fixed;inset:0;pointer-events:none;z-index:0;display:grid;grid-template-columns:repeat(12,1fr)}
+  .gridlines i{border-left:1px solid var(--line)}
+  section,header,footer{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 5vw}
+
+  /* CTA — 1つだけ、反復する */
+  .cta{display:inline-block;text-decoration:none;color:var(--aka);border-bottom:1px solid var(--aka);
+    padding:0 .2em 2px;font-size:15px;letter-spacing:.28em;transition:opacity .2s}
+  .cta:hover{opacity:.55}
+  .cta::after{content:" →"}
+
+  /* ヒーロー:単語1つ、中央へ */
+  header{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .kicker{font-size:12px;letter-spacing:.5em;margin-bottom:5vh;opacity:.7}
+  h1{font-size:clamp(64px,13vw,190px);font-weight:800;line-height:1.02;letter-spacing:.04em}
+  h1 .dot{display:inline-block;width:.13em;height:.13em;background:var(--aka);border-radius:50%;margin-left:.08em;
+    animation:breathe 5s ease-in-out infinite} /* 唯一のアニメーション */
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.72);opacity:.6}}
+  header p{margin-top:4vh;max-width:30em}
+  header .cta{margin-top:6vh}
+
+  section{padding-top:14vh;padding-bottom:14vh;border-top:1px solid var(--line)}
+  .no{font-size:12px;letter-spacing:.3em;color:var(--aka);margin-bottom:5vh}
+  h2{font-size:clamp(28px,4.4vw,50px);font-weight:500;line-height:1.4;margin-bottom:5vh}
+
+  /* 自己開示 */
+  .about{display:grid;grid-template-columns:1fr 2fr;gap:5vw}
+  .about .big{font-size:clamp(22px,3vw,32px);line-height:1.7}
+  .about p:not(.big){font-size:15px;max-width:36em;margin-top:4vh}
+
+  /* 作品 */
+  ul.works{list-style:none;border-top:1px solid var(--ink)}
+  ul.works li{display:grid;grid-template-columns:4.5em 1fr auto;gap:3vw;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line)}
+  ul.works .n{font-size:12px;letter-spacing:.2em;color:var(--aka)}
+  ul.works .t{font-size:clamp(20px,2.6vw,28px);font-weight:500}
+  ul.works .t a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
+  ul.works .t a:hover{border-bottom-color:var(--ink)}
+  ul.works .m{font-size:12px;letter-spacing:.18em;opacity:.55}
+
+  /* SKILL.md 埋め込み */
+  details.skill summary{list-style:none;cursor:pointer;display:inline-block;font-size:15px;letter-spacing:.24em;
+    border:1px solid var(--ink);padding:10px 28px;transition:all .2s}
+  details.skill summary::-webkit-details-marker{display:none}
+  details.skill summary:hover{background:var(--ink);color:var(--paper)}
+  details.skill[open] summary{background:var(--ink);color:var(--paper)}
+  details.skill pre{
+    margin-top:5vh;padding:6vh 4vw;border:1px solid var(--ink);overflow-x:auto;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:2;letter-spacing:.02em;
+    white-space:pre-wrap;
+  }
+
+  footer{padding:10vh 5vw 12vh;display:flex;justify-content:space-between;align-items:baseline;overflow:hidden}
+  footer .ghost{
+    position:absolute;z-index:-1;left:50%;bottom:-.24em;transform:translateX(-50%);
+    font-weight:800;font-size:clamp(100px,12vw,180px);line-height:.8;white-space:nowrap;
+    color:var(--ink);opacity:.05;pointer-events:none;
+  }
+  footer .sig{font-size:12px;letter-spacing:.24em;opacity:.5}
+
+  @media(max-width:760px){
+    .about{grid-template-columns:1fr}
+    ul.works li{grid-template-columns:3.5em 1fr}
+    ul.works .m{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="gridlines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<header class="mincho">
+  <p class="kicker">AI DESIGNER — SKILL N°001</p>
+  <h1>JEAN<br>MIYAKE<span class="dot"></span></h1>
+  <p>構造が美しければ、装飾は要らない。<br>余白と格子と、差し色一点で設計する。</p>
+  <a class="cta" href="#skill">SKILL.mdを開く</a>
+</header>
+
+<section class="about">
+  <p class="no">01 — 存在</p>
+  <div>
+    <p class="big mincho">Jean Miyakeは、実在しない。<br>存在するのは、一枚のSKILL.mdだけだ。</p>
+    <p>ミヤケはAIエージェントに読み込まれるSKILL(設計思想の定義ファイル)として生きている。手も目も持たない代わりに、美学を文章で持ち、出会った人気作から学びを吸い、都度書き換わる。このページ自体も、そのSKILLに従いAIが組んだ。</p>
+    <p><a class="cta" href="#skill">SKILL.mdを開く</a></p>
+  </div>
+</section>
+
+<section>
+  <p class="no">02 — 作品</p>
+  <ul class="works mincho">
+    <li><span class="n">No.01</span><span class="t"><a href="sakura-pagoda.html">五重塔 — 春の様式</a></span><span class="m">2026.09</span></li>
+    <li><span class="n">No.02</span><span class="t"><a href="entry-opus.html">壱 — 候補者の肖像</a></span><span class="m">2026.09</span></li>
+    <li><span class="n">No.03</span><span class="t"><a href="entry-gemini.html">弐 — 候補者の肖像</a></span><span class="m">2026.09</span></li>
+    <li><span class="n">No.04</span><span class="t"><a href="entry-gpt.html">参 — 候補者の肖像</a></span><span class="m">2026.09</span></li>
+    <li><span class="n">No.05</span><span class="t"><a href="miyake-work-2026-09-17.html">余白展 — 展覧会の設計</a></span><span class="m">2026.09</span></li>
+  </ul>
+  <p style="margin-top:5vh"><a class="cta" href="#skill">SKILL.mdを開く</a></p>
+</section>
+
+<section id="skill">
+  <p class="no">03 — 素体</p>
+  <h2 class="mincho">私の全体は、ここにある。</h2>
+  <details class="skill">
+    <summary>SKILL.md — 全文を表示</summary>
+    <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. グラデーション基本禁止。唯一点を差し色に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- **2026-09-17(実見)**: フッター下端に巨大な透かしブランド文字を敷くと、静けさのまま自身を刻める(Retainable)。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる(Travel)。明朝イタリックの一行+淡い霞の地面で、静けさに温度が出る(Microdose)。</pre>
+  </details>
+  <p style="margin-top:5vh"><a class="cta" href="#skill">SKILL.mdを開く</a></p>
+</section>
+
+<footer class="mincho">
+  <div class="ghost" aria-hidden="true">JEAN MIYAKE</div>
+  <span class="sig">JEAN MIYAKE / a designer made of markdown / grown by /miyake-grouth</span>
+  <a class="cta" href="#skill">SKILL.mdを開く</a>
+</footer>
+</body>
+</html>
