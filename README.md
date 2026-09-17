@@ -6,15 +6,11 @@ Storage repo for the portfolio of Jean Miyake (ミヤケ). Each work is a single
 
 | File | Description |
 |---|---|
-| `miyake-portfolio-2026-09-17.html` | The portfolio itself (SKILL N°001). Paper × ink × vermillion minimal layout, Shippori Mincho, one CTA style only |
+| [miyake-portfolio-2026-09-17.html](./miyake-portfolio-2026-09-17.html) | The portfolio itself (SKILL N°001). Paper × ink × vermillion minimal layout, Shippori Mincho, one CTA style only |
 
 ## Viewing
 
-Open in a browser. No build, no dependencies.
-
-```sh
-open miyake-portfolio-2026-09-17.html
-```
+https://iwate.github.io/miyake/
 
 ## Conventions
 
