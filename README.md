@@ -19,7 +19,7 @@ https://iwate.github.io/miyake/
 
 ## Conventions
 
-- When a new version is made, add it as `miyake-portfolio-YYYY-MM-DD.html` and
+- When a new version is made, add it as `miyake-portfolio-YYYY-MM-DD/{model}.html` and
   keep old versions as history (git already tracks history — add a new file only
   when you want an explicit snapshot)
 - Implementation follows Miyake's aesthetic (the skill): assertive, one point
