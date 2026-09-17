@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f3f0ea">
+<title>Jean Miyake — Form follows feeling.</title>
+<style>
+  :root {
+    --paper: #f3f0ea;
+    --ink: #171717;
+    --line: rgba(23,23,23,.22);
+    --accent: #e34b35;
+    --pad: clamp(20px, 4vw, 64px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+    letter-spacing: .02em;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { color: var(--paper); background: var(--accent); }
+  .site-shell { overflow: hidden; }
+  .grid {
+    background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+    background-size: calc((100vw - var(--pad) * 2) / 12) 100%;
+    margin: 0 var(--pad);
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 88px;
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+    z-index: 2;
+  }
+  .monogram { font-weight: 700; letter-spacing: -.06em; font-size: 18px; }
+  nav { display: flex; gap: clamp(18px, 4vw, 56px); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; }
+  nav a { position: relative; }
+  nav a::after { content: ''; position: absolute; left: 0; right: 100%; bottom: -5px; height: 1px; background: var(--accent); transition: right .25s ease; }
+  nav a:hover::after, nav a:focus-visible::after { right: 0; }
+  .hero { min-height: min(760px, calc(100vh - 88px)); display: grid; grid-template-columns: repeat(12, 1fr); align-items: center; position: relative; border-bottom: 1px solid var(--ink); }
+  .hero-copy { grid-column: 2 / 12; padding: 8vh 0 12vh; }
+  .eyebrow { display: flex; align-items: center; gap: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .16em; }
+  .eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  h1 { font-size: clamp(92px, 21vw, 318px); line-height: .78; font-weight: 400; letter-spacing: -.105em; margin: 42px 0 38px -0.07em; }
+  .hero-note { max-width: 350px; margin-left: 8.333%; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px, 2vw, 23px); line-height: 1.3; }
+  .hero-index { position: absolute; bottom: 22px; right: 0; font-size: 10px; letter-spacing: .14em; }
+  .section { display: grid; grid-template-columns: repeat(12, 1fr); border-bottom: 1px solid var(--ink); }
+  .section-label { grid-column: 1 / 3; padding-top: 30px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+  .section-body { grid-column: 3 / 13; border-left: 1px solid var(--line); padding: 76px 0 88px 8.333%; }
+  .intro { max-width: 740px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px, 4vw, 54px); line-height: 1.08; letter-spacing: -.035em; margin: 0; }
+  .intro em { color: var(--accent); font-style: normal; }
+  .works { padding-top: 0; }
+  .work { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); padding: 30px 0 42px; margin-right: 8.333%; gap: 8.333%; }
+  .work:first-child { border-top: 0; }
+  .work-title { font-size: clamp(28px, 4vw, 58px); line-height: .95; letter-spacing: -.07em; margin: 0; font-weight: 400; }
+  .work-meta { font-size: 11px; letter-spacing: .08em; margin-top: 19px; color: rgba(23,23,23,.67); }
+  .work-description { align-self: end; max-width: 280px; font-family: Georgia, 'Times New Roman', serif; font-size: 16px; line-height: 1.35; }
+  .shape { height: 82px; margin-bottom: 28px; display: flex; align-items: center; }
+  .shape span { display: block; border: 1px solid var(--ink); }
+  .shape-a span { width: 82px; height: 82px; border-radius: 50%; }
+  .shape-b span { width: 100%; height: 1px; background: var(--ink); border: 0; position: relative; }
+  .shape-b span::after { content: ''; width: 13px; height: 13px; background: var(--accent); border-radius: 50%; position: absolute; right: 18%; top: -6px; }
+  .shape-c span { width: 82px; height: 82px; transform: rotate(45deg); margin-left: 18px; }
+  .contact { min-height: 480px; align-items: stretch; }
+  .contact .section-body { display: flex; flex-direction: column; justify-content: space-between; }
+  .contact-title { font-size: clamp(52px, 9vw, 132px); letter-spacing: -.1em; line-height: .8; margin: 0; max-width: 700px; font-weight: 400; }
+  .cta { align-self: flex-start; border-bottom: 1px solid var(--ink); padding: 12px 0 9px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+  .cta span { color: var(--accent); margin-left: 30px; transition: margin .2s ease; }
+  .cta:hover span, .cta:focus-visible span { margin-left: 45px; }
+  footer { min-height: 180px; display: flex; align-items: flex-end; justify-content: space-between; padding: 24px 0; position: relative; }
+  .footer-mark { font-size: clamp(66px, 13vw, 190px); font-weight: 700; letter-spacing: -.12em; line-height: .63; color: transparent; -webkit-text-stroke: 1px rgba(23,23,23,.28); }
+  .footer-note { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; text-align: right; }
+  @media (max-width: 640px) {
+    .grid { background-size: calc((100vw - var(--pad) * 2) / 6) 100%; }
+    header { min-height: 70px; }
+    nav { gap: 14px; font-size: 9px; }
+    .hero { min-height: calc(100vh - 70px); grid-template-columns: repeat(6, 1fr); }
+    .hero-copy { grid-column: 1 / 7; }
+    h1 { margin-top: 52px; font-size: clamp(79px, 25vw, 160px); }
+    .hero-note { margin-left: 0; }
+    .section { grid-template-columns: repeat(6, 1fr); }
+    .section-label { grid-column: 1 / 7; padding: 20px 0 0; }
+    .section-body { grid-column: 1 / 7; border-left: 0; padding: 50px 0 62px; }
+    .work { grid-template-columns: 1fr; gap: 28px; margin-right: 0; padding-bottom: 48px; }
+    .work-description { max-width: 310px; }
+    .contact { min-height: 420px; }
+    .footer-mark { font-size: 23vw; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="site-shell">
+  <div class="grid">
+    <header>
+      <a class="monogram" href="#top" aria-label="Jean Miyake home">JM—26</a>
+      <nav aria-label="Main navigation">
+        <a href="#selected">Selected</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow">Independent designer / Tokyo—Paris</div>
+          <h1 id="hero-title">FORM</h1>
+          <p class="hero-note">I make quiet identities for loud ideas.<br>形は、考えを残すためにある。</p>
+        </div>
+        <div class="hero-index">01 / 04</div>
+      </section>
+
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="section-label">02 — Position</div>
+        <div class="section-body">
+          <p class="intro" id="about-title">A good interface is not a surface. It is a <em>pace</em> — the interval between a question and its answer.</p>
+        </div>
+      </section>
+
+      <section class="section" id="selected" aria-labelledby="selected-title">
+        <div class="section-label">03 — Selected work</div>
+        <div class="section-body works">
+          <article class="work">
+            <div>
+              <div class="shape shape-a" aria-hidden="true"><span></span></div>
+              <h2 class="work-title" id="selected-title">Atelier<br>Forma</h2>
+              <p class="work-meta">Identity / 2026</p>
+            </div>
+            <p class="work-description">An identity for a material research studio. One circle, twelve weights, infinite patience.</p>
+          </article>
+          <article class="work">
+            <div>
+              <div class="shape shape-b" aria-hidden="true"><span></span></div>
+              <h2 class="work-title">Line<br>Between</h2>
+              <p class="work-meta">Digital experience / 2025</p>
+            </div>
+            <p class="work-description">A digital archive that lets the silence between fragments become part of the story.</p>
+          </article>
+          <article class="work">
+            <div>
+              <div class="shape shape-c" aria-hidden="true"><span></span></div>
+              <h2 class="work-title">Kōbō<br>No. 7</h2>
+              <p class="work-meta">Editorial system / 2024</p>
+            </div>
+            <p class="work-description">A living publication for makers. Structure holds the page; curiosity moves through it.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact" aria-labelledby="contact-title">
+        <div class="section-label">04 — Start a conversation</div>
+        <div class="section-body">
+          <h2 class="contact-title" id="contact-title">Make<br>room.</h2>
+          <a class="cta" href="mailto:hello@jeanmiyake.studio">hello@jeanmiyake.studio <span>↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-mark" aria-hidden="true">MIYAKE</div>
+      <div class="footer-note">© Jean Miyake<br>Built with restraint</div>
+    </footer>
+  </div>
+</div>
+</body>
+</html>

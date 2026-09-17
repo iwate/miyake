@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jean Miyake — 構造が美しければ装飾は要らない</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F2ED;
+  --ink:#16150F;
+  --accent:#C8452B;
+  --rule:rgba(22,21,15,.14);
+  --mincho:"Shippori Mincho",serif;
+  --sans:"Inter",system-ui,sans-serif;
+  --pad:clamp(20px,6vw,120px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-weight:300;
+  font-feature-settings:"palt" 1;
+  line-height:1.8;letter-spacing:.02em;
+  overflow-x:hidden;
+}
+/* 格子: 縦罫3本 */
+.grid{position:fixed;inset:0;pointer-events:none;z-index:0}
+.grid i{position:absolute;top:0;bottom:0;width:1px;background:var(--rule)}
+.grid i:nth-child(1){left:25%}
+.grid i:nth-child(2){left:50%}
+.grid i:nth-child(3){left:75%}
+main{position:relative;z-index:1}
+section{padding:0 var(--pad);border-top:1px solid var(--rule)}
+section:first-child{border-top:0}
+
+/* 見出しラベル */
+.label{
+  font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+  display:flex;align-items:baseline;gap:.9em;padding:34px 0 0
+}
+.label b{font-weight:400;opacity:.55}
+.label s{width:5px;height:5px;background:var(--accent);border-radius:50%;text-decoration:none;flex:none}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between}
+.hero h1{
+  font-family:var(--mincho);font-weight:400;
+  font-size:clamp(68px,17.5vw,280px);
+  line-height:.86;letter-spacing:-.02em;
+  margin:auto 0 0;
+}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .sub{
+  display:flex;flex-wrap:wrap;gap:8px 48px;align-items:flex-end;
+  justify-content:space-between;padding:26px 0 44px;
+  border-top:1px solid var(--rule);margin-top:30px
+}
+.hero .sub p{font-family:var(--mincho);font-style:italic;font-size:clamp(14px,1.5vw,19px);max-width:30ch;line-height:1.9}
+.hero .sub small{font-size:11px;letter-spacing:.3em;opacity:.55}
+
+/* 静と動: 唯一のアニメーション = 縦線が伸びる */
+.rise{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rise.in{opacity:1;transform:none}
+
+/* WORKS */
+.works{padding-bottom:10px}
+.w{
+  display:grid;grid-template-columns:4.2em 1fr auto;
+  gap:0 clamp(16px,4vw,56px);align-items:baseline;
+  padding:38px 0;border-bottom:1px solid var(--rule);
+  text-decoration:none;color:inherit;
+}
+.w:last-of-type{border-bottom:0}
+.w .n{font-size:11px;letter-spacing:.2em;opacity:.45}
+.w h3{font-family:var(--mincho);font-weight:400;font-size:clamp(26px,4.6vw,58px);line-height:1.12;letter-spacing:.01em}
+.w p{font-size:13px;opacity:.6;margin-top:10px;max-width:46ch}
+.w .y{font-size:11px;letter-spacing:.2em;opacity:.45;white-space:nowrap}
+.w:hover h3{color:var(--accent)}
+.w h3 span{display:inline-block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.w:hover h3 span{transform:translateX(14px)}
+
+/* PRINCIPLES */
+.pr{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--rule);margin:40px 0 64px}
+.pr div{background:var(--bg);padding:30px clamp(18px,3vw,38px) 40px}
+.pr b{font-family:var(--mincho);font-weight:400;font-size:13px;letter-spacing:.24em;display:block;opacity:.45;margin-bottom:22px}
+.pr h4{font-family:var(--mincho);font-weight:400;font-size:clamp(19px,2.2vw,26px);line-height:1.5;margin-bottom:12px}
+.pr p{font-size:13px;opacity:.62;line-height:1.95}
+
+/* CTA */
+.cta{min-height:78svh;display:flex;flex-direction:column;justify-content:center;padding-bottom:60px;text-align:left}
+.cta h2{font-family:var(--mincho);font-weight:400;font-size:clamp(34px,7vw,104px);line-height:1.08;margin:18px 0 44px;max-width:22ch}
+.btn{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:1.1em;
+  background:var(--accent);color:var(--bg);text-decoration:none;
+  font-size:13px;letter-spacing:.26em;text-transform:uppercase;
+  padding:22px 38px;border-radius:999px;
+  transition:gap .45s cubic-bezier(.2,.7,.2,1)
+}
+.btn:hover{gap:2.2em}
+.meta{display:flex;flex-wrap:wrap;gap:10px 40px;margin-top:56px;font-size:11px;letter-spacing:.24em;opacity:.5}
+
+/* FOOTER 透かし */
+footer{position:relative;border-top:1px solid var(--rule);padding:30px var(--pad) 0;overflow:hidden}
+footer .fine{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;font-size:11px;letter-spacing:.22em;opacity:.45}
+footer .mark{
+  font-family:var(--mincho);font-weight:400;
+  font-size:clamp(70px,20.5vw,330px);line-height:.78;
+  letter-spacing:-.03em;color:var(--ink);opacity:.07;
+  margin:24px calc(var(--pad) * -1) -.16em;padding:0 var(--pad);
+  white-space:nowrap;user-select:none
+}
+@media (max-width:640px){
+  .grid i:nth-child(1),.grid i:nth-child(3){display:none}
+  .w{grid-template-columns:3em 1fr;}
+  .w .y{grid-column:2;margin-top:12px}
+}
+@media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="grid" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main>
+  <section class="hero">
+    <div class="label"><s></s><b>Jean Miyake — UI / Interface Design</b></div>
+    <h1>MIY<em>A</em>KE</h1>
+    <div class="sub">
+      <p>構造が美しければ、装飾は要らない。余白を素材として、情報を浮かせる。</p>
+      <small>Tokyo / Marseille — 2012–2026</small>
+    </div>
+  </section>
+
+  <section class="works">
+    <div class="label"><s></s><b>Selected Works — 06</b></div>
+    <a class="w rise" href="#contact"><span class="n">01</span><div><h3>Retainable<span>↗</span></h3><p>解約率を語彙で下げる。B2B SaaS のリテンション基盤、情報設計から実装まで。</p></div><span class="y">2026</span></a>
+    <a class="w rise" href="#contact"><span class="n">02</span><div><h3>Kanso Banking<span>↗</span></h3><p>数字だけが動く明細画面。装飾を全て外し、遷移を3階層に圧縮。</p></div><span class="y">2025</span></a>
+    <a class="w rise" href="#contact"><span class="n">03</span><div><h3>Microdose<span>↗</span></h3><p>明朝イタリックの一行と淡い霞。静けさに温度を持たせた服薬記録アプリ。</p></div><span class="y">2025</span></a>
+    <a class="w rise" href="#contact"><span class="n">04</span><div><h3>八十八 / Hachi<span>↗</span></h3><p>縦組みの献立。和文の文字詰めを設計単位に据えたレシピメディア。</p></div><span class="y">2024</span></a>
+    <a class="w rise" href="#contact"><span class="n">05</span><div><h3>Travel Atlas<span>↗</span></h3><p>ヒーローは単語ひとつ。画面を一語で決める予約フローの再設計。</p></div><span class="y">2023</span></a>
+    <a class="w rise" href="#contact"><span class="n">06</span><div><h3>Grid Systems 21<span>±</span></h3><p>格子を可視化するデザインシステム。12列・8pt・罫線1px の教則本。</p></div><span class="y">2022</span></a>
+  </section>
+
+  <section>
+    <div class="label"><s></s><b>Principles</b></div>
+    <div class="pr">
+      <div class="rise"><b>01</b><h4>余白は素材</h4><p>空間は余りではなく、こちらから置くもの。詰めた画面は主役を失う。</p></div>
+      <div class="rise"><b>02</b><h4>1画面1メッセージ</h4><p>主役は一つ。残りは全て引き立て役に降格させる。</p></div>
+      <div class="rise"><b>03</b><h4>影を使わない</h4><p>遠近は余白とサイズで作る。浮かせるために暗さを足す必要はない。</p></div>
+      <div class="rise"><b>04</b><h4>動きは一種類</h4><p>面は静かに。大胆にするのはタイポグラフィと、たった一つの動きだけ。</p></div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="label"><s></s><b>Contact — 一つだけ</b></div>
+    <h2>次の一画面を、<br>一緒に決めましょう。</h2>
+    <a class="btn" href="mailto:jean@miyake.design">Start a project <span aria-hidden="true">→</span></a>
+    <div class="meta"><span>jean@miyake.design</span><span>Available — 2026 Q2</span><span>Interface / Type / Systems</span></div>
+  </section>
+</main>
+
+<footer>
+  <div class="fine"><span>© 2026 Jean Miyake</span><span>No photographs were used on this page.</span></div>
+  <div class="mark" aria-hidden="true">MIYAKE</div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>es.forEach(e=>e.isIntersecting&&(e.target.classList.add('in'),io.unobserve(e.target))),{threshold:.12});
+document.querySelectorAll('.rise').forEach((el,i)=>{el.style.transitionDelay=(i%6*60)+'ms';io.observe(el)});
+</script>
+</body>
+</html>
