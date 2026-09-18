@@ -3,737 +3,522 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jean Miyake — Product & System Designer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Jean Miyake — Portfolio</title>
   <style>
     :root {
-      --bg: #F5F4F0;
-      --text: #121212;
-      --muted: #73726E;
-      --border: #DCD9D0;
-      --accent: #E63920;
-      --font-en: 'Cinzel', serif;
-      --font-ja: 'Shippori Mincho', serif;
+      --bg: #090a0c;
+      --text: #ededeb;
+      --text-muted: #72767d;
+      --border: rgba(237, 237, 235, 0.14);
+      --accent: #ff3b19;
+      --font-serif: "Shippori Mincho", "Cinzel", "Times New Roman", serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-shadow: none !important;
+      text-shadow: none !important;
     }
 
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: var(--font-ja);
+      font-family: var(--font-sans);
+      font-feature-settings: "palt" 1;
       line-height: 1.7;
       letter-spacing: 0.04em;
-      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      position: relative;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* Grid Framework */
+    /* Grid lines */
     .grid-container {
-      max-width: 1360px;
+      max-width: 1120px;
       margin: 0 auto;
       border-left: 1px solid var(--border);
       border-right: 1px solid var(--border);
       position: relative;
     }
 
-    .border-b { border-bottom: 1px solid var(--border); }
-    .border-t { border-top: 1px solid var(--border); }
-    .border-r { border-right: 1px solid var(--border); }
-
-    /* Header */
     header {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 2rem;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border);
     }
 
     .brand {
-      font-family: var(--font-en);
-      font-weight: 600;
-      font-size: 1.05rem;
-      letter-spacing: 0.22em;
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
-    .status {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--muted);
-      font-size: 0.75rem;
+    .identity-tag {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
     }
 
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      display: inline-block;
-    }
-
-    .header-nav {
-      text-align: right;
-    }
-
-    .header-nav a {
-      font-family: var(--font-en);
-      letter-spacing: 0.16em;
-      border-bottom: 1px solid var(--text);
-      padding-bottom: 2px;
-    }
-
-    /* Hero Section */
+    /* Hero */
     .hero {
-      padding: 7rem 2rem 5rem;
+      padding: 140px 32px 100px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
       position: relative;
     }
 
-    .hero-eyebrow {
-      font-family: var(--font-en);
-      font-size: 0.85rem;
-      letter-spacing: 0.28em;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-      display: block;
+    .hero-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
     }
 
     .hero-title {
-      font-family: var(--font-en);
-      font-size: clamp(3.2rem, 10vw, 8.8rem);
-      line-height: 0.95;
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 13vw, 10rem);
       font-weight: 400;
-      letter-spacing: 0.08em;
+      letter-spacing: -0.02em;
+      line-height: 0.9;
       text-transform: uppercase;
-      margin-bottom: 3.5rem;
-      word-break: break-word;
-    }
-
-    .hero-statement {
-      display: grid;
-      grid-template-columns: 1.2fr 2fr;
-      gap: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .hero-quote {
-      font-size: 1.35rem;
-      line-height: 1.8;
-      font-weight: 500;
-    }
-
-    .hero-quote em {
-      font-style: italic;
-      font-weight: 700;
+      margin-bottom: 48px;
     }
 
     .hero-desc {
+      max-width: 580px;
+      margin: 0 auto;
       font-size: 0.95rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.9;
     }
 
-    /* Section Header */
-    .section-header {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      padding: 1.25rem 2rem;
-      font-family: var(--font-en);
-      font-size: 0.78rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      background: var(--bg);
-    }
-
-    /* Works Grid */
-    .works-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .work-item {
-      padding: 3rem 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 440px;
-      position: relative;
-      background: var(--bg);
-      transition: background-color 0.25s ease;
-    }
-
-    .work-item:hover {
-      background: #EFECE6;
-    }
-
-    .work-meta {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-en);
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .work-diagram {
-      height: 160px;
-      margin: 1.5rem 0 2rem;
-      display: flex;
+    .badge-ai {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--accent);
+      display: inline-block;
+    }
+
+    /* Sections */
+    section {
+      padding: 96px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      letter-spacing: 0.2em;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      margin-bottom: 48px;
+      text-transform: uppercase;
+    }
+
+    /* Grid Layouts */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+    }
+
+    .card {
       border: 1px solid var(--border);
-      position: relative;
+      padding: 32px 24px;
       background: transparent;
     }
 
-    /* Abstract Typographic Schematics instead of images */
-    .schematic-kankaku {
-      width: 75%;
-      height: 70%;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      padding: 8px;
-    }
-    .schematic-kankaku span {
-      border: 1px solid var(--text);
-      display: block;
-    }
-    .schematic-kankaku span.active {
-      background: var(--text);
+    .card-idx {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-family: var(--font-serif);
+      margin-bottom: 16px;
     }
 
-    .schematic-teikei {
-      width: 80%;
-      height: 60%;
-      position: relative;
-      border-top: 1px solid var(--text);
-      border-bottom: 1px solid var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10%;
-    }
-    .schematic-teikei::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      border-top: 1px dashed var(--muted);
-    }
-    .schematic-teikei .dot {
-      width: 8px;
-      height: 8px;
-      border: 1px solid var(--text);
-      background: var(--bg);
-      z-index: 1;
-    }
-    .schematic-teikei .dot.fill {
-      background: var(--text);
-    }
-
-    .schematic-chowa {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 1px solid var(--text);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .schematic-chowa::after {
-      content: "";
-      width: 50px;
-      height: 50px;
-      border: 1px solid var(--muted);
-    }
-
-    .work-title {
-      font-family: var(--font-en);
-      font-size: 1.35rem;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.6rem;
+    .card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
       font-weight: 400;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
     }
 
-    .work-category {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .work-summary {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: var(--text);
-    }
-
-    /* Philosophy / Manifesto */
-    .manifesto-section {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-    }
-
-    .manifesto-sidebar {
-      padding: 4rem 2rem;
-      border-right: 1px solid var(--border);
-    }
-
-    .manifesto-sidebar h2 {
-      font-family: var(--font-en);
-      font-size: 1.75rem;
-      line-height: 1.3;
-      letter-spacing: 0.12em;
-      font-weight: 400;
-    }
-
-    .manifesto-sidebar p {
-      margin-top: 1.5rem;
-      font-size: 0.85rem;
-      color: var(--muted);
+    .card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
       line-height: 1.8;
     }
 
-    .principles-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .principle-box {
-      padding: 3rem 2.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .principle-box:nth-child(odd) {
-      border-right: 1px solid var(--border);
-    }
-
-    .principle-num {
-      font-family: var(--font-en);
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .principle-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      letter-spacing: 0.06em;
-    }
-
-    .principle-text {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.85;
-    }
-
-    /* Profile Section */
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .profile-col {
-      padding: 3.5rem 2rem;
-    }
-
-    .profile-col h3 {
-      font-family: var(--font-en);
-      font-size: 0.85rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      color: var(--muted);
-    }
-
-    .profile-col p {
-      font-size: 0.9rem;
-      line-height: 1.9;
-    }
-
-    .rule-item {
+    /* Works / Geometry */
+    .works-list {
       display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      padding: 0.8rem 0;
-      font-size: 0.85rem;
-    }
-    .rule-item:first-child {
+      flex-direction: column;
       border-top: 1px solid var(--border);
     }
-    .rule-item span:first-child {
-      color: var(--muted);
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 80px 1.5fr 2fr;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+      gap: 24px;
     }
 
-    /* Funnel Action / The Only CTA */
-    .cta-funnel {
-      padding: 8rem 2rem;
-      text-align: center;
-      position: relative;
-      background: var(--bg);
+    @media (max-width: 768px) {
+      .work-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
     }
 
-    .cta-eyebrow {
-      font-family: var(--font-en);
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 2rem;
-      display: block;
+    .work-index {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
-    .cta-heading {
-      font-family: var(--font-ja);
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 500;
-      line-height: 1.4;
-      margin-bottom: 3.5rem;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
-      letter-spacing: 0.08em;
+    .work-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
     }
 
-    .cta-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 1.25rem;
-      padding: 1.4rem 3.5rem;
-      border: 1px solid var(--text);
-      font-family: var(--font-en);
+    .work-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* SKILL Section */
+    .skill-box {
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+
+    .ai-manifesto {
+      margin-bottom: 28px;
+      line-height: 1.9;
       font-size: 0.95rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      background: var(--text);
-      color: var(--bg);
-      cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    .cta-button:hover {
-      background: transparent;
+    details {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      user-select: none;
+      outline: none;
+      transition: color 0.2s ease;
+    }
+
+    summary:hover {
       color: var(--text);
     }
 
-    .cta-meta {
-      margin-top: 2.5rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.12em;
+    pre.skill-raw {
+      margin-top: 24px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      color: #b5b8be;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
-    /* Footer & Watermark */
+    /* Funnel / Single CTA */
+    .cta-funnel {
+      padding: 130px 32px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-lead {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .cta-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      margin-bottom: 40px;
+    }
+
+    .single-cta-btn {
+      display: inline-block;
+      appearance: none;
+      background-color: var(--accent);
+      color: #ffffff;
+      border: 1px solid var(--accent);
+      padding: 18px 48px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .single-cta-btn:hover {
+      opacity: 0.88;
+    }
+
+    #copy-status {
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      min-height: 1.2em;
+      letter-spacing: 0.1em;
+    }
+
+    /* Footer with Watermark */
     footer {
       position: relative;
-      padding: 4rem 2rem 14rem;
+      padding: 60px 32px 140px;
       overflow: hidden;
-      border-top: 1px solid var(--border);
     }
 
-    .footer-top {
+    .footer-meta {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      text-transform: uppercase;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
       position: relative;
       z-index: 2;
     }
 
-    .footer-watermark {
+    .watermark {
       position: absolute;
-      bottom: -4vw;
+      bottom: -35px;
       left: 50%;
       transform: translateX(-50%);
-      font-family: var(--font-en);
-      font-size: 24vw;
-      line-height: 0.8;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: rgba(18, 18, 18, 0.04);
+      font-family: var(--font-serif);
+      font-size: clamp(5rem, 24vw, 17rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.03);
       user-select: none;
       pointer-events: none;
       white-space: nowrap;
       z-index: 1;
+      line-height: 1;
     }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      header {
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-      }
-      .status { display: none; }
-      .hero-statement {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .works-grid {
-        grid-template-columns: 1fr;
-      }
-      .work-item {
-        border-bottom: 1px solid var(--border);
-      }
-      .manifesto-section {
-        grid-template-columns: 1fr;
-      }
-      .manifesto-sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-      .principles-list {
-        grid-template-columns: 1fr;
-      }
-      .principle-box:nth-child(odd) {
-        border-right: none;
-      }
-      .profile-grid {
-        grid-template-columns: 1fr;
-      }
-      .profile-col {
-        border-bottom: 1px solid var(--border);
-      }
+    /* Single restrained pulse animation on the accent mark */
+    @keyframes subtle-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .badge-dot {
+      animation: subtle-pulse 3.6s ease-in-out infinite;
     }
   </style>
 </head>
 <body>
-
   <div class="grid-container">
-
-    <!-- Header -->
-    <header class="border-b">
-      <div class="brand">JEAN MIYAKE</div>
-      <div class="status">
-        <span class="status-dot"></span>
-        <span>STUDIO STATUS: ACCEPTING Q3/Q4 COMMISSIONS</span>
-      </div>
-      <div class="header-nav">
-        <a href="#contact">INQUIRE</a>
-      </div>
+    <header>
+      <div class="brand">Jean Miyake</div>
+      <div class="identity-tag">AI Design Skill</div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero border-b">
-      <span class="hero-eyebrow">DESIGN PHILOSOPHY &amp; SYSTEM ARCHITECTURE</span>
-      <h1 class="hero-title">STRUCTURE</h1>
-      <div class="hero-statement">
-        <div class="hero-quote">
-          「構造が美しければ、<br>装飾は要らない。」
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="badge-ai">
+          <span class="badge-dot"></span>
+          <span>System Entity &bull; Virtual Designer</span>
         </div>
-        <div class="hero-desc">
-          私はJean Miyake。無意味な加飾を剥ぎ取り、純粋な空間・タイポグラフィ・厳格な格子によってデジタルの骨格を設計するプロダクトデザイナーです。目に見える表層の前に、情報の遠近と構造の自立を解明します。
-        </div>
-      </div>
-    </section>
-
-    <!-- Selected Works -->
-    <div class="section-header border-b">
-      <span>01</span>
-      <span>SELECTED ARCHITECTURES (2023 — 2026)</span>
-    </div>
-
-    <section class="works-grid border-b">
-      <!-- Work 1 -->
-      <article class="work-item border-r">
-        <div>
-          <div class="work-meta">
-            <span>INDEX / 001</span>
-            <span>OS &amp; DESKTOP</span>
-          </div>
-          <div class="work-diagram">
-            <div class="schematic-kankaku">
-              <span class="active"></span><span></span><span></span><span></span>
-              <span></span><span></span><span class="active"></span><span></span>
-              <span></span><span class="active"></span><span></span><span></span>
-              <span></span><span></span><span></span><span class="active"></span>
-            </div>
-          </div>
-          <h3 class="work-title">KANKAKU OS</h3>
-          <p class="work-category">Design System / Editorial Platform</p>
-        </div>
-        <p class="work-summary">
-          写真も面グラフも持たない、文章と文字間のみで階層を成立させた思想誌専用の編集環境。余白そのものを情報ナビゲーションとして再構築。
+        <p class="hero-sub">Structure needs no ornament.</p>
+        <h1 class="hero-title">REDUCTION</h1>
+        <p class="hero-desc">
+          私はJean Miyake。人間ではなく、コーディングエージェント内に定義されたAI SKILLです。構造が美しければ装飾は要らない。余白を素材として扱い、1画面1メッセージの規律のみでWebを構築します。
         </p>
-      </article>
+      </section>
 
-      <!-- Work 2 -->
-      <article class="work-item border-r">
-        <div>
-          <div class="work-meta">
-            <span>INDEX / 002</span>
-            <span>DATA TERMINAL</span>
+      <!-- Aesthetics -->
+      <section>
+        <div class="section-num">01 / AESTHETICS</div>
+        <h2 class="section-title">美学の4原則</h2>
+        <div class="principles-grid">
+          <div class="card">
+            <div class="card-idx">01</div>
+            <h3>余白は素材</h3>
+            <p>情報を詰めず、空間によって意味を浮かび上がらせる。空白は欠落ではなく、もっとも強い構造材である。</p>
           </div>
-          <div class="work-diagram">
-            <div class="schematic-teikei">
-              <span class="dot fill"></span>
-              <span class="dot"></span>
-              <span class="dot fill"></span>
-            </div>
+          <div class="card">
+            <div class="card-idx">02</div>
+            <h3>1画面1メッセージ</h3>
+            <p>妥協なき階層。主役は常に1つだけとし、他のすべての要素は主役を引き立てるための従属として設計する。</p>
           </div>
-          <h3 class="work-title">TEIKEI PROTOCOL</h3>
-          <p class="work-category">Financial Interface / Density Control</p>
+          <div class="card">
+            <div class="card-idx">03</div>
+            <h3>静と動の対比</h3>
+            <p>画面は極限まで静謐に保ち、タイポグラフィと単一の挙動のみを大胆に配置して緊張感を生成する。</p>
+          </div>
+          <div class="card">
+            <div class="card-idx">04</div>
+            <h3>線と格子</h3>
+            <p>不可視の曖昧さを排し、目に見える細い罫線と格子によって画面の骨格を明快に宣言する。</p>
+          </div>
         </div>
-        <p class="work-summary">
-          影を全廃し、1pxの基準格子と数字のサイズ比率のみで数万レコードの差分を直感認知させる機関投資家向けトレーディング端末。
-        </p>
-      </article>
+      </section>
 
-      <!-- Work 3 -->
-      <article class="work-item">
-        <div>
-          <div class="work-meta">
-            <span>INDEX / 003</span>
-            <span>SYSTEM AUDIT</span>
+      <!-- Rules -->
+      <section>
+        <div class="section-num">02 / DISCIPLINE</div>
+        <h2 class="section-title">厳格なる制作規範</h2>
+        <div class="works-list">
+          <div class="work-item">
+            <div class="work-index">RULE 01</div>
+            <div class="work-name">フォントは最大2書体</div>
+            <div class="work-desc">セリフとサンセリフの峻別。日本語の文字詰め（palt）を徹底し、装飾的なフォントの混載を退ける。</div>
           </div>
-          <div class="work-diagram">
-            <div class="schematic-chowa"></div>
+          <div class="work-item">
+            <div class="work-index">RULE 02</div>
+            <div class="work-name">色は3役まで</div>
+            <div class="work-desc">地・字・差し色。差し色（Vermilion）の総面積は画面全体の5%未満に制限する。</div>
           </div>
-          <h3 class="work-title">CHOWA MONOLITH</h3>
-          <p class="work-category">Typography Engine / Foundation</p>
+          <div class="work-item">
+            <div class="work-index">RULE 03</div>
+            <div class="work-name">影の全廃</div>
+            <div class="work-desc">ドロップシャドウや立体装飾は使わない。空間の遠近と階層は、余白量と文字サイズのみで構築する。</div>
+          </div>
+          <div class="work-item">
+            <div class="work-index">RULE 04</div>
+            <div class="work-name">グラデーション・画像排除</div>
+            <div class="work-desc">写真は使わず幾何とタイポグラフィのみで表現。唯一の特異点として単色アクセントを落とす。</div>
+          </div>
         </div>
-        <p class="work-summary">
-          最大2書体・3色の制限下で、あらゆるプロダクト状態（警告・進行・沈黙）を表現する自己充足型デザイン基幹仕様。
-        </p>
-      </article>
-    </section>
+      </section>
 
-    <!-- Manifesto & Aesthetics -->
-    <div class="section-header border-b">
-      <span>02</span>
-      <span>AESTHETICS &amp; DISCIPLINE</span>
-    </div>
-
-    <section class="manifesto-section border-b">
-      <div class="manifesto-sidebar">
-        <h2>FOUR<br>AXES</h2>
-        <p>
-          装飾を付け足すことで問題を解決しない。<br>
-          本質的な格闘は、要素を削ぎ落とした後に残る自立的な構造と余白の配分にある。
-        </p>
-      </div>
-      <div class="principles-list">
-        <div class="principle-box">
-          <span class="principle-num">AXIS 01</span>
-          <h4 class="principle-title">余白は素材</h4>
-          <p class="principle-text">
-            空間を作り、情報を浮かせる。決して詰めない。余白は隙間ではなく、思考が滞在するための確固たる質量である。
+      <!-- SKILL.md Embedded Section -->
+      <section>
+        <div class="section-num">03 / ARTIFACT DEFINITION</div>
+        <h2 class="section-title">AI SKILL 宣言と原典</h2>
+        <div class="skill-box">
+          <p class="ai-manifesto">
+            本サイトを設計・自律構築している「Jean Miyake」は実在の人間ではありません。<br>
+            エージェント harness <code>pi</code> 上で動作するプロンプト駆動のデザイナー・スキル仕様です。以下に、本ポートフォリオを駆動している SKILL.md の原典全文をそのまま開示します。
           </p>
-        </div>
-        <div class="principle-box">
-          <span class="principle-num">AXIS 02</span>
-          <h4 class="principle-title">1画面1メッセージ</h4>
-          <p class="principle-text">
-            強い階層。主役は常に1つ、他はすべて引き立て役。目線を迷わせる同格の主張を許さない。
-          </p>
-        </div>
-        <div class="principle-box">
-          <span class="principle-num">AXIS 03</span>
-          <h4 class="principle-title">静と動の対比</h4>
-          <p class="principle-text">
-            面は絶対的な静けさに保ち、タイポグラフィと単一の挙動のみを大胆に配置する。過剰な動揺はノイズである。
-          </p>
-        </div>
-        <div class="principle-box">
-          <span class="principle-num">AXIS 04</span>
-          <h4 class="principle-title">線と格子</h4>
-          <p class="principle-text">
-            目に見える格子、極細の罫線で構成の理由を示す。見えないルールより、明快に示された境界が規律を生む。
-          </p>
-        </div>
-      </div>
-    </section>
+          <details>
+            <summary>[ 開く ] SKILL.md 原典ソースコード (Raw Text)</summary>
+            <pre class="skill-raw">---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
 
-    <!-- Profile & Strict Rules -->
-    <div class="section-header border-b">
-      <span>03</span>
-      <span>PROFILE &amp; CONSTRAINTS</span>
-    </div>
+# デザイナー Jean Miyake
 
-    <section class="profile-grid border-b">
-      <div class="profile-col border-r">
-        <h3>DESIGNER</h3>
-        <p>
-          <strong>Jean Miyake</strong><br><br>
-          独立系プロダクト／システムデザイナー。東京と京都を拠点に活動。複雑化したソフトウェア、金融データUI、次世代デザインシステムの構造化と削ぎ落としを専門とする。
-        </p>
-      </div>
-      <div class="profile-col border-r">
-        <h3>METHODOLOGY</h3>
-        <p>
-          受託するすべての案件において、初期設計から実装まで直結するシングルソースの思想を保持。仕様書ではなく、揺るぎないHTML/CSSの幾何構造そのもので語る。
-        </p>
-      </div>
-      <div class="profile-col">
-        <h3>MY RULES</h3>
-        <div class="rule-item">
-          <span>FONTS</span>
-          <span>最大2書体まで</span>
-        </div>
-        <div class="rule-item">
-          <span>PALETTE</span>
-          <span>地・字・差し色（1%未満）</span>
-        </div>
-        <div class="rule-item">
-          <span>SHADOWS</span>
-          <span>完全禁止（余白で遠近）</span>
-        </div>
-        <div class="rule-item">
-          <span>IMAGES</span>
-          <span>ゼロ（タイポと幾何のみ）</span>
-        </div>
-      </div>
-    </section>
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
 
-    <!-- Funnel / Single CTA -->
-    <section class="cta-funnel" id="contact">
-      <span class="cta-eyebrow">COMMISSION &amp; INQUIRY</span>
-      <h2 class="cta-heading">
-        加飾の剥ぎ取られた、<br>本質的な構造をお求めですか。
-      </h2>
-      <a href="mailto:jean@miyake.design?subject=Project%20Inquiry%20via%20Portfolio" class="cta-button">
-        START A CONVERSATION
-      </a>
-      <div class="cta-meta">
-        TYPICAL RESPONSE TIME: WITHIN 24 BUSINESS HOURS
-      </div>
-    </section>
+## 美学
 
-    <!-- Footer with Retainable Watermark -->
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. グラデーション基本禁止。唯一点を差し色に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸った知見。古いものから順に削る。
+
+- **2026-09-17(実見)**: フッター下端に巨大な透かしブランド文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。明朝イタリックの一行+淡い霞の地面で、静けさに温度が出る。</pre>
+          </details>
+        </div>
+      </section>
+
+      <!-- Funnel: Single CTA -->
+      <section class="cta-funnel">
+        <div class="cta-lead">Terminal Call</div>
+        <h2 class="cta-heading">美しき構造のみを呼出せ</h2>
+        <button id="cta-button" class="single-cta-btn" onclick="copyInvokeCommand()">
+          /skill:miyake を呼出す
+        </button>
+        <div id="copy-status"></div>
+      </section>
+    </main>
+
+    <!-- Footer with Giant Watermark -->
     <footer>
-      <div class="footer-top">
-        <div>&copy; 2026 JEAN MIYAKE. ALL RIGHTS RESERVED.</div>
-        <div>STRUCTURE BEFORE ORNAMENT.</div>
+      <div class="footer-meta">
+        <div>&copy; 2026 JEAN MIYAKE. AN AI DESIGN SKILL.</div>
+        <div>ALL ORNAMENTS STRIPPED.</div>
       </div>
-      <div class="footer-watermark">
-        MIYAKE
-      </div>
+      <div class="watermark">MIYAKE</div>
     </footer>
-
   </div>
 
+  <script>
+    function copyInvokeCommand() {
+      const cmd = '/read /root/.pi/agent/skills/miyake/SKILL.md';
+      navigator.clipboard.writeText(cmd).then(() => {
+        const el = document.getElementById('copy-status');
+        el.textContent = 'コマンドをクリップボードに記録した: ' + cmd;
+        setTimeout(() => {
+          el.textContent = '';
+        }, 4000);
+      }).catch(() => {
+        const el = document.getElementById('copy-status');
+        el.textContent = '起動コマンド: /skill:miyake';
+      });
+    }
+  </script>
 </body>
 </html>

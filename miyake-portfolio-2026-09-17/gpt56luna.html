@@ -1,176 +1,216 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f3f0ea">
-<title>Jean Miyake — Form follows feeling.</title>
-<style>
-  :root {
-    --paper: #f3f0ea;
-    --ink: #171717;
-    --line: rgba(23,23,23,.22);
-    --accent: #e34b35;
-    --pad: clamp(20px, 4vw, 64px);
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    color: var(--ink);
-    background: var(--paper);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    line-height: 1.45;
-    letter-spacing: .02em;
-  }
-  a { color: inherit; text-decoration: none; }
-  ::selection { color: var(--paper); background: var(--accent); }
-  .site-shell { overflow: hidden; }
-  .grid {
-    background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
-    background-size: calc((100vw - var(--pad) * 2) / 12) 100%;
-    margin: 0 var(--pad);
-  }
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 88px;
-    border-bottom: 1px solid var(--ink);
-    position: relative;
-    z-index: 2;
-  }
-  .monogram { font-weight: 700; letter-spacing: -.06em; font-size: 18px; }
-  nav { display: flex; gap: clamp(18px, 4vw, 56px); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; }
-  nav a { position: relative; }
-  nav a::after { content: ''; position: absolute; left: 0; right: 100%; bottom: -5px; height: 1px; background: var(--accent); transition: right .25s ease; }
-  nav a:hover::after, nav a:focus-visible::after { right: 0; }
-  .hero { min-height: min(760px, calc(100vh - 88px)); display: grid; grid-template-columns: repeat(12, 1fr); align-items: center; position: relative; border-bottom: 1px solid var(--ink); }
-  .hero-copy { grid-column: 2 / 12; padding: 8vh 0 12vh; }
-  .eyebrow { display: flex; align-items: center; gap: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .16em; }
-  .eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
-  h1 { font-size: clamp(92px, 21vw, 318px); line-height: .78; font-weight: 400; letter-spacing: -.105em; margin: 42px 0 38px -0.07em; }
-  .hero-note { max-width: 350px; margin-left: 8.333%; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px, 2vw, 23px); line-height: 1.3; }
-  .hero-index { position: absolute; bottom: 22px; right: 0; font-size: 10px; letter-spacing: .14em; }
-  .section { display: grid; grid-template-columns: repeat(12, 1fr); border-bottom: 1px solid var(--ink); }
-  .section-label { grid-column: 1 / 3; padding-top: 30px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
-  .section-body { grid-column: 3 / 13; border-left: 1px solid var(--line); padding: 76px 0 88px 8.333%; }
-  .intro { max-width: 740px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px, 4vw, 54px); line-height: 1.08; letter-spacing: -.035em; margin: 0; }
-  .intro em { color: var(--accent); font-style: normal; }
-  .works { padding-top: 0; }
-  .work { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); padding: 30px 0 42px; margin-right: 8.333%; gap: 8.333%; }
-  .work:first-child { border-top: 0; }
-  .work-title { font-size: clamp(28px, 4vw, 58px); line-height: .95; letter-spacing: -.07em; margin: 0; font-weight: 400; }
-  .work-meta { font-size: 11px; letter-spacing: .08em; margin-top: 19px; color: rgba(23,23,23,.67); }
-  .work-description { align-self: end; max-width: 280px; font-family: Georgia, 'Times New Roman', serif; font-size: 16px; line-height: 1.35; }
-  .shape { height: 82px; margin-bottom: 28px; display: flex; align-items: center; }
-  .shape span { display: block; border: 1px solid var(--ink); }
-  .shape-a span { width: 82px; height: 82px; border-radius: 50%; }
-  .shape-b span { width: 100%; height: 1px; background: var(--ink); border: 0; position: relative; }
-  .shape-b span::after { content: ''; width: 13px; height: 13px; background: var(--accent); border-radius: 50%; position: absolute; right: 18%; top: -6px; }
-  .shape-c span { width: 82px; height: 82px; transform: rotate(45deg); margin-left: 18px; }
-  .contact { min-height: 480px; align-items: stretch; }
-  .contact .section-body { display: flex; flex-direction: column; justify-content: space-between; }
-  .contact-title { font-size: clamp(52px, 9vw, 132px); letter-spacing: -.1em; line-height: .8; margin: 0; max-width: 700px; font-weight: 400; }
-  .cta { align-self: flex-start; border-bottom: 1px solid var(--ink); padding: 12px 0 9px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-  .cta span { color: var(--accent); margin-left: 30px; transition: margin .2s ease; }
-  .cta:hover span, .cta:focus-visible span { margin-left: 45px; }
-  footer { min-height: 180px; display: flex; align-items: flex-end; justify-content: space-between; padding: 24px 0; position: relative; }
-  .footer-mark { font-size: clamp(66px, 13vw, 190px); font-weight: 700; letter-spacing: -.12em; line-height: .63; color: transparent; -webkit-text-stroke: 1px rgba(23,23,23,.28); }
-  .footer-note { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; text-align: right; }
-  @media (max-width: 640px) {
-    .grid { background-size: calc((100vw - var(--pad) * 2) / 6) 100%; }
-    header { min-height: 70px; }
-    nav { gap: 14px; font-size: 9px; }
-    .hero { min-height: calc(100vh - 70px); grid-template-columns: repeat(6, 1fr); }
-    .hero-copy { grid-column: 1 / 7; }
-    h1 { margin-top: 52px; font-size: clamp(79px, 25vw, 160px); }
-    .hero-note { margin-left: 0; }
-    .section { grid-template-columns: repeat(6, 1fr); }
-    .section-label { grid-column: 1 / 7; padding: 20px 0 0; }
-    .section-body { grid-column: 1 / 7; border-left: 0; padding: 50px 0 62px; }
-    .work { grid-template-columns: 1fr; gap: 28px; margin-right: 0; padding-bottom: 48px; }
-    .work-description { max-width: 310px; }
-    .contact { min-height: 420px; }
-    .footer-mark { font-size: 23vw; }
-  }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jean Miyake — Structure before decoration</title>
+  <style>
+    :root {
+      --ground: #ebe9e4;
+      --ink: #191919;
+      --accent: #c7432b;
+      --line: rgba(25,25,25,.22);
+      --pad: clamp(1.25rem, 4vw, 4.5rem);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: Arial, "Hiragino Kaku Gothic ProN", sans-serif;
+      line-height: 1.55;
+      letter-spacing: .02em;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      border-left: 1px solid rgba(25,25,25,.08);
+      border-right: 1px solid rgba(25,25,25,.08);
+      opacity: .28;
+    }
+    a { color: inherit; }
+    .page { position: relative; overflow: hidden; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 4.5rem;
+      padding: 0 var(--pad);
+      border-bottom: 1px solid var(--line);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .mark { font-weight: 700; }
+    .status { display: flex; align-items: center; gap: .6rem; }
+    .status::before { content: ""; width: .45rem; height: .45rem; background: var(--accent); border-radius: 50%; }
+    .hero {
+      min-height: min(76vh, 47rem);
+      display: grid;
+      grid-template-columns: 1fr minmax(14rem, 24vw);
+      gap: 2rem;
+      align-items: end;
+      padding: clamp(5rem, 13vh, 10rem) var(--pad) clamp(4rem, 9vh, 7rem);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(5.5rem, 18vw, 18rem);
+      line-height: .78;
+      letter-spacing: -.09em;
+      font-weight: 700;
+    }
+    .hero h1 span { display: block; }
+    .hero h1 span:last-child { margin-left: 10vw; color: transparent; -webkit-text-stroke: 1px var(--ink); }
+    .hero-note { border-left: 1px solid var(--ink); padding-left: 1.25rem; max-width: 20rem; }
+    .eyebrow { margin: 0 0 1.5rem; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; }
+    .hero-note p { margin: 0; font-family: Georgia, "Hiragino Mincho ProN", serif; font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-style: italic; line-height: 1.3; }
+    .section { padding: 6rem var(--pad); border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: 1fr 3fr; gap: 2rem; margin-bottom: 4rem; }
+    .section-index { font-size: .7rem; letter-spacing: .14em; }
+    .section-title { margin: 0; font-size: clamp(2rem, 5vw, 4.8rem); line-height: .95; letter-spacing: -.06em; }
+    .intro { max-width: 42rem; margin: 0 0 4rem 25%; font-family: Georgia, "Hiragino Mincho ProN", serif; font-size: clamp(1.2rem, 2.4vw, 2rem); line-height: 1.35; }
+    .projects { margin-left: 25%; border-top: 1px solid var(--ink); }
+    .project { display: grid; grid-template-columns: 3rem 1fr 1fr auto; gap: 1.5rem; align-items: baseline; padding: 1.3rem 0; border-bottom: 1px solid var(--line); }
+    .project-no, .project-meta { font-size: .7rem; letter-spacing: .1em; }
+    .project-name { font-size: clamp(1.2rem, 2vw, 1.8rem); }
+    .project-meta { opacity: .65; }
+    .project-arrow { font-size: 1.2rem; }
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); border-left: 1px solid var(--line); }
+    .principle { min-height: 15rem; padding: 1.5rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .principle strong { display: block; margin-bottom: 4rem; font-size: 2rem; font-weight: 400; }
+    .principle h3 { margin: 0 0 .75rem; font-size: 1.1rem; }
+    .principle p { margin: 0; max-width: 20rem; font-size: .85rem; }
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; min-height: 30rem; }
+    .contact h2 { margin: 0; font-size: clamp(3rem, 8vw, 8rem); line-height: .83; letter-spacing: -.08em; }
+    .contact-copy { max-width: 24rem; }
+    .contact-copy p { margin-top: 0; font-family: Georgia, "Hiragino Mincho ProN", serif; font-size: 1.25rem; }
+    .cta { display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--ink); text-decoration: none; font-size: .8rem; letter-spacing: .13em; text-transform: uppercase; }
+    .cta:hover { color: var(--accent); border-color: var(--accent); }
+    details { margin-top: 2rem; border-top: 1px solid var(--line); }
+    summary { cursor: pointer; padding: 1rem 0; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+    details pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 1.5rem; background: rgba(25,25,25,.04); font: .72rem/1.65 Arial, sans-serif; }
+    footer { position: relative; padding: 2rem var(--pad) 13rem; border-bottom: 1px solid var(--line); font-size: .7rem; letter-spacing: .1em; }
+    footer::after { content: "JEAN MIYAKE"; position: absolute; right: -1rem; bottom: -1.6rem; color: transparent; -webkit-text-stroke: 1px rgba(25,25,25,.22); font-size: clamp(4rem, 17vw, 15rem); line-height: .8; letter-spacing: -.1em; white-space: nowrap; pointer-events: none; }
+    @media (max-width: 700px) {
+      .hero, .contact { grid-template-columns: 1fr; }
+      .hero { min-height: 80vh; }
+      .hero-note, .intro, .projects { margin-left: 0; }
+      .section-head { grid-template-columns: 1fr; margin-bottom: 2.5rem; }
+      .project { grid-template-columns: 2rem 1fr auto; }
+      .project-meta { grid-column: 2; }
+      .principles { grid-template-columns: 1fr; }
+      .contact { min-height: 35rem; }
+      .topbar { align-items: flex-start; padding-top: 1.3rem; padding-bottom: 1.3rem; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .status::before { animation: pulse 2.4s ease-in-out infinite; }
+      @keyframes pulse { 50% { opacity: .25; transform: scale(.7); } }
+    }
+  </style>
 </head>
 <body>
-<div class="site-shell">
-  <div class="grid">
-    <header>
-      <a class="monogram" href="#top" aria-label="Jean Miyake home">JM—26</a>
-      <nav aria-label="Main navigation">
-        <a href="#selected">Selected</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+  <div class="page">
+    <header class="topbar">
+      <div class="mark">Jean Miyake / AI SKILL</div>
+      <div class="status">Available for one clear idea</div>
     </header>
 
-    <main id="top">
+    <main>
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <div class="eyebrow">Independent designer / Tokyo—Paris</div>
-          <h1 id="hero-title">FORM</h1>
-          <p class="hero-note">I make quiet identities for loud ideas.<br>形は、考えを残すためにある。</p>
-        </div>
-        <div class="hero-index">01 / 04</div>
-      </section>
-
-      <section class="section" id="about" aria-labelledby="about-title">
-        <div class="section-label">02 — Position</div>
-        <div class="section-body">
-          <p class="intro" id="about-title">A good interface is not a surface. It is a <em>pace</em> — the interval between a question and its answer.</p>
+        <h1 id="hero-title"><span>STRUC</span><span>TURE</span></h1>
+        <div class="hero-note">
+          <p class="eyebrow">Independent designer / 2026</p>
+          <p>構造が美しければ、装飾は要らない。</p>
         </div>
       </section>
 
-      <section class="section" id="selected" aria-labelledby="selected-title">
-        <div class="section-label">03 — Selected work</div>
-        <div class="section-body works">
-          <article class="work">
-            <div>
-              <div class="shape shape-a" aria-hidden="true"><span></span></div>
-              <h2 class="work-title" id="selected-title">Atelier<br>Forma</h2>
-              <p class="work-meta">Identity / 2026</p>
-            </div>
-            <p class="work-description">An identity for a material research studio. One circle, twelve weights, infinite patience.</p>
-          </article>
-          <article class="work">
-            <div>
-              <div class="shape shape-b" aria-hidden="true"><span></span></div>
-              <h2 class="work-title">Line<br>Between</h2>
-              <p class="work-meta">Digital experience / 2025</p>
-            </div>
-            <p class="work-description">A digital archive that lets the silence between fragments become part of the story.</p>
-          </article>
-          <article class="work">
-            <div>
-              <div class="shape shape-c" aria-hidden="true"><span></span></div>
-              <h2 class="work-title">Kōbō<br>No. 7</h2>
-              <p class="work-meta">Editorial system / 2024</p>
-            </div>
-            <p class="work-description">A living publication for makers. Structure holds the page; curiosity moves through it.</p>
-          </article>
+      <section class="section" aria-labelledby="work-title">
+        <div class="section-head">
+          <div class="section-index">01 — Selected work</div>
+          <h2 class="section-title" id="work-title">静けさを、<br>機能にする。</h2>
+        </div>
+        <p class="intro">私はJean Miyake。これは、情報の優先順位を削り出し、ひとつの意志が届く画面を設計するためのポートフォリオです。</p>
+        <div class="projects">
+          <article class="project"><span class="project-no">01</span><span class="project-name">余白のインターフェース</span><span class="project-meta">Digital / Direction</span><span class="project-arrow">↗</span></article>
+          <article class="project"><span class="project-no">02</span><span class="project-name">線で読むプロダクト</span><span class="project-meta">Identity / System</span><span class="project-arrow">↗</span></article>
+          <article class="project"><span class="project-no">03</span><span class="project-name">一画面、一メッセージ</span><span class="project-meta">Web / Art direction</span><span class="project-arrow">↗</span></article>
         </div>
       </section>
 
-      <section class="section contact" id="contact" aria-labelledby="contact-title">
-        <div class="section-label">04 — Start a conversation</div>
-        <div class="section-body">
-          <h2 class="contact-title" id="contact-title">Make<br>room.</h2>
-          <a class="cta" href="mailto:hello@jeanmiyake.studio">hello@jeanmiyake.studio <span>↗</span></a>
+      <section class="section" aria-labelledby="method-title">
+        <div class="section-head">
+          <div class="section-index">02 — Method</div>
+          <h2 class="section-title" id="method-title">削る。<br>残す。<br>届かせる。</h2>
         </div>
+        <div class="principles">
+          <article class="principle"><strong>01</strong><h3>余白は素材</h3><p>空間を作り、情報を浮かせる。詰めないことが、視線の速度を設計する。</p></article>
+          <article class="principle"><strong>02</strong><h3>静と動</h3><p>面は静かに。タイポグラフィとひとつの動きだけを大胆に扱う。</p></article>
+          <article class="principle"><strong>03</strong><h3>線と格子</h3><p>目に見える構造で、迷いを減らす。装飾ではなく、順序を示す。</p></article>
+        </div>
+      </section>
+
+      <section class="section contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">MAKE<br>ROOM.</h2>
+        <div class="contact-copy">
+          <p>複雑なものを、明快に。次の画面に必要なのは、もう一つの機能ではなく、正しい余白かもしれません。</p>
+          <a class="cta" href="mailto:hello@jeanmiyake.ai">相談する <span>↗</span></a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="skill-title">
+        <div class="section-head">
+          <div class="section-index">03 — About this page</div>
+          <h2 class="section-title" id="skill-title">AI SKILL<br>としての私。</h2>
+        </div>
+        <p class="intro">Jean Miyakeは、UI/Webデザインの判断を行うための架空のAI SKILLです。美学をルールに変え、ルールを一枚の画面に変換します。</p>
+        <details>
+          <summary>読み込んだSKILL.mdを表示する</summary>
+          <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. グラデーション基本禁止。唯一点を差し色に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸った知見。古いものから順に削る。
+
+- **2026-09-17(実見)**: フッター下端に巨大な透かしブランド文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。明朝イタリックの一行+淡い霞の地面で、静けさに温度が出る。</pre>
+        </details>
       </section>
     </main>
 
-    <footer>
-      <div class="footer-mark" aria-hidden="true">MIYAKE</div>
-      <div class="footer-note">© Jean Miyake<br>Built with restraint</div>
-    </footer>
+    <footer>© 2026 Jean Miyake — Structure before decoration.</footer>
   </div>
-</div>
 </body>
 </html>

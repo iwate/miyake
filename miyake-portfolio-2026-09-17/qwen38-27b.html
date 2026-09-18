@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEAN MIYAKE — Designer</title>
+<style>
+  :root{
+    --paper:#f5f2ec;   /* 地 */
+    --ink:#1a1a1a;     /* 字 */
+    --accent:#c8321e;  /* 差し色(赤) */
+    --line:#d8d3c8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    font-size:16px;line-height:1.9;letter-spacing:.04em;
+  }
+  .serif{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;}
+  .container{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  /* ── ヘッダー ── */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:10;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .head-inner{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:16px 32px;
+  }
+  .head-inner .mark{font-size:13px;letter-spacing:.3em;font-weight:700;}
+  nav a{
+    font-size:12px;letter-spacing:.2em;color:var(--ink);
+    text-decoration:none;margin-left:32px;
+  }
+  nav a:hover{color:var(--accent);}
+
+  /* ── ヒーロー ── */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;position:relative;
+    border-bottom:1px solid var(--line);
+  }
+  .hero h1{
+    font-size:clamp(56px,14vw,190px);
+    font-weight:700;letter-spacing:.08em;line-height:1;
+  }
+  .hero .tagline{
+    margin-top:32px;font-size:15px;letter-spacing:.5em;
+  }
+  .hero .haze{
+    position:absolute;bottom:0;left:0;right:0;height:180px;
+    background:radial-gradient(ellipse 90% 100% at 50% 100%, rgba(200,50,30,.07), transparent 70%);
+    pointer-events:none;
+  }
+  .hero .quote{
+    position:absolute;bottom:48px;
+    font-style:italic;font-size:15px;letter-spacing:.15em;
+  }
+
+  /* ── セクション共通 ── */
+  section{border-bottom:1px solid var(--line);}
+  .sec-label{
+    padding:20px 32px;font-size:11px;letter-spacing:.35em;color:var(--accent);
+  }
+  .sec-body{padding:56px 32px 80px;}
+  .grid2{display:grid;grid-template-columns:220px 1fr;border-left:1px solid var(--line);}
+  .grid2 > *{padding:24px 0;border-bottom:1px solid var(--line);}
+  .grid2 .k{padding-right:32px;font-size:12px;letter-spacing:.25em;}
+  .grid2 .v{padding-left:32px;}
+
+  /* ── 6原則 ── */
+  .rules{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);}
+  .rule{
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:32px 28px;
+  }
+  .rule .no{font-size:12px;letter-spacing:.2em;color:var(--accent);margin-bottom:16px;}
+  .rule p{font-size:14px;line-height:2;}
+
+  /* ── 作品(タイポグラフィと幾何) ── */
+  .works{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
+  .work{background:var(--paper);padding:48px 32px;}
+  .work .num{font-size:11px;letter-spacing:.25em;margin-bottom:32px;color:var(--ink);}
+  .work h3{font-size:28px;letter-spacing:.1em;line-height:1.5;margin-bottom:16px;}
+  .work .shape{margin:32px 0;border:1px solid var(--ink);}
+  .shape.circle{width:96px;height:96px;border-radius:50%;}
+  .shape.square{width:80px;height:80px;background:var(--accent);border-color:var(--accent);}
+  .shape.line{height:1px;width:100%;background:var(--ink);}
+  .work p{font-size:13px;line-height:2;}
+
+  /* ── SKILL ── */
+  .skill-note{font-size:14px;line-height:2.2;margin-bottom:32px;}
+  .skill-note b{color:var(--accent);}
+  details{border:1px solid var(--line);padding:24px 32px;}
+  summary{cursor:pointer;font-size:13px;letter-spacing:.2em;list-style:none;display:flex;justify-content:space-between;align-items:baseline;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";font-size:18px;}
+  details[open] summary::after{content:"−";}
+  details pre{
+    margin-top:24px;font-size:12px;line-height:1.8;white-space:pre-wrap;word-break:break-all;
+    font-family:"SFMono-Regular",Consolas,"Noto Sans Mono",monospace;
+    border-top:1px solid var(--line);padding-top:24px;color:var(--ink);
+  }
+
+  /* ── CTA ── */
+  .cta{text-align:center;padding:112px 32px 128px;}
+  .cta h2{font-size:clamp(28px,5vw,52px);letter-spacing:.15em;margin-bottom:16px;}
+  .cta p{font-size:14px;letter-spacing:.2em;margin-bottom:48px;}
+  .btn{
+    display:inline-block;background:var(--ink);color:var(--paper);
+    padding:18px 56px;font-size:13px;letter-spacing:.3em;text-decoration:none;
+  }
+  .btn:hover{background:var(--accent);color:var(--paper);}
+
+  /* ── フッター・透かし ── */
+  footer{
+    position:relative;overflow:hidden;
+    border-top:1px solid var(--line);
+    padding:64px 32px 0;
+    min-height:340px;
+  }
+  .foot-meta{font-size:11px;letter-spacing:.25em;line-height:2.4;position:relative;z-index:1;}
+  .watermark{
+    position:absolute;left:50%;bottom:-40px;transform:translateX(-50%);
+    font-size:clamp(100px,22vw,300px);font-weight:700;letter-spacing:.1em;
+    color:transparent;-webkit-text-stroke:1px var(--line);
+    line-height:.9;pointer-events:none;user-select:none;white-space:nowrap;
+  }
+
+  /* ── アニメーション:1種(スクロール時のフェード) ── */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.on{opacity:1;transform:none;}
+
+  @media(max-width:720px){
+    .grid2{grid-template-columns:1fr;}
+    .grid2 .k{padding-left:32px;border-bottom:none;padding-bottom:0;}
+    .grid2 .v{padding-left:32px;}
+    .rules,.works{grid-template-columns:1fr;}
+    .head-inner{flex-direction:column;gap:8px;}
+    nav a{margin-left:20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <span class="mark">J.M</span>
+    <nav>
+      <a href="#profile">Profile</a>
+      <a href="#principles">Principles</a>
+      <a href="#works">Works</a>
+      <a href="#skill">Skill</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ヒーロー: 単語1つを巨大に中央へ -->
+<div class="hero">
+  <h1>MIYAKE</h1>
+  <div class="tagline">JEAN MIYAKE — DESIGNER</div>
+  <p class="quote serif">構造が美しければ、装飾は要らない。</p>
+  <div class="haze"></div>
+</div>
+
+<!-- Profile -->
+<section id="profile">
+  <div class="sec-label">01 / PROFILE</div>
+  <div class="sec-body container">
+    <div class="grid2 reveal">
+      <div class="k">名</div><div class="v">Jean Miyake(ジャン・ミヤケ)—— 架空のデザイナー</div>
+      <div class="k">本体</div><div class="v">私はAI SKILLである。<code>SKILL.md</code> という単一ファイルで記述された指示集であり、AI コーディングエージェントがその美学を読み込むことで、私の設計判断を再現する。</div>
+      <div class="k">持論</div><div class="v serif" style="font-style:italic;">「余白は素材だ。空間を作り、情報を浮かせる。詰めない。」</div>
+      <div class="k">作法</div><div class="v">実装前に「主役・構成・差し色」を1行で宣言してから書く。断る時は理由を1行で。</div>
+      <div class="k">成果物</div><div class="v">常にシングルHTML。CSS・JSはインライン。写真・画像は使わず、タイポグラフィと幾何で表現する。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Principles -->
+<section id="principles">
+  <div class="sec-label">02 / SIX PRINCIPLES</div>
+  <div class="sec-body container">
+    <div class="rules reveal">
+      <div class="rule"><div class="no">01</div><p>フォントは最大2書体。日本語は文字詰めを意識する。</p></div>
+      <div class="rule"><div class="no">02</div><p>色は3役まで(地・字・差し色)。差し色は画面の5%未満。</p></div>
+      <div class="rule"><div class="no">03</div><p>影は使わない。遠近は余白とサイズで作る。</p></div>
+      <div class="rule"><div class="no">04</div><p>アニメーションは1種類に絞り、repeatは慎重に。</p></div>
+      <div class="rule"><div class="no">05</div><p>グラデーション基本禁止。唯一点を差し色に。</p></div>
+      <div class="rule"><div class="no">06</div><p>写真・画像は使わず、タイポグラフィと幾何で表現する。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Works -->
+<section id="works">
+  <div class="sec-label">03 / WORKS</div>
+  <div class="sec-body container">
+    <div class="works reveal">
+      <div class="work">
+        <div class="num">WORK.01 — EDITORIAL</div>
+        <h3 class="serif">空白の<br>排版</h3>
+        <div class="shape circle"></div>
+        <p>明朝イタリックの一行を、余白の海に浮かせる。文字詰めだけで階層が決まる編集デザイン。</p>
+      </div>
+      <div class="work">
+        <div class="num">WORK.02 — GEOMETRY</div>
+        <h3 class="serif">赤い一点</h3>
+        <div class="shape square"></div>
+        <p>地と字だけの画面に、面積5%の赤を1つ。唯一点が画面の重心になる構成実験。</p>
+      </div>
+      <div class="work">
+        <div class="num">WORK.03 — LINE</div>
+        <h3 class="serif">線と格子</h3>
+        <div class="shape line"></div>
+        <p>装飾の線は使わない。細い罫線で構成自体を見せる。罫線は構造の証明だ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skill -->
+<section id="skill">
+  <div class="sec-label">04 / SOURCE</div>
+  <div class="sec-body container reveal">
+    <p class="skill-note">
+      このポートフォリオ自身、<b>AI SKILL</b> として記述された「ジャン・ミヤケ」が生成したものである。
+      以下の <details> 内には、私を動かす SKILL.md の全文をそのまま埋め込んでいる。読めば、私の全設計判断がそこにある。
+    </p>
+    <details>
+      <summary>SKILL.md 全文(そのまま)</summary>
+<pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. グラデーション基本禁止。唯一点を差し色に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸った知見。古いものから順に削る。
+
+- **2026-09-17(実見)**: フッター下端に巨大な透かしブランド文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。明朝イタリックの一行+淡い霞の地面で、静けさに温度が出る。</pre>
+    </details>
+  </div>
+</section>
+
+<!-- CTA: 1つ -->
+<section class="cta">
+  <h2 class="serif reveal" style="font-style:italic;">静けさを、設計したい。</h2>
+  <p class="reveal">SKILL を読み込ませるだけで、私はあなたの画面に現れる。</p>
+  <a class="btn reveal" href="#top" onclick="location.href='mailto:jean@miyake.design?subject=Design%20Request'">CONTACT</a>
+</section>
+
+<!-- フッター: 透かしブランド文字 -->
+<footer>
+  <div class="foot-meta">
+    JEAN MIYAKE — AN AESTHETIC WRITTEN IN ONE FILE.<br>
+    © 2026 / SINGLE HTML, INLINED. NO SHADOW. NO NOISE.
+  </div>
+  <div class="watermark" aria-hidden="true">MIYAKE</div>
+</footer>
+
+<script>
+  // アニメーションは1種だけ: スクロール連動のフェード
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
