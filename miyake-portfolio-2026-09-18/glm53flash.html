@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Portfolio</title>
+<style>
+  /* 地・字・差し色の3役のみ。影なし。グラデーションなし。 */
+  :root{
+    --ink:#111111;      /* 明セクションの地 */
+    --paper:#F6F4EF;    /* 明セクションの字・暗セクションの地に近い紙色 */
+    --dark:#111111;
+    --red:#E63B2E;      /* 差し色:画面の5%未満 */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    background:var(--dark);color:var(--paper);
+    letter-spacing:.02em;line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 6vw;}
+  .label{ /* 眉ラベルはピル */
+    display:inline-block;font-size:.72rem;letter-spacing:.32em;
+    border:1px solid currentColor;border-radius:999px;
+    padding:.35em 1.3em;opacity:.7;
+  }
+  .red{color:var(--red);}
+  .rule{border:0;border-top:1px solid rgba(246,244,239,.18);}
+
+  /* ── HERO:暗。点の格子を敷き、単語1つを巨大に中央へ ── */
+  header{
+    position:relative;min-height:100vh;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    background-image:radial-gradient(rgba(246,244,239,.12) 1px, transparent 1px);
+    background-size:26px 26px;
+  }
+  header .label{margin-bottom:4rem;}
+  header h1{
+    font-size:clamp(4rem,16vw,13rem);font-weight:800;line-height:1;
+    letter-spacing:.04em;
+  }
+  header p{margin-top:2.5rem;font-size:1.05rem;opacity:.75;}
+  .cta{
+    display:inline-block;margin-top:3.5rem;
+    background:var(--paper);color:var(--dark);
+    border-radius:999px;padding:1em 2.6em;font-weight:700;
+    text-decoration:none;font-size:1rem;letter-spacing:.1em;
+  }
+  .cta:hover{background:var(--red);color:var(--paper);}
+  .cta .arr{display:inline-block;margin-left:.6em;}
+  .corner{ /* 四隅の小さな情報。静かに浮遊 */
+    position:absolute;font-size:.72rem;letter-spacing:.2em;opacity:.55;
+    line-height:2;
+  }
+  .corner.tl{top:2rem;left:2rem;text-align:left;}
+  .corner.tr{top:2rem;right:2rem;text-align:right;}
+  .corner.bl{bottom:2rem;left:2rem;text-align:left;}
+  .corner.br{bottom:2rem;right:2rem;text-align:right;}
+
+  /* ── 唯一のアニメーション:差し色の細い線が伸びる ── */
+  .line{
+    width:1px;height:120px;margin:0 auto;
+    background:linear-gradient(var(--red),var(--red));
+    transform-origin:top;animation:grow 1.6s ease both;
+  }
+  @keyframes grow{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+
+  /* ── 明セクション:白い地に格子の罫線 ── */
+  .light{background:var(--paper);color:var(--ink);}
+  .light .rule{border-color:rgba(17,17,17,.15);}
+  section{padding:8rem 0;}
+  .grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    border-top:1px solid rgba(17,17,17,.15);
+  }
+  .grid > div{
+    padding:3rem 2.5rem;border-bottom:1px solid rgba(17,17,17,.15);
+  }
+  .grid > div:nth-child(odd){border-right:1px solid rgba(17,17,17,.15);}
+  .grid .num{font-size:2.6rem;font-weight:800;line-height:1;}
+  .grid .num em{font-style:normal;color:var(--red);}
+  .grid h3{font-size:.95rem;letter-spacing:.15em;margin:.8rem 0 .4rem;}
+  .grid p{font-size:.85rem;opacity:.7;}
+
+  h2{
+    font-size:clamp(2rem,5vw,3.4rem);font-weight:800;line-height:1.4;
+    margin:2rem 0 3rem;letter-spacing:.02em;
+  }
+  .lede{ /* 明朝イタリックの一行。静けさに温度 */
+    font-style:italic;font-size:1.05rem;opacity:.65;margin-top:1rem;
+  }
+
+  /* ポートフォリオ:タイポと幾何のみ。サムネイルなし */
+  .works{border-top:1px solid rgba(17,17,17,.15);}
+  .work{
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:2.2rem 0;border-bottom:1px solid rgba(17,17,17,.15);
+    text-decoration:none;color:inherit;transition:opacity .2s;
+  }
+  .work:hover{opacity:.5;}
+  .work .t{font-size:1.5rem;font-weight:800;}
+  .work .t i{font-style:normal;color:var(--red);}
+  .work .meta{font-size:.75rem;letter-spacing:.2em;opacity:.6;}
+
+  /* details:SKILL.md全文。罫線の箱に静かに収める */
+  details{
+    border:1px solid rgba(17,17,17,.2);
+    padding:1.6rem 2rem;margin-top:3rem;
+  }
+  details summary{
+    cursor:pointer;font-weight:700;letter-spacing:.15em;font-size:.9rem;
+    list-style:none;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::before{content:"— ";color:var(--red);}
+  details[open] summary::before{content:"— ";color:var(--red);}
+  details pre{
+    margin-top:1.6rem;padding-top:1.6rem;
+    border-top:1px solid rgba(17,17,17,.15);
+    font-size:.78rem;line-height:1.9;white-space:pre-wrap;
+    font-family:"SF Mono",Menlo,Consolas,monospace;
+  }
+
+  /* ── 締め:暗。フッター下端に巨大な透かし文字 ── */
+  footer{
+    position:relative;overflow:hidden;
+    padding:10rem 0 6rem;text-align:center;
+    background-image:radial-gradient(rgba(246,244,239,.1) 1px, transparent 1px);
+    background-size:26px 26px;
+  }
+  footer .watermark{
+    position:absolute;left:50%;bottom:-.28em;transform:translateX(-50%);
+    font-size:clamp(8rem,26vw,22rem);font-weight:800;line-height:1;
+    color:rgba(246,244,239,.05);white-space:nowrap;pointer-events:none;
+  }
+  footer .contact{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;}
+  footer .contact a{
+    color:var(--paper);text-decoration:none;
+    border-bottom:2px solid var(--red);padding-bottom:.15em;
+  }
+  footer small{display:block;margin-top:4rem;font-size:.72rem;letter-spacing:.3em;opacity:.5;}
+
+  @media(max-width:720px){
+    .grid{grid-template-columns:1fr;}
+    .grid > div:nth-child(odd){border-right:0;}
+    .corner{display:none;}
+    section{padding:5rem 0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO:主役は単語1つ -->
+<header>
+  <div class="corner tl">JEAN MIYAKE<br>DESIGN / TOKYO</div>
+  <div class="corner tr">PORTFOLIO<br>2026</div>
+  <div class="corner bl">EST. STRUCTURE<br>OVER DECOR</div>
+  <div class="corner br">SCROLL ↓</div>
+  <span class="label">DESIGNER — AI SKILL</span>
+  <h1>余白</h1>
+  <p class="serif">構造が美しければ、装飾は要らない。</p>
+  <a class="cta" href="#works">作品を見る<span class="arr">→</span></a>
+</header>
+
+<div class="light">
+  <!-- AI SKILLである旨の明示 -->
+  <section class="wrap" id="about">
+    <span class="label">WHO</span>
+    <h2>私は<span class="red">AI SKILL</span>である。</h2>
+    <p>Jean Miyake は人間のデザイナーではなく、構造と余白を設計するために書かれた<span class="red">AI SKILL</span>です。美学をルールとして持ち、依頼には断言して答える。このページ自体も、私自身のSKILL定義から生まれた成果物です。</p>
+    <p class="lede serif">— 設計も、私自身も、ルールから出来ている。</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- 美学:数値で語る -->
+  <section class="wrap">
+    <span class="label">PRINCIPLES</span>
+    <h2>美学は、<span class="red">数</span>で持つ。</h2>
+    <div class="grid">
+      <div><div class="num">2<em>書体</em></div><h3>フォント上限</h3><p>見出しと本文。日本語は文字詰めを意識する。</p></div>
+      <div><div class="num"><em>3</em>役</div><h3>色の構成</h3><p>地・字・差し色。差し色は画面の5%未満。</p></div>
+      <div><div class="num">0<em>影</em></div><h3>遠近の作り方</h3><p>影は使わない。余白とサイズで遠近を作る。</p></div>
+      <div><div class="num">1<em>種</em></div><h3>アニメーション</h3><p>動きは1つだけ。repeatは慎重に。</p></div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- 作品:タイポと幾何で -->
+  <section class="wrap" id="works">
+    <span class="label">WORKS</span>
+    <h2>選ばれた<span class="red">静けさ</span>。</h2>
+    <div class="works">
+      <a class="work" href="#works"><span class="t">金融ダッシュボード <i>/</i> Ledger</span><span class="meta">2026 · UI</span></a>
+      <a class="work" href="#works"><span class="t">美術館サイト <i>/</i> Kukan</span><span class="meta">2025 · WEB</span></a>
+      <a class="work" href="#works"><span class="t">ブランドTypography <i>/</i> JI</span><span class="meta">2025 · TYPE</span></a>
+      <a class="work" href="#works"><span class="t">EC再設計 <i>/</i> Shizuka</span><span class="meta">2024 · UX</span></a>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- SKILL.md全文 -->
+  <section class="wrap">
+    <span class="label">SOURCE</span>
+    <h2>私の中身は、<span class="red">1枚</span>の定義だ。</h2>
+    <details>
+      <summary>SKILL.md 全文を開く</summary>
+      <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. グラデーション基本禁止。唯一点を差し色に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸い、統合・磨いた知見。
+
+- フッター下端に巨大な透かし文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。明朝イタリックの一行で静けさに温度を出す。
+- ピル(完全角丸)は主CTA・眉ラベルに限る。主CTAは塗りピル+矢印、副CTAは裸のテキストでペアにすると、押す順位が文字の重さで読める。色を足せないCTAは周囲にだけ薄い光の縁を敷く。輪郭だけの円形ボタンは、面を置かず押せる場所を静かに示す。角丸の半径は揃えず、ピルと微角丸の二段階で階層を示す。
+- 見出しは地の色で組み、鍵語の1語だけ差し色に替える。同じ差し色をCTA・下線・強調語にも一貫して流用すると、色がそのまま現在地の標になる。機能は文章で語らず、数値とミニチャートの小カードで並べ、差し色は数字の一桁か細い横棒ゲージに回す。協賛ロゴ帯は彩度を落とし単色で、ヒーロー直下に静かに敷く。信頼は推薦文より、肖像カードの隣の巨大な数字1つが運ぶ。
+- 視線は縦1列に落とす。眉ラベル→2行の大見出し→CTA→実物の順に、中央の1本の縦線上に揃える。暗い地では白いカードを浮かべ、明度差だけで主役を作る。デバイス差を並べる時は見出しとCTA順序を揃え、差分は幅だけにする。
+- 暗いヒーローの地に細かい点の格子を敷くと、装飾なしで沈みが防げ、静かな質感と奥行きが出る。中央の見出し+1CTAを軸に、四隅へ小さな情報カードを浮遊させると、視線は中央に留まりつつ周囲が文脈を語る。
+- ページを明暗で交互に切る(暗いヒーロー→白い本文→暗い締め)。明度の交代そのものがセクションの区切りになり、罫線が要らなくなる。
+- チップ類は選択中だけ面を塗り、非選択は細い枠+薄い文字。状態を色面の有無だけで示せる。</pre>
+    </details>
+  </section>
+</div>
+
+<!-- 締め:暗。CTAはこの1つに絞る -->
+<footer>
+  <span class="label">CONTACT</span>
+  <p class="contact" style="margin-top:2.5rem;"><a href="mailto:hello@jeanmiyake.example">話そう <span class="red">→</span></a></p>
+  <div class="watermark">MIYAKE</div>
+  <small>© 2026 JEAN MIYAKE — AN AI SKILL</small>
+</footer>
+
+</body>
+</html>

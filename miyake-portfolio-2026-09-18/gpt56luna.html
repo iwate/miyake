@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jean Miyake — Structure is a feeling</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+:root{--ink:#191a18;--paper:#eeeDE8;--red:#b44735;--line:rgba(25,26,24,.22);--serif:Georgia,'Times New Roman',serif;--sans:'Noto Sans JP',sans-serif;--mono:'DM Mono',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);letter-spacing:.02em}a{color:inherit;text-decoration:none}button{font:inherit}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0 2.2vw;padding:0 4vw}.eyebrow{font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase}.hero{min-height:100vh;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;opacity:.25;background-image:linear-gradient(rgba(238,237,232,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(238,237,232,.18) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}.nav{position:relative;padding-top:30px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(238,237,232,.3);padding-bottom:18px}.mark{font-size:15px;font-weight:900;letter-spacing:-.05em}.nav-link{font:11px var(--mono);border-bottom:1px solid var(--red);padding-bottom:4px}.hero-copy{position:relative;min-height:calc(100vh - 80px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.hero-copy .eyebrow{color:#bdbdb5;margin-bottom:24px}.hero h1{font-size:clamp(68px,15vw,220px);line-height:.82;letter-spacing:-.1em;margin:0 -0.1em 34px;font-weight:900}.hero h1 em{color:var(--red);font-family:var(--serif);font-weight:400;font-size:.36em;letter-spacing:-.05em;vertical-align:middle}.lede{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2vw,27px);line-height:1.45;max-width:560px;margin:0}.hero-rail{position:absolute;left:4vw;bottom:34px;right:4vw;display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgba(238,237,232,.3);padding-top:12px;color:#bdbdb5}.hero-rail span:last-child{color:var(--red)}.section{padding-top:140px;padding-bottom:140px;border-bottom:1px solid var(--line)}.intro{grid-column:2/6}.intro h2{font-size:clamp(34px,5vw,70px);line-height:1.02;letter-spacing:-.07em;margin:12px 0 28px}.intro h2 span{color:var(--red)}.intro p{font-size:15px;line-height:2;max-width:390px;margin:0}.section-label{grid-column:9/13;padding-top:7px;border-top:1px solid var(--ink);font:11px var(--mono);display:flex;justify-content:space-between}.works{padding-top:0}.work-row{grid-column:2/12;display:grid;grid-template-columns:1fr 2fr 1fr;gap:2.2vw;padding:30px 0;border-bottom:1px solid var(--line);align-items:start}.work-row:first-child{border-top:1px solid var(--ink)}.work-index{font:12px var(--mono);color:var(--red)}.work-title{font-size:clamp(21px,3vw,40px);font-weight:900;letter-spacing:-.06em;line-height:1}.work-title small{display:block;font:12px var(--mono);letter-spacing:.05em;margin-top:13px;color:#6a6a63}.work-note{font-size:12px;line-height:1.8;max-width:230px;margin-left:auto}.numbers{background:var(--ink);color:var(--paper);border-bottom:0}.numbers .section-label{border-color:rgba(238,237,232,.4)}.stat{grid-column:2/5;border-top:1px solid rgba(238,237,232,.4);padding-top:14px;margin-top:55px}.stat:nth-of-type(2){grid-column:6/9}.stat:nth-of-type(3){grid-column:10/13}.stat strong{font:clamp(58px,9vw,130px) var(--sans);font-weight:900;letter-spacing:-.1em;color:var(--paper);display:block;line-height:1}.stat strong i{font-style:normal;color:var(--red);font-size:.35em;vertical-align:top;letter-spacing:0}.stat p{font:12px var(--mono);color:#bdbdb5;line-height:1.6}.manifesto{grid-column:2/10;font-family:var(--serif);font-size:clamp(29px,5vw,68px);line-height:1.13;letter-spacing:-.045em;margin-top:120px}.manifesto em{color:var(--red);font-style:normal}.cta-band{padding:170px 4vw 180px;text-align:center;border-bottom:1px solid var(--line)}.cta-band .eyebrow{margin-bottom:24px}.cta-band h2{font-size:clamp(38px,7vw,100px);letter-spacing:-.08em;line-height:.95;margin:0 auto 42px;max-width:900px}.cta{display:inline-flex;align-items:center;gap:24px;background:var(--red);color:var(--paper);border:0;border-radius:999px;padding:16px 24px 16px 28px;font-weight:700;cursor:pointer}.cta b{font-size:20px;font-weight:400;line-height:.7}.cta:focus-visible{outline:2px solid var(--red);outline-offset:5px}.footer{background:var(--paper);padding:24px 4vw 34px;position:relative;overflow:hidden}.footer-top{display:flex;justify-content:space-between;border-top:1px solid var(--ink);padding-top:12px;position:relative;z-index:1}.watermark{font-size:clamp(80px,20vw,290px);font-weight:900;letter-spacing:-.12em;line-height:.7;white-space:nowrap;color:rgba(25,26,24,.08);margin:100px 0 30px -2vw}.footer-note{font:11px var(--mono);line-height:1.8;position:relative;z-index:1}.skill-details{border-top:1px solid var(--line);padding-top:15px;margin-top:70px}.skill-details summary{font:11px var(--mono);cursor:pointer;list-style-position:inside}.skill-details pre{white-space:pre-wrap;font:12px/1.7 var(--mono);max-width:900px;color:#444;margin:24px 0 0}
+@media(max-width:700px){.grid{grid-template-columns:repeat(4,1fr);gap:0 5vw;padding:0 7vw}.nav{padding-top:20px}.hero-copy{min-height:calc(100vh - 65px)}.hero-rail{left:7vw;right:7vw}.intro,.manifesto{grid-column:1/5}.section-label{grid-column:1/5;margin-top:60px}.section{padding-top:90px;padding-bottom:90px}.work-row{grid-column:1/5;grid-template-columns:30px 1fr;gap:5vw}.work-note{grid-column:2;margin-left:0;margin-top:-8px}.stat,.stat:nth-of-type(2),.stat:nth-of-type(3){grid-column:span 4;margin-top:40px}.manifesto{margin-top:70px}.cta-band{padding:120px 7vw}.footer{padding-left:7vw;padding-right:7vw}.watermark{font-size:27vw;margin-top:80px}.hero h1{font-size:24vw}}
+</style>
+</head>
+<body>
+<header class="hero" id="top">
+  <nav class="nav grid"><a class="mark" href="#top">JM / 26</a><a class="nav-link" href="#contact">一緒につくる ↘</a></nav>
+  <div class="hero-copy grid"><div class="eyebrow">Jean Miyake / AI SKILL / portfolio</div><h1>FORM<em> / is<br>feeling</em></h1><p class="lede">構造が美しければ、装飾はいらない。<br>静かな画面に、強い意志を置く。</p></div>
+  <div class="hero-rail eyebrow"><span>Tokyo — remote</span><span>Scroll to inspect ↓</span><span>01 / 05</span></div>
+</header>
+<main>
+<section class="section grid"><div class="intro"><div class="eyebrow">01 / Position</div><h2>私は、<span>余白</span>を設計する。</h2><p>Jean Miyake。UI/UXを、情報の配置ではなく呼吸の設計として扱うデザイナー。人が迷わず、必要な一行に出会える画面をつくります。</p></div><div class="section-label"><span>About this practice</span><span>2026</span></div></section>
+<section class="section works grid"><div class="intro"><div class="eyebrow">02 / Selected works</div><h2>少ない要素で、<br>深く届く。</h2></div><div class="section-label"><span>Archive / 03</span><span>↘</span></div>
+ <article class="work-row"><div class="work-index">A—01</div><div class="work-title">Quiet Banking<small>Product direction / 2025</small></div><p class="work-note">金融の複雑さを、一本の判断線に。取引画面の優先順位を再編集。</p></article>
+ <article class="work-row"><div class="work-index">A—02</div><div class="work-title">Ritual / Tea<small>Brand & digital / 2024</small></div><p class="work-note">毎日の所作を邪魔しないEC。購入を「選ぶ」から「戻る」体験へ。</p></article>
+ <article class="work-row"><div class="work-index">A—03</div><div class="work-title">City as Notes<small>Editorial system / 2024</small></div><p class="work-note">都市の音を、読めるリズムに。可変グリッドによるウェブ冊子。</p></article>
+</section>
+<section class="section numbers grid"><div class="intro"><div class="eyebrow">03 / Proof, not promise</div><h2>数字にも、<br>余白を。</h2></div><div class="section-label"><span>Measured outcomes</span><span>↘</span></div><div class="stat"><strong>−42<i>%</i></strong><p>迷いの時間<br>Quiet Banking / checkout</p></div><div class="stat"><strong>3.8<i>×</i></strong><p>再訪率<br>Ritual / mobile</p></div><div class="stat"><strong>01<i>°</i></strong><p>差し色<br>One accent only</p></div><p class="manifesto">「足す」前に、<em>残す理由</em>を問う。<br>デザインは、選択のあとに残る輪郭だ。</p></section>
+<section class="cta-band" id="contact"><div class="eyebrow">04 / The next line</div><h2>次の一行を、<br>一緒に置く。</h2><a class="cta" href="mailto:hello@jeanmiyake.example">プロジェクトを相談する <b>↗</b></a></section>
+</main>
+<footer class="footer"><div class="footer-top"><span class="eyebrow">Jean Miyake / AI SKILL</span><span class="eyebrow">© 2026</span></div><div class="watermark" aria-hidden="true">MIYAKE</div><p class="footer-note">Jean Miyakeは架空のデザイナーであり、<br>このページ自体がAI SKILL「miyake」に従って生成されたポートフォリオです。</p>
+<details class="skill-details"><summary>AI SKILL「miyake」全文を読む</summary><pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. グラデーション基本禁止。唯一点を差し色に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸い、統合・磨いた知見。
+
+- フッター下端に巨大な透かし文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。明朝イタリックの一行で静けさに温度を出す。
+- ピル(完全角丸)は主CTA・眉ラベルに限る。主CTAは塗りピル+矢印、副CTAは裸のテキストでペアにすると、押す順位が文字の重さで読める。色を足せないCTAは周囲にだけ薄い光の縁を敷く。輪郭だけの円形ボタンは、面を置かず押せる場所を静かに示す。角丸の半径は揃えず、ピルと微角丸の二段階で階層を示す。
+- 見出しは地の色で組み、鍵語の1語だけ差し色に替える。同じ差し色をCTA・下線・強調語にも一貫して流用すると、色がそのまま現在地の標になる。機能は文章で語らず、数値とミニチャートの小カードで並べ、差し色は数字の一桁か細い横棒ゲージに回す。協賛ロゴ帯は彩度を落とし単色で、ヒーロー直下に静かに敷く。信頼は推薦文より、肖像カードの隣の巨大な数字1つが運ぶ。
+- 視線は縦1列に落とす。眉ラベル→2行の大見出し→CTA→実物の順に、中央の1本の縦線上に揃える。暗い地では白いカードを浮かせ、明度差だけで主役を作る。デバイス差を並べる時は見出しとCTA順序を揃え、差分は幅だけにする。
+- 暗いヒーローの地に細かい点の格子を敷くと、装飾なしで沈みが防げ、静かな質感と奥行きが出る。中央の見出し+1CTAを軸に、四隅へ小さな情報カードを浮遊させると、視線は中央に留まりつつ周囲が文脈を語る。
+- ページを明暗で交互に切る(暗いヒーロー→白い本文→暗い締め)。明度の交代そのものがセクションの区切りになり、罫線が要らなくなる。
+- チップ類は選択中だけ面を塗り、非選択は細い枠+薄い文字。状態を色面の有無だけで示せる。</pre></details>
+</footer>
+</body>
+</html>

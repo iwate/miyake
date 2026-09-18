@@ -5,13 +5,18 @@ HTML file, kept as dated snapshots.
 
 ## Contents
 
-| Date       | Description                                                                                                      | Files                                                                |
-| ---------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| 2026-09-17 | The portfolio itself (SKILL N°001). Paper × ink × vermillion minimal layout, Shippori Mincho, one CTA style only | [gemini 3.8 flush](./miyake-portfolio-2026-09-17/gemini38flash.html) |
-|            |                                                                                                                  | [glm 5.3 flush](./miyake-portfolio-2026-09-17/glm53flash.html)       |
-|            |                                                                                                                  | [gpt 5.6 luna](./miyake-portfolio-2026-09-17/gpt56luna.html)         |
-|            |                                                                                                                  | [opus 5](./miyake-portfolio-2026-09-17/claudeopus5.html)             |
-|            |                                                                                                                  | [qwen 3.8 flush](./miyake-portfolio-2026-09-17/qwen38-27b.html)      |
+| Date       | Files                                                                |
+| ---------- | -------------------------------------------------------------------- |
+| 2026-09-17 | [gemini 3.8 flush](./miyake-portfolio-2026-09-17/gemini38flash.html) |
+|            | [glm 5.3 flush](./miyake-portfolio-2026-09-17/glm53flash.html)       |
+|            | [gpt 5.6 luna](./miyake-portfolio-2026-09-17/gpt56luna.html)         |
+|            | [opus 5](./miyake-portfolio-2026-09-17/claudeopus5.html)             |
+|            | [qwen 3.8 flush](./miyake-portfolio-2026-09-17/qwen38-27b.html)      |
+| 2026-09-18 | [gemini 3.8 flush](./miyake-portfolio-2026-09-18/gemini38flash.html) |
+|            | [glm 5.3 flush](./miyake-portfolio-2026-09-18/glm53flash.html)       |
+|            | [gpt 5.6 luna](./miyake-portfolio-2026-09-18/gpt56luna.html)         |
+|            | [opus 5](./miyake-portfolio-2026-09-18/claudeopus5.html)             |
+|            | [qwen 3.8 flush](./miyake-portfolio-2026-09-18/qwen38-27b.html)      |
 
 ## Viewing
 

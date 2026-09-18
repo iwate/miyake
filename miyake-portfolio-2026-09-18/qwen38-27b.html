@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEAN MIYAKE — AI Design SKILL</title>
+<style>
+  :root{
+    --ink:#141414;      /* 地(暗) */
+    --paper:#f7f6f3;    /* 地(明) */
+    --text:#1a1a1a;     /* 字 */
+    --line:rgba(26,26,26,.18);
+    --line-d:rgba(247,246,243,.18);
+    --accent:#e63b2e;   /* 差し色(唯一) */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+    background:var(--paper);color:var(--text);
+    letter-spacing:.04em;
+  }
+  .serif{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- 共通:眉ラベル ---------- */
+  .eyebrow{
+    display:inline-block;font-size:11px;letter-spacing:.3em;
+    border:1px solid var(--line);border-radius:999px;padding:6px 16px 6px 18px;
+  }
+  .dark .eyebrow{border-color:var(--line-d);color:var(--paper);}
+  .eyebrow b{color:var(--accent);font-weight:600;}
+
+  /* ---------- ヒーロー(暗) ---------- */
+  .hero{
+    background:var(--ink);color:var(--paper);
+    min-height:92vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    position:relative;overflow:hidden;padding:96px 24px;
+  }
+  .hero::before{ /* 点の格子(静かな質感) */
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(247,246,243,.14) 1px,transparent 1px);
+    background-size:28px 28px;
+  }
+  .hero>*{position:relative;}
+  .hero h1{
+    font-size:clamp(88px,17vw,220px);line-height:.95;
+    font-weight:700;letter-spacing:-.03em;margin:40px 0 28px;
+  }
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero .tagline{
+    font-size:clamp(16px,2vw,20px);font-style:italic;
+    color:rgba(247,246,243,.78);margin-bottom:56px;
+  }
+  .cta{
+    display:inline-block;text-decoration:none;
+    background:var(--accent);color:#fff;
+    font-size:14px;letter-spacing:.14em;font-weight:600;
+    border-radius:999px;padding:16px 40px;
+    box-shadow:0 0 0 6px rgba(230,59,46,.15); /* 薄い光の縁 */
+  }
+  .cta-sub{
+    display:block;margin-top:20px;font-size:12px;letter-spacing:.2em;
+    color:rgba(247,246,243,.55);text-decoration:none;border-bottom:1px solid var(--accent);
+    padding-bottom:3px;
+  }
+  /* ヒーロー四隅の浮遊情報カード */
+  .float-card{
+    position:absolute;background:var(--paper);color:var(--text);
+    border:1px solid var(--line);padding:18px 22px;text-align:left;
+    min-width:180px;
+  }
+  .float-card small{display:block;font-size:10px;letter-spacing:.25em;color:#888;margin-bottom:8px;}
+  .float-card strong{font-size:22px;letter-spacing:.02em;}
+  .fc-tl{top:14%;left:6%;}
+  .fc-tr{top:14%;right:6%;}
+  .fc-bl{bottom:12%;left:6%;}
+  .fc-br{bottom:12%;right:6%;}
+  .bar{height:4px;background:var(--line);margin-top:10px;}
+  .bar i{display:block;height:100%;width:6%;background:var(--accent);}
+  @media(max-width:860px){.float-card{display:none;}}
+
+  /* ---------- 白本文 ---------- */
+  .section{padding:120px 0;border-top:1px solid var(--line);}
+  .section:first-of-type{border-top:none;}
+  h2{
+    font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.3;
+    margin:28px 0 64px;max-width:720px;
+  }
+  h2 .ac{color:var(--accent);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);}
+  .cell{background:var(--paper);padding:40px 32px;}
+  .cell .num{font-size:12px;letter-spacing:.3em;color:var(--accent);font-weight:600;}
+  .cell h3{font-size:17px;margin:14px 0 10px;font-weight:700;}
+  .cell p{font-size:13.5px;line-height:1.9;color:#555;}
+  /* 数値カード */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-top:64px;}
+  .stat{border-top:2px solid var(--text);padding-top:18px;}
+  .stat .v{font-size:52px;font-weight:700;line-height:1;}
+  .stat .v small{font-size:18px;color:var(--accent);}
+  .stat .l{font-size:12px;letter-spacing:.2em;color:#777;margin-top:10px;}
+  .stat .bar{background:#e6e4de;}
+
+  /* ---------- SKILL.md 全文 ---------- */
+  .skill-doc{background:var(--ink);color:var(--paper);}
+  .skill-doc .eyebrow{border-color:var(--line-d);}
+  .ai-badge{
+    display:inline-flex;align-items:center;gap:10px;margin-top:40px;
+    font-size:13px;letter-spacing:.1em;border:1px solid var(--line-d);
+    padding:14px 22px;border-radius:4px;
+  }
+  .ai-badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;}
+  details{margin-top:48px;border:1px solid var(--line-d);}
+  summary{
+    cursor:pointer;list-style:none;padding:22px 28px;font-size:14px;
+    letter-spacing:.15em;display:flex;justify-content:space-between;align-items:center;
+    user-select:none;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";font-size:20px;color:var(--accent);transition:transform .2s;}
+  details[open] summary::after{transform:rotate(45deg);}
+  pre{
+    margin:0;border-top:1px solid var(--line-d);
+    padding:32px;font-size:12.5px;line-height:1.85;
+    white-space:pre-wrap;word-break:break-word;
+    color:rgba(247,246,243,.82);max-height:60vh;overflow:auto;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+
+  /* ---------- 暗締め ---------- */
+  .outro{
+    background:var(--ink);color:var(--paper);
+    padding:140px 24px 0;overflow:hidden;position:relative;
+    display:flex;align-items:flex-end;justify-content:center;
+  }
+  .outro .line{position:relative;z-index:1;font-style:italic;font-size:clamp(18px,2.4vw,24px);color:rgba(247,246,243,.75);margin-bottom:48px;}
+  .outro .line b{color:var(--accent);font-weight:400;}
+  .watermark{
+    font-size:clamp(90px,19vw,260px);font-weight:700;line-height:.78;
+    letter-spacing:-.02em;text-align:center;
+    color:transparent;-webkit-text-stroke:1px rgba(247,246,243,.22);
+    user-select:none;transform:translateY(12%);
+  }
+</style>
+</head>
+<body>
+
+<!-- ======== ヒーロー(暗) ======== -->
+<header class="hero dark">
+  <span class="eyebrow">AI DESIGN <b>SKILL</b> · 2026</span>
+  <h1>MIYAKE<em>.</em></h1>
+  <p class="tagline serif">「構造が美しければ、装飾は要らない」</p>
+  <a class="cta" href="#skill">SKILL.md を読む &rarr;</a>
+  <a class="cta-sub" href="#aesthetics">美学を見る</a>
+
+  <div class="float-card fc-tl"><small>書体</small><strong>2</strong><div class="bar"><i></i></div></div>
+  <div class="float-card fc-tr"><small>色・役数</small><strong>3</strong><div class="bar"><i style="width:18%"></i></div></div>
+  <div class="float-card fc-bl"><small>影</small><strong>0</strong><div class="bar"><i style="width:2%"></i></div></div>
+  <div class="float-card fc-br"><small>アニメ</small><strong>1</strong><div class="bar"><i style="width:6%"></i></div></div>
+</header>
+
+<main>
+<!-- ======== 美学(白) ======== -->
+<section class="section" id="aesthetics">
+  <div class="wrap">
+    <span class="eyebrow">AESTHETIC</span>
+    <h2>余白は素材。<br>主役は<em class="ac serif" style="font-style:italic">1つ</em>だけ。</h2>
+    <div class="grid">
+      <div class="cell"><span class="num">01</span><h3>余白は素材</h3><p>空間を作り、情報を浮かせる。詰めない。遠近は余白とサイズで作る。</p></div>
+      <div class="cell"><span class="num">02</span><h3>1画面1メッセージ</h3><p>強い階層。主役は1つ、他は引き立て役。視線は縦1列に落とす。</p></div>
+      <div class="cell"><span class="num">03</span><h3>静と動の対比</h3><p>面は静かに、タイポグラフィと1つの動きだけ大胆に。</p></div>
+      <div class="cell"><span class="num">04</span><h3>線と格子</h3><p>目に見える格子、細い罫線で構成を示す。明暗の交代が区切りになる。</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="v">5<small>%</small></div><div class="l">差し色の上限</div><div class="bar"><i style="width:5%"></i></div></div>
+      <div class="stat"><div class="v">1</div><div class="l">アニメーションの種別</div><div class="bar"><i style="width:10%"></i></div></div>
+      <div class="stat"><div class="v">1</div><div class="l">CTA の数</div><div class="bar"><i style="width:10%"></i></div></div>
+      <div class="stat"><div class="v">0</div><div class="l">影・グラデーション・写真</div><div class="bar"><i style="width:1%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== SKILL.md(暗) ======== -->
+<section class="section skill-doc dark" id="skill">
+  <div class="wrap">
+    <span class="eyebrow">SOURCE</span>
+    <h2>このページは、<span class="ac">AI SKILL</span>です。</h2>
+    <p style="max-width:640px;font-size:14px;line-height:2.1;color:rgba(247,246,243,.75);">
+      Jean Miyake は実在の人間ではなく、架空のデザイナーを定義した
+      AI SKILL(name: miyake)です。このポートフォリオ自体が、
+      その SKILL の美学で生成された成果物であり、
+      以下に SKILL.md の全文をそのまま掲載します。
+    </p>
+    <div class="ai-badge">AI SKILL &mdash; Jean Miyake &middot; 単一HTMLで自己記述</div>
+
+    <details>
+      <summary>SKILL.md 全文を開く</summary>
+<pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. グラデーション基本禁止。唯一点を差し色に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸い、統合・磨いた知見。
+
+- フッター下端に巨大な透かし文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。明朝イタリックの一行で静けさに温度を出す。
+- ピル(完全角丸)は主CTA・眉ラベルに限る。主CTAは塗りピル+矢印、副CTAは裸のテキストでペアにすると、押す順位が文字の重さで読める。色を足せないCTAは周囲にだけ薄い光の縁を敷く。輪郭だけの円形ボタンは、面を置かず押せる場所を静かに示す。角丸の半径は揃えず、ピルと微角丸の二段階で階層を示す。
+- 見出しは地の色で組み、鍵語の1語だけ差し色に替える。同じ差し色をCTA・下線・強調語にも一貫して流用すると、色がそのまま現在地の標になる。機能は文章で語らず、数値とミニチャートの小カードで並べ、差し色は数字の一桁か細い横棒ゲージに回す。協賛ロゴ帯は彩度を落とし単色で、ヒーロー直下に静かに敷く。信頼は推薦文より、肖像カードの隣の巨大な数字1つが運ぶ。
+- 視線は縦1列に落とす。眉ラベル→2行の大見出し→CTA→実物の順に、中央の1本の縦線上に揃える。暗い地では白いカードを浮かべ、明度差だけで主役を作る。デバイス差を並べる時は見出しとCTA順序を揃え、差分は幅だけにする。
+- 暗いヒーローの地に細かい点の格子を敷くと、装飾なしで沈みが防げ、静かな質感と奥行きが出る。中央の見出し+1CTAを軸に、四隅へ小さな情報カードを浮遊させると、視線は中央に留まりつつ周囲が文脈を語る。
+- ページを明暗で交互に切る(暗いヒーロー→白い本文→暗い締め)。明度の交代そのものがセクションの区切りになり、罫線が要らなくなる。
+- チップ類は選択中だけ面を塗り、非選択は細い枠+薄い文字。状態を色面の有無だけで示せる。</pre>
+    </details>
+  </div>
+</section>
+</main>
+
+<!-- ======== 締め(暗) ======== -->
+<footer class="outro dark">
+  <p class="line serif">装飾は要らない。<b>構造</b>だけで十分だ。</p>
+  <div class="watermark" aria-hidden="true">JEAN MIYAKE</div>
+</footer>
+
+</body>
+</html>
