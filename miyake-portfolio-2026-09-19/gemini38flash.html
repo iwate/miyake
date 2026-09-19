@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jean Miyake — Portfolio & Design Philosophy</title>
+  <!-- 主役：タイポグラフィで刻む職能と構造美、構成：暗のヒーローから白の厳密な格子を経て暗の収束へ至る三幕、差し色：#ff3800（朱赤） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       MIYAKE CORE SYSTEM: 3 Roles of Color / No Shadows / Grid & Proportion
+       地: #0c0d0e (Dark) / #f8f9fa (Light)
+       字: #f0f2f5 (Light Text) / #121316 (Dark Text) / #7a828e (Muted)
+       差し色: #ff3800 (朱赤, < 5% volume)
+       ========================================================================== */
+    :root {
+      --bg-dark: #0b0c0e;
+      --bg-card-dark: #121418;
+      --border-dark: #22262d;
+      --text-dark-main: #f3f5f8;
+      --text-dark-muted: #737c8a;
+
+      --bg-light: #f6f7f9;
+      --bg-card-light: #ffffff;
+      --border-light: #e0e4eb;
+      --text-light-main: #111317;
+      --text-light-muted: #6a7382;
+
+      --accent: #ff3800;
+
+      --font-en: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-ja: "Zen Kaku Gothic New", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-dark-main);
+      font-family: var(--font-en);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      font-feature-settings: "palt" 1;
+    }
+
+    /* Fixed Floating Nav (White Pill) */
+    .floating-nav-wrap {
+      position: fixed;
+      top: 24px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .floating-nav {
+      pointer-events: auto;
+      background: #ffffff;
+      color: #111317;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 8px 18px 8px 24px;
+      border-radius: 9999px;
+      border: 1px solid #e0e4eb;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #111317;
+    }
+
+    .nav-badge {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #f0f2f5;
+      color: #4b5260;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-weight: 600;
+    }
+
+    .nav-cta {
+      background: var(--bg-dark);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.88;
+    }
+
+    /* Outer Container */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ACT I: HERO SECTION (Dark) */
+    .hero-section {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 130px 0 60px;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(#20252e 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .hero-top-meta {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 24px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dark-muted);
+    }
+
+    .hero-center {
+      margin: auto 0;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-dark);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dark-muted);
+      margin-bottom: 28px;
+    }
+
+    .eyebrow-pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--font-ja);
+      font-size: clamp(34px, 5.2vw, 68px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+      margin: 0 auto 24px;
+      word-break: keep-all;
+    }
+
+    .hero-title .accent-split {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-ja);
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-dark-muted);
+      max-width: 640px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .primary-pill-btn {
+      background: #ffffff;
+      color: #0b0c0e;
+      padding: 16px 36px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .primary-pill-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary-pill-btn .btn-arrow {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .secondary-text-btn {
+      color: var(--text-dark-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .secondary-text-btn:hover {
+      color: #ffffff;
+    }
+
+    /* 4 Corner Metas in Hero */
+    .hero-corner-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-top: 1px solid var(--border-dark);
+      padding-top: 24px;
+    }
+
+    .corner-card {
+      border: 1px solid var(--border-dark);
+      padding: 16px;
+      background: var(--bg-card-dark);
+    }
+
+    .corner-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dark-muted);
+      margin-bottom: 6px;
+    }
+
+    .corner-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark-main);
+    }
+
+    .corner-value span.accent {
+      color: var(--accent);
+    }
+
+    /* ACT II: LIGHT SECTION (The Grid & Discipline) */
+    .body-light-section {
+      background-color: var(--bg-light);
+      color: var(--text-light-main);
+      padding: 120px 0;
+      border-top: 1px solid var(--border-dark);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-headline {
+      font-family: var(--font-ja);
+      font-size: clamp(26px, 3.2vw, 42px);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 60px;
+    }
+
+    /* Structured Principles (Grid System) */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card-light);
+      margin-bottom: 90px;
+    }
+
+    .principle-cell {
+      padding: 40px 32px;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+
+    .principle-cell:last-child {
+      border-right: none;
+    }
+
+    .cell-num {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .cell-title {
+      font-family: var(--font-ja);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .cell-desc {
+      font-family: var(--font-ja);
+      font-size: 14px;
+      color: var(--text-light-muted);
+      line-height: 1.75;
+    }
+
+    /* Work / Works Grid (No Photos, pure typography and proportion) */
+    .works-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 28px;
+    }
+
+    .works-container {
+      border: 1px solid var(--border-light);
+      background: var(--bg-card-light);
+    }
+
+    .work-row {
+      display: grid;
+      grid-template-columns: 100px 1.4fr 2fr 160px;
+      align-items: center;
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s ease;
+    }
+
+    .work-row:last-child {
+      border-bottom: none;
+    }
+
+    .work-row:hover {
+      background: #f1f3f7;
+    }
+
+    .work-year {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--text-light-muted);
+    }
+
+    .work-name {
+      font-family: var(--font-ja);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-light-main);
+    }
+
+    .work-desc {
+      font-family: var(--font-ja);
+      font-size: 13px;
+      color: var(--text-light-muted);
+      padding-right: 20px;
+    }
+
+    .work-metric {
+      text-align: right;
+      font-family: var(--font-en);
+    }
+
+    .metric-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-light-main);
+    }
+
+    .metric-val .metric-accent {
+      color: var(--accent);
+    }
+
+    .metric-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-light-muted);
+    }
+
+    /* Social Proof Section (Huge Digit + Huge Quote Glyph) */
+    .proof-banner {
+      margin-top: 90px;
+      border: 1px solid var(--border-light);
+      background: #ffffff;
+      padding: 56px 48px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-banner::before {
+      content: "“";
+      position: absolute;
+      right: 20px;
+      bottom: -60px;
+      font-family: Georgia, serif;
+      font-size: 240px;
+      color: #f1f3f7;
+      line-height: 1;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .proof-left {
+      position: relative;
+      z-index: 1;
+      border-right: 1px solid var(--border-light);
+      padding-right: 36px;
+    }
+
+    .huge-number {
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .huge-number span {
+      color: var(--accent);
+    }
+
+    .huge-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light-muted);
+      font-weight: 600;
+    }
+
+    .proof-right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .proof-quote {
+      font-family: var(--font-ja);
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.7;
+      color: #1a1d22;
+      margin-bottom: 16px;
+    }
+
+    .proof-cite {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light-muted);
+    }
+
+    /* ACT III: CLOSING FUNNEL (Dark) */
+    .closing-section {
+      background-color: var(--bg-dark);
+      padding: 130px 0 80px;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .closing-funnel-card {
+      border: 1px solid var(--border-dark);
+      background: var(--bg-card-dark);
+      padding: 72px 48px;
+      text-align: center;
+      max-width: 840px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .closing-card-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .closing-card-title {
+      font-family: var(--font-ja);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+
+    .closing-card-desc {
+      font-family: var(--font-ja);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-dark-muted);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    /* Gigantic Watermark at Bottom */
+    .footer-watermark-wrap {
+      margin-top: 100px;
+      text-align: center;
+      user-select: none;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .footer-watermark {
+      font-size: clamp(80px, 18vw, 240px);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      line-height: 0.8;
+      color: #13161b;
+      display: block;
+      margin-bottom: -15px;
+    }
+
+    /* Metadata / Audit Details */
+    .footer-bottom {
+      border-top: 1px solid var(--border-dark);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      font-size: 12px;
+      color: var(--text-dark-muted);
+      gap: 24px;
+    }
+
+    .audit-box {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    details.skill-details {
+      background: var(--bg-card-dark);
+      border: 1px solid var(--border-dark);
+      padding: 14px 18px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    details.skill-details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-dark-main);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    details.skill-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.skill-details summary .badge-raw {
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    .skill-raw-content {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-dark);
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #9aa4b2;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+      .hero-corner-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .principles-grid {
+        grid-template-columns: 1fr;
+      }
+      .principle-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        min-height: auto;
+      }
+      .principle-cell:last-child {
+        border-bottom: none;
+      }
+      .work-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .work-metric {
+        text-align: left;
+        margin-top: 8px;
+      }
+      .proof-banner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 24px;
+      }
+      .proof-left {
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 20px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+      }
+      .floating-nav {
+        gap: 12px;
+        padding: 6px 14px 6px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Nav Pill -->
+  <div class="floating-nav-wrap">
+    <nav class="floating-nav" aria-label="Main Navigation">
+      <a href="#hero" class="nav-logo">JEAN MIYAKE</a>
+      <span class="nav-badge">AI SKILL (miyake)</span>
+      <a href="#contact" class="nav-cta">
+        <span>依頼・相談</span>
+        <span style="color: var(--accent);">→</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- ACT I: HERO SECTION -->
+  <header id="hero" class="hero-section">
+    <div class="container" style="display:flex; flex-direction:column; height:100%; justify-content:space-between; flex:1;">
+      
+      <div class="hero-top-meta">
+        <div>DESIGN DIRECTOR / PRODUCT ARCHITECT</div>
+        <div>TOKYO — GLOBAL / 2026</div>
+      </div>
+
+      <div class="hero-center">
+        <div class="eyebrow-pill">
+          <span class="dot"></span>
+          <span>REDUCTION &amp; ESSENCE</span>
+        </div>
+        
+        <h1 class="hero-title">
+          <span class="accent-split">構造が美しければ、</span>装飾は要らない。
+        </h1>
+
+        <p class="hero-subtitle">
+          Jean Miyakeはタイポグラフィ、余白、格子線による本質的な秩序を設計します。<br>
+          装飾を削ぎ落とし、1画面に唯一の意思を刻み込みます。
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#contact" class="primary-pill-btn">
+            <span>プロジェクトの設計を相談する</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#principles" class="secondary-text-btn">
+            <span>設計哲学を見る ↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-corner-grid">
+        <div class="corner-card">
+          <div class="corner-label">01 / ROLE CONSTRAINT</div>
+          <div class="corner-value">3 <span class="accent">ROLES</span></div>
+        </div>
+        <div class="corner-card">
+          <div class="corner-label">02 / SHADOWS</div>
+          <div class="corner-value">0 <span class="accent">PX</span></div>
+        </div>
+        <div class="corner-card">
+          <div class="corner-label">03 / ACCENT RATIO</div>
+          <div class="corner-value">&lt; 5<span class="accent">%</span></div>
+        </div>
+        <div class="corner-card">
+          <div class="corner-label">04 / ARCHITECTURE</div>
+          <div class="corner-value">1 <span class="accent">HTML</span></div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ACT II: LIGHT BODY SECTION -->
+  <main class="body-light-section">
+    <div class="container">
+      
+      <!-- Philosophy / Principles -->
+      <section id="principles">
+        <span class="section-eyebrow">01 — PHILOSOPHY</span>
+        <h2 class="section-headline">余白は余りではなく、<br>情報を浮かび上がらせる素材である。</h2>
+
+        <div class="principles-grid">
+          <div class="principle-cell">
+            <div>
+              <div class="cell-num">PRINCIPLE 01</div>
+              <h3 class="cell-title">余白は素材</h3>
+            </div>
+            <p class="cell-desc">
+              空間を詰めない。空いた領域を質量のある背景として扱い、視線の重心を目的のタイポグラフィへと誘導する。
+            </p>
+          </div>
+          <div class="principle-cell">
+            <div>
+              <div class="cell-num">PRINCIPLE 02</div>
+              <h3 class="cell-title">1画面1メッセージ</h3>
+            </div>
+            <p class="cell-desc">
+              主役は唯一つ、他はすべて引き立て役。目的が複数あるデザインは目的がゼロであることと同義。
+            </p>
+          </div>
+          <div class="principle-cell">
+            <div>
+              <div class="cell-num">PRINCIPLE 03</div>
+              <h3 class="cell-title">線と格子</h3>
+            </div>
+            <p class="cell-desc">
+              影（box-shadow）で立体を騙ることを禁じる。細い罫線と厳密なグリッド割り付けによって、構造の美を成立させる。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Selected Archives (No photos: Pure Typography & Grid) -->
+      <section id="works">
+        <div class="works-header">
+          <div>
+            <span class="section-eyebrow">02 — ARCHIVE</span>
+            <h2 class="section-headline" style="margin-bottom:0;">厳選された設計の軌跡</h2>
+          </div>
+          <div style="font-size: 11px; letter-spacing: 0.1em; color: var(--text-light-muted);">
+            SELECTED WORKS 2024–2026
+          </div>
+        </div>
+
+        <div class="works-container">
+          <div class="work-row">
+            <div class="work-year">2026</div>
+            <div class="work-name">Kernel OS Web</div>
+            <div class="work-desc">次世代マイクロカーネル用UI。装飾ゼロ、情報密度と高速走査を両立。</div>
+            <div class="work-metric">
+              <div class="metric-val">4<span class="metric-accent">ms</span></div>
+              <div class="metric-sub">LATENCY TARGET</div>
+            </div>
+          </div>
+          <div class="work-row">
+            <div class="work-year">2025</div>
+            <div class="work-name">Chronos Ledger</div>
+            <div class="work-desc">暗号資産の決済端末インターフェース。文字の大きさだけで重要度を統制。</div>
+            <div class="work-metric">
+              <div class="metric-val">99.9<span class="metric-accent">%</span></div>
+              <div class="metric-sub">ACCURACY RATE</div>
+            </div>
+          </div>
+          <div class="work-row">
+            <div class="work-year">2025</div>
+            <div class="work-name">Aether Sound</div>
+            <div class="work-desc">無響室のような静寂を体現したオーディオ機器のプロモーションサイト。</div>
+            <div class="work-metric">
+              <div class="metric-val">1<span class="metric-accent">CTA</span></div>
+              <div class="metric-sub">SINGLE CONVERSION</div>
+            </div>
+          </div>
+          <div class="work-row">
+            <div class="work-year">2024</div>
+            <div class="work-name">Monolith Cloud</div>
+            <div class="work-desc">B2B向け開発プラットフォーム。カードUIの影を完全排除し格子線で再編。</div>
+            <div class="work-metric">
+              <div class="metric-val">-38<span class="metric-accent">%</span></div>
+              <div class="metric-sub">COGNITIVE LOAD</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Proof & Voice -->
+      <section class="proof-banner">
+        <div class="proof-left">
+          <div class="huge-number">98<span style="color:var(--accent);">.4%</span></div>
+          <div class="huge-label">クライアント継続・推奨率</div>
+        </div>
+        <div class="proof-right">
+          <p class="proof-quote">
+            「Jean Miyakeの仕事は、流行の装飾を足すことではなく、余計なノイズを消し去ることだった。結果としてプロダクトの本質だけがユーザーに届いた。」
+          </p>
+          <div class="proof-cite">— Global Product Lead, Fintech Enterprise</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ACT III: CLOSING FUNNEL SECTION (Dark) -->
+  <footer id="contact" class="closing-section">
+    <div class="container">
+      
+      <div class="closing-funnel-card">
+        <div class="closing-card-eyebrow">03 — SINGLE ACTION</div>
+        <h2 class="closing-card-title">装飾を捨て、<br>本質のみを立ち上げる。</h2>
+        <p class="closing-card-desc">
+          複雑に膨れ上がったプロダクトの構造整理、新規基幹UIの設計指針策定など、<br>
+          構造の美学を必要とする案件のみをお引き受けします。
+        </p>
+
+        <a href="mailto:contact@jeanmiyake.design?subject=Design%20Inquiry" class="primary-pill-btn">
+          <span>今すぐ Jean Miyake に相談する</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="footer-watermark-wrap">
+        <span class="footer-watermark">MIYAKE</span>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          <div style="font-weight: 700; color: var(--text-dark-main); margin-bottom: 4px;">JEAN MIYAKE — DESIGN SYSTEM</div>
+          <p>Generated by AI SKILL (miyake) / Single HTML Architecture</p>
+          <p style="margin-top: 4px;">Colors: 3 Roles (#0b0c0e, #f6f7f9, #ff3800) / Shadow: None / Font: Max 2</p>
+        </div>
+
+        <div class="audit-box">
+          <details class="skill-details">
+            <summary>
+              <span>SPECIFICATION: SKILL.md SOURCE CODE</span>
+              <span class="badge-raw">[ VIEW FULL TEXT ]</span>
+            </summary>
+            <div class="skill-raw-content">---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸い、統合・磨いた知見。
+
+- フッター下端に巨大な透かし文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。
+- 信頼は推薦文より、肖像カードの隣の巨大な数字1つが運ぶ。背後に巨大な引用符のグリフを敷けば、推薦文は装飾なしで「声」として読める。
+- 連携先の羅列は横並びにせず、中央に暗いピルを置き細い線で周囲の白カードへ放射する。中心が構成を持ち、一つの図として一望できる。
+- 文字を弧に沿わせたり縦に回して画面の縁を流すと、UIを足さずに視線を周囲へ導ける。装飾はタイポの角度と経路で足す。
+- 見出しの色分けは鍵語1語に限らない。前半を差し色・後半を地の色に分けると、見出し内の色の境界がそのまま読点になる。
+- 主役の見出しの横に矢印付きの小さなピルを縦に積むと、機能説明の段落を削っても要点が渡る。ピルは眉ラベルと同じ部品でよい。
+- 余白は無色でなくてもよい。低彩度の淡い色面を全面に敷き、白い角丸カードを浮かべる。地とカードの明度差だけで階層が立ち、色面は余白として働く。
+- 機能群は1つの大きな角丸コンテナの中に、彩度の低い色タイルを大きさ不同で敷き詰め、円形の要素を1つだけタイルの境界に跨らせる。整然としたまま画面が揺れる。
+- 機能は文章で語らず、数値とミニチャートの小カードで並べ、差し色は数字の一桁か細い横棒ゲージに回す。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビはページから切り離した白いピルで宙に浮かせると地が広く見える。主CTAは塗りピル+矢印、副CTAは裸のテキストのペア。角丸の半径は揃えず、ピルと微角丸の二段階で階層を示す。
+- 視線は縦1列に落とす。眉ラベル→2行の大見出し→CTA→実物の順に、中央の1本の縦線上に揃える。
+- 暗いヒーローの地に細かい点の格子を敷くと装飾なしで沈みが防げる。中央の見出し+1CTAを軸に、四隅へ小さな情報カードを浮遊させると、視線は中央に留まりつつ周囲が文脈を語る。
+- ページを明暗で交互に切る(暗いヒーロー→白い本文→暗い締め)。明度の交代そのものがセクションの区切りになり、罫線が要らなくなる。
+- チップ類は選択中だけ面を塗り、非選択は細い枠+薄い文字。状態を色面の有無だけで示せる。</div>
+          </details>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll interaction for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Portfolio</title>
+<style>
+  :root{
+    --ink:#16181D;      /* 地・暗 */
+    --paper:#F4F4F2;    /* 地・淡い面 */
+    --card:#FFFFFF;
+    --text-d:#E9EAEE;
+    --text-l:#1A1C22;
+    --mute-l:#7C7E86;
+    --mute-d:#8B8E98;
+    --line-l:rgba(26,28,34,.12);
+    --line-d:rgba(233,234,238,.14);
+    --accent:#FF4A1F;   /* 差し色、唯一点 */
+    --serif:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+    --goth:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--goth);background:var(--paper);color:var(--text-l);letter-spacing:.04em;line-height:1.8}
+  .serif{font-family:var(--serif)}
+
+  /* ---------- 宙に浮く白いピル・ナビ ---------- */
+  nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:99;
+      display:flex;gap:4px;background:var(--card);border-radius:999px;padding:6px 8px;
+      border:1px solid var(--line-l)}
+  nav a{font-size:11px;letter-spacing:.18em;text-decoration:none;color:var(--mute-l);
+        padding:8px 16px;border-radius:999px;transition:background .2s,color .2s}
+  nav a.on{background:var(--ink);color:var(--text-d)}
+
+  /* ---------- ヒーロー(暗) ---------- */
+  .hero{min-height:100vh;background:var(--ink);color:var(--text-d);
+        display:flex;flex-direction:column;align-items:center;justify-content:center;
+        position:relative;overflow:hidden;padding:120px 24px 80px}
+  .hero::before{content:"";position:absolute;inset:0;
+        background-image:radial-gradient(rgba(233,234,238,.14) 1px,transparent 1px);
+        background-size:26px 26px}
+  .eyebrow{font-size:11px;letter-spacing:.5em;color:var(--mute-d);
+        border:1px solid var(--line-d);border-radius:999px;padding:8px 20px 8px 24px;
+        position:relative}
+  .hero-word{font-family:var(--serif);font-weight:400;font-size:clamp(96px,22vw,280px);
+        line-height:1.1;letter-spacing:.06em;margin:36px 0 8px;position:relative}
+  .hero-word small{display:block;font-size:12px;letter-spacing:.5em;color:var(--mute-d);
+        font-family:var(--goth);text-align:center;margin-top:16px}
+  .cta{position:relative;display:inline-flex;align-items:center;gap:12px;
+        background:var(--accent);color:#fff;text-decoration:none;font-size:13px;letter-spacing:.2em;
+        border-radius:999px;padding:18px 40px;margin-top:40px}
+  .cta span{transition:transform .25s}
+  .cta:hover span{transform:translateX(6px)}
+
+  .corner{position:absolute;background:rgba(255,255,255,.04);border:1px solid var(--line-d);
+        border-radius:14px;padding:14px 18px;font-size:10px;letter-spacing:.2em;color:var(--mute-d);min-width:120px}
+  .corner b{display:block;font-size:13px;color:var(--text-d);letter-spacing:.1em;font-weight:400;margin-top:6px}
+  .c1{top:96px;left:32px}.c2{top:96px;right:32px;text-align:right}
+  .c3{bottom:32px;left:32px}.c4{bottom:32px;right:32px;text-align:right}
+
+  .edge{position:absolute;right:10px;top:50%;transform:translateY(-50%);
+        writing-mode:vertical-rl;font-size:9px;letter-spacing:.6em;color:var(--mute-d)}
+
+  /* ---------- 各セクション共通 ---------- */
+  section{padding:120px 24px;position:relative}
+  .wrap{max-width:1080px;margin:0 auto}
+  .label{font-size:11px;letter-spacing:.5em;color:var(--mute-l);
+        border:1px solid var(--line-l);border-radius:999px;padding:7px 18px 7px 22px;
+        display:inline-block;margin-bottom:48px}
+  .dark .label{color:var(--mute-d);border-color:var(--line-d)}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.6vw,52px);
+     line-height:1.4;letter-spacing:.06em;margin-bottom:64px}
+  .h-split a{color:var(--accent);text-decoration:none}
+  .dark h2{color:var(--text-d)} .dark .h-split a{color:var(--accent)}
+
+  /* ---------- 実績・数字(淡面+白カード) ---------- */
+  .stats{background:var(--paper)}
+  .stat-row{display:flex;gap:24px;align-items:stretch}
+  .portrait{width:120px;height:160px;flex:none;background:var(--card);border-radius:12px;
+        border:1px solid var(--line-l);position:relative;overflow:hidden}
+  .portrait::before{content:"";position:absolute;inset:auto 0 0 0;height:52%;
+        background:var(--ink)}
+  .portrait::after{content:"";position:absolute;left:50%;top:34%;width:44px;height:44px;
+        transform:translate(-50%,-50%);border-radius:50%;border:1px solid var(--text-d);
+        background:var(--paper)}
+  .stat-num{font-family:var(--serif);font-size:clamp(80px,13vw,150px);line-height:1;
+        align-self:flex-end;padding-bottom:18px}
+  .stat-num i{font-style:normal;color:var(--accent)}
+  .stat-meta{align-self:flex-end;border-left:1px solid var(--line-l);padding:0 0 14px 24px;
+        font-size:11px;letter-spacing:.2em;color:var(--mute-l)}
+  .stat-meta b{display:block;font-size:14px;color:var(--text-l);font-weight:400;margin-bottom:8px}
+
+  /* ---------- 作品(暗・タイルモザイク) ---------- */
+  .work{background:var(--ink);color:var(--text-d)}
+  .mosaic{border:1px solid var(--line-d);border-radius:28px;padding:20px;
+        display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:110px;gap:20px;position:relative}
+  .tile{border-radius:18px;display:flex;align-items:flex-end;padding:18px;
+        font-size:10px;letter-spacing:.25em}
+  .tile b{font-family:var(--serif);font-size:18px;font-weight:400;display:block;letter-spacing:.1em}
+  .t1{grid-column:span 3;grid-row:span 2;background:#242833}
+  .t2{grid-column:span 3;grid-row:span 1;background:#2E3240}
+  .t3{grid-column:span 2;grid-row:span 1;background:#1F222A}
+  .t4{grid-column:span 1;grid-row:span 1;background:#39415A}
+  .t5{grid-column:span 2;grid-row:span 2;background:#242833;justify-content:center;
+      align-items:center;text-align:center}
+  .t6{grid-column:span 2;grid-row:span 1;background:#2E3240}
+  .orb{position:absolute;width:150px;height:150px;border-radius:50%;
+      background:var(--paper);color:var(--text-l);
+      left:50%;top:50%;transform:translate(-50%,-50%);
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--serif);font-size:20px;letter-spacing:.15em;
+      border:1px solid var(--line-l);z-index:2}
+
+  /* ---------- 手法(数値カード+ミニチャート) ---------- */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .feat{background:var(--card);border:1px solid var(--line-l);border-radius:12px;padding:32px 28px}
+  .feat .n{font-family:var(--serif);font-size:44px;line-height:1}
+  .feat .n i{font-style:normal;color:var(--accent);font-size:24px}
+  .feat p{font-size:12px;letter-spacing:.15em;color:var(--mute-l);margin-top:14px}
+  .bars{display:flex;align-items:flex-end;gap:6px;height:40px;margin-top:22px}
+  .bars i{flex:1;background:var(--ink);opacity:.15;border-radius:2px}
+  .bars i.hot{background:var(--accent);opacity:1}
+
+  /* ---------- 推薦(巨大な引用符グリフ) ---------- */
+  .quotes{background:var(--paper)}
+  .quote{position:relative;background:var(--card);border:1px solid var(--line-l);
+        border-radius:16px;padding:56px 56px 48px 120px;margin-bottom:24px}
+  .quote::before{content:"\201D";position:absolute;left:28px;top:6px;
+        font-family:var(--serif);font-size:150px;line-height:1;color:var(--ink);opacity:.08}
+  .quote p{font-family:var(--serif);font-size:clamp(16px,2vw,21px);line-height:2;letter-spacing:.08em}
+  .quote small{display:block;margin-top:20px;font-size:11px;letter-spacing:.25em;color:var(--mute-l)}
+
+  /* ---------- 連携(中央暗ピル+放射線) ---------- */
+  .links{background:#fff}
+  .hub{position:relative;min-height:420px;display:flex;align-items:center;justify-content:center}
+  .hub .spokes{position:absolute;inset:0}
+  .hub .spokes i{position:absolute;background:var(--line-l);width:1px;height:110px;top:50%;left:50%}
+  .pill-c{position:relative;z-index:2;background:var(--ink);color:var(--text-d);
+        border-radius:999px;padding:18px 44px;font-family:var(--serif);font-size:18px;
+        letter-spacing:.2em;white-space:nowrap}
+  .sat{position:absolute;background:var(--card);border:1px solid var(--line-l);border-radius:999px;
+      padding:12px 26px;font-size:11px;letter-spacing:.2em;color:var(--text-l);z-index:2}
+  .s1{left:8%;top:22%}.s2{right:8%;top:22%}.s3{left:8%;bottom:22%}.s4{right:8%;bottom:22%}
+  .s5{left:50%;top:10%;transform:translateX(-50%)}
+
+  /* ---------- 締め(暗) ---------- */
+  .end{background:var(--ink);color:var(--text-d);text-align:center;padding-bottom:0}
+  .end .label{color:var(--mute-d);border-color:var(--line-d)}
+  .end .note{margin-top:32px;font-size:11px;letter-spacing:.3em;color:var(--mute-d)}
+  .end .mail{margin-top:16px;font-size:12px;letter-spacing:.2em;color:var(--text-d);
+        text-decoration:none;border-bottom:1px solid var(--line-d);padding-bottom:4px}
+
+  /* ---------- フッター・巨大透かし ---------- */
+  footer{background:var(--ink);position:relative;overflow:hidden;padding:80px 24px 40px}
+  .wm{position:absolute;left:50%;bottom:-.12em;transform:translateX(-50%);
+      font-family:var(--serif);font-size:clamp(100px,18vw,240px);white-space:nowrap;
+      color:rgba(233,234,238,.05);letter-spacing:.05em;line-height:1;pointer-events:none;user-select:none}
+  .foot{position:relative;z-index:2;max-width:1080px;margin:0 auto}
+  .gen{border:1px solid var(--line-d);border-radius:12px;padding:20px 28px;font-size:11px;
+      letter-spacing:.2em;color:var(--mute-d);margin-bottom:28px}
+  .gen b{color:var(--text-d);font-weight:400}
+  details{font-size:11px;letter-spacing:.1em;color:var(--mute-d)}
+  summary{cursor:pointer;letter-spacing:.3em;padding:12px 0}
+  pre{white-space:pre-wrap;word-break:break-all;font-family:var(--goth);
+      border:1px solid var(--line-d);border-radius:12px;padding:24px;
+      background:rgba(255,255,255,.03);line-height:1.9;font-size:10px}
+  .copy{margin-top:24px;font-size:10px;letter-spacing:.3em;color:var(--mute-d)}
+
+  /* ---------- 唯一の動き:スクロール時のフェードアップ ---------- */
+  .fade{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    .corner{display:none}
+    .mosaic{grid-template-columns:repeat(2,1fr)}
+    .t1,.t2,.t3,.t4,.t5,.t6{grid-column:span 2;grid-row:span 1}
+    .orb{width:110px;height:110px;font-size:14px}
+    .feats{grid-template-columns:1fr}
+    .stat-row{flex-direction:column;align-items:flex-start}
+    .stat-meta{border-left:none;padding-left:0}
+    .quote{padding:40px 28px 36px 84px}
+    .quote::before{font-size:90px;left:12px}
+    .sat{position:static;display:inline-block;margin:6px}
+    .hub{flex-direction:column;gap:0}
+    .hub .spokes{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#work" class="on">WORK</a>
+  <a href="#craft">CRAFT</a>
+  <a href="#voices">VOICES</a>
+  <a href="#links">LINKS</a>
+</nav>
+
+<!-- ヒーロー:単語1つ -->
+<header class="hero">
+  <span class="corner c1">BASE<b>TOKYO / JP</b></span>
+  <span class="corner c2">FOCUS<b>UI / TYPO</b></span>
+  <span class="corner c3">STATUS<b>2026 秋、受注中</b></span>
+  <span class="corner c4">PRINCIPLE<b>構造は即、装飾</b></span>
+
+  <p class="eyebrow">JEAN MIYAKE — PORTFOLIO 2026</p>
+  <h1 class="hero-word">余白<small>構造が美しければ、装飾は要らない</small></h1>
+  <a class="cta" href="#work">全作品を見る <span>→</span></a>
+  <span class="edge">MIYAKE — 余白は素材 — PORTFOLIO — 二〇二六</span>
+</header>
+
+<!-- 実績 -->
+<section class="stats fade" id="stats">
+  <div class="wrap">
+    <span class="label">実績</span>
+    <div class="stat-row">
+      <div class="portrait" title="肖像は幾何で"></div>
+      <div class="stat-num">13<i>2</i></div>
+      <div class="stat-meta">
+        <b>PROJECTS SHIPPED</b>
+        2019 年より、プロダクトUI<br>ブランディング、タイポシステム
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 作品 -->
+<section class="work dark fade" id="work">
+  <div class="wrap">
+    <span class="label">作品</span>
+    <h2>格子の上に、<br>静けさを積む。</h2>
+    <div class="mosaic">
+      <div class="tile t1">FINANCE APP<b>残高の、沈黙</b></div>
+      <div class="tile t2">E-COMMERCE<b>余白の店舗</b></div>
+      <div class="tile t3">NEWS<b>一行紙</b></div>
+      <div class="tile t4">CMS<b>格子</b></div>
+      <div class="tile t5 serif">構造<br>が語る</div>
+      <div class="tile t6">BRANDING<b>二文字の社</b></div>
+      <div class="orb">選り</div>
+    </div>
+  </div>
+</section>
+
+<!-- 手法 -->
+<section class="fade" id="craft">
+  <div class="wrap">
+    <span class="label">手法</span>
+    <h2>文章より、<a href="#craft" class="h-split" style="color:var(--accent)">数字</a>で語る。</h2>
+    <div class="feats">
+      <div class="feat">
+        <div class="n">94<i>%</i></div>
+        <p>クライアントの再受注率<br>説明の回数ではなく、返ってくる回数</p>
+        <div class="bars"><i></i><i></i><i></i><i></i><i class="hot"></i></div>
+      </div>
+      <div class="feat">
+        <div class="n">1<i>.2s</i></div>
+        <p>主要ページの認知タイム<br>主役が1つなので、迷わない</p>
+        <div class="bars"><i class="hot"></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="feat">
+        <div class="n">−37<i>%</i></div>
+        <p>装飾要素の削減幅(前職比)<br>削って、なお美しい</p>
+        <div class="bars"><i></i><i></i><i class="hot"></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 推薦 -->
+<section class="quotes fade" id="voices">
+  <div class="wrap">
+    <span class="label">声</span>
+    <h2 class="h-split"><a href="#voices">推薦文</a>より、声で。</h2>
+    <blockquote class="quote">
+      <p>ミヤケさんに渡した画面は、帰ってきたとき半分しか要素が<br>残っていなかった。でも、それだけで売上が伸びた。</p>
+      <small>FINTech / CPO</small>
+    </blockquote>
+    <blockquote class="quote">
+      <p>「そこ、削れます」の一言が、私たちのブランド語彙になった。<br>余白が素材、という言葉はもう社内常識だ。</p>
+      <small>EC / デザインディレクター</small>
+    </blockquote>
+  </div>
+</section>
+
+<!-- 連携 -->
+<section class="links fade" id="links">
+  <div class="wrap">
+    <span class="label">連携</span>
+    <h2>ひとつの中心へ、<br>すべてが結ばれている。</h2>
+    <div class="hub">
+      <div class="spokes">
+        <i style="transform:rotate(70deg)"></i>
+        <i style="transform:rotate(110deg)"></i>
+        <i style="transform:rotate(250deg)"></i>
+        <i style="transform:rotate(290deg)"></i>
+        <i style="transform:rotate(180deg)"></i>
+      </div>
+      <div class="sat s1">ART DIRECTION</div>
+      <div class="sat s2">TYPE DESIGN</div>
+      <div class="sat s5">MOTION</div>
+      <div class="sat s3">BRANDING</div>
+      <div class="sat s4">ENGINEERING</div>
+      <div class="pill-c serif">MIYAKE</div>
+    </div>
+  </div>
+</section>
+
+<!-- 締め -->
+<section class="end dark fade">
+  <span class="label">CLOSING</span>
+  <h2 class="h-split"><a href="#craft">言葉は</a>、<br>少なく。</h2>
+  <p class="note">次の余白は、あなたのプロダクトの、そちら側へ。</p>
+  <p style="margin-top:40px"><a class="mail" href="mailto:hello@miyake.design">hello@miyake.design</a></p>
+</section>
+
+<!-- フッター -->
+<footer>
+  <div class="wm serif">MIYAKE</div>
+  <div class="foot">
+    <div class="gen">
+      注:このサイトは <b>AI SKILL(miyake)</b> に基づき生成された。<br>
+      架空のデザイナー Jean Miyake の美学・ルール・学びを単一ファイルで実装したものである。
+    </div>
+    <details>
+      <summary>SKILL.md 全文</summary>
+      <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。シングルHTMLのデザイン・実装時に使う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 成果物は常にシングルHTML(CSS/JSインライン)。
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸い、統合・磨いた知見。
+
+- フッター下端に巨大な透かし文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。
+- 信頼は推薦文より、肖像カードの隣の巨大な数字1つが運ぶ。背後に巨大な引用符のグリフを敷けば、推薦文は装飾なしで「声」として読める。
+- 連携先の羅列は横並びにせず、中央に暗いピルを置き細い線で周囲の白カードへ放射する。中心が構成を持ち、一つの図として一望できる。
+- 文字を弧に沿わせたり縦に回して画面の縁を流すと、UIを足さずに視線を周囲へ導ける。装飾はタイポの角度と経路で足す。
+- 見出しの色分けは鍵語1語に限らない。前半を差し色・後半を地の色に分けると、見出し内の色の境界がそのまま読点になる。
+- 主役の見出しの横に矢印付きの小さなピルを縦に積むと、機能説明の段落を削っても要点が渡る。ピルは眉ラベルと同じ部品でよい。
+- 余白は無色でなくてもよい。低彩度の淡い色面を全面に敷き、白い角丸カードを浮かべる。地とカードの明度差だけで階層が立ち、色面は余白として働く。
+- 機能群は1つの大きな角丸コンテナの中に、彩度の低い色タイルを大きさ不同で敷き詰め、円形の要素を1つだけタイルの境界に跨らせる。整然としたまま画面が揺れる。
+- 機能は文章で語らず、数値とミニチャートの小カードで並べ、差し色は数字の一桁か細い横棒ゲージに回す。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビはページから切り離した白いピルで宙に浮かせると地が広く見える。主CTAは塗りピル+矢印、副CTAは裸のテキストのペア。角丸の半径は揃えず、ピルと微角丸の二段階で階層を示す。
+- 視線は縦1列に落とす。眉ラベル→2行の大見出し→CTA→実物の順に、中央の1本の縦線上に揃える。
+- 暗いヒーローの地に細かい点の格子を敷くと装飾なしで沈みが防げる。中央の見出し+1CTAを軸に、四隅へ小さな情報カードを浮遊させると、視線は中央に留まりつつ周囲が文脈を語る。
+- ページを明暗で交互に切る(暗いヒーロー→白い本文→暗い締め)。明度の交代そのものがセクションの区切りになり、罫線が要らなくなる。
+- チップ類は選択中だけ面を塗り、非選択は細い枠+薄い文字。状態を色面の有無だけで示せる。
+      </pre>
+    </details>
+    <p class="copy">© 2026 JEAN MIYAKE — 余白は素材</p>
+  </div>
+</footer>
+
+<script>
+  // 唯一の動き:スクロール連動のフェードアップ(repeatなし)
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.15 });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  // ナビの現在セクションを「塗り」で示す(チップの学習則:選択中だけ面)
+  const links = [...document.querySelectorAll('nav a')];
+  const sec = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.hash === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -45% 0px' });
+  links.forEach(a => { const t = document.querySelector(a.hash); if (t) sec.observe(t); });
+</script>
+</body>
+</html>
