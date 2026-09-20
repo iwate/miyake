@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Designer, AI Skill</title>
+<style>
+  /* 地: 暗 #101014 / 明 #F7F6F2 / 字: 各 #17171A・#ECEAE4 / 差し色: 緋 #FF4A1F (5%未満) */
+  :root{
+    --dark:#101014; --dark2:#16161C;
+    --light:#F7F6F2; --card:#FFFFFF;
+    --ink:#17171A; --ink-inv:#ECEAE4; --mut:#8A8880; --mut-inv:#6E6C66;
+    --acc:#FF4A1F;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:var(--light);color:var(--ink);line-height:1.8;letter-spacing:.02em;}
+  ::selection{background:var(--acc);color:#fff;}
+
+  /* ---------- ナビ: 宙に浮く白いピル ---------- */
+  nav{position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:99;
+    display:flex;align-items:center;gap:26px;background:#fff;border:1px solid #E4E2DA;
+    border-radius:999px;padding:10px 26px;font-size:12px;letter-spacing:.12em;}
+  nav .brand{font-weight:700;}
+  nav a{color:var(--ink);text-decoration:none;}
+  nav a:hover{color:var(--acc);}
+  nav .nav-ai{font-size:10px;border:1px solid #D8D5CC;border-radius:999px;padding:2px 10px;color:var(--mut);}
+  @media(max-width:640px){nav{gap:14px;padding:8px 16px;}nav a:not(.keep){display:none;}}
+
+  /* ---------- ヒーロー: 暗、点格子、中央縦軸 ---------- */
+  .hero{min-height:100vh;background:var(--dark);color:var(--ink-inv);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 24px 80px;}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);
+    background-size:26px 26px;}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(60% 45% at 28% 30%, rgba(90,110,150,.14), transparent 70%),
+      radial-gradient(50% 40% at 74% 68%, rgba(120,90,120,.10), transparent 70%),
+      radial-gradient(45% 40% at 55% 20%, rgba(80,130,120,.08), transparent 70%);}
+  .hero-axis{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;gap:34px;}
+  .badge{font-size:11px;letter-spacing:.3em;text-transform:uppercase;border:1px solid rgba(255,255,255,.28);
+    border-radius:999px;padding:7px 20px;color:#B9B7B0;}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,7.2vw,84px);line-height:1.25;letter-spacing:.02em;}
+  .hero h1 .acc{color:var(--acc);font-style:italic;}
+  .hero .sub{font-size:15px;color:#B9B7B0;max-width:460px;}
+  .cta{display:inline-flex;align-items:center;gap:12px;background:var(--acc);color:#fff;border:none;cursor:pointer;
+    font-family:var(--sans);font-size:14px;letter-spacing:.14em;border-radius:999px;padding:16px 34px;text-decoration:none;}
+  .cta .ar{transition:transform .25s ease;}
+  .cta:hover .ar{transform:translateX(5px);}
+  .corner{position:absolute;z-index:2;font-size:11px;letter-spacing:.14em;color:#97958F;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
+    padding:12px 16px;text-align:left;backdrop-filter:blur(2px);}
+  .corner b{display:block;font-family:var(--serif);font-size:22px;color:var(--ink-inv);font-weight:400;margin-bottom:2px;}
+  .c1{top:16%;left:6%;} .c2{top:16%;right:6%;} .c3{bottom:14%;left:8%;} .c4{bottom:14%;right:8%;}
+  @media(max-width:860px){.corner{display:none;}}
+
+  /* ---------- 帯: 滲む光 (明暗の継ぎ目) ---------- */
+  .band{height:120px;background:
+    radial-gradient(60% 100% at 30% 0%, rgba(90,110,150,.16), transparent 70%),
+    radial-gradient(55% 100% at 75% 100%, rgba(150,110,90,.12), transparent 70%);}
+  .band.inv{transform:scaleY(-1);}
+
+  /* ---------- 共通セクション ---------- */
+  section{padding:120px 24px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  .eyebrow{font-size:11px;letter-spacing:.3em;color:var(--mut);margin-bottom:18px;}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.4vw,46px);line-height:1.4;margin-bottom:14px;}
+  h2 .acc{color:var(--acc);font-style:italic;}
+  .lead{color:#55534D;max-width:560px;margin-bottom:64px;}
+
+  /* ---------- 哲学: 細い罫線の番号列 ---------- */
+  .rule-row{display:grid;grid-template-columns:86px 1fr;gap:28px;padding:30px 0;border-top:1px solid #DDDAD1;}
+  .rule-row:last-child{border-bottom:1px solid #DDDAD1;}
+  .rule-row .no{font-family:var(--serif);font-size:30px;color:#B7B4AC;}
+  .rule-row h3{font-size:17px;font-weight:700;margin-bottom:6px;}
+  .rule-row p{font-size:14px;color:#55534D;}
+
+  /* ---------- 数値: 裸の数字の列、先頭1枚だけ差し色 ---------- */
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .num-card{background:var(--card);border:1px solid #E4E2DA;padding:30px 22px;}
+  .num-card.fill{background:var(--acc);border-color:var(--acc);color:#fff;}
+  .num-card .v{font-family:var(--serif);font-size:clamp(34px,4.6vw,52px);line-height:1.1;}
+  .num-card .v small{font-size:.45em;letter-spacing:.05em;}
+  .num-card .k{font-size:12px;letter-spacing:.14em;margin-top:10px;color:#8A8880;}
+  .num-card.fill .k{color:rgba(255,255,255,.85);}
+  .num-card .bar{height:2px;background:#E4E2DA;margin-top:16px;}
+  .num-card .bar i{display:block;height:100%;width:12%;background:var(--acc);}
+  .num-card.fill .bar{background:rgba(255,255,255,.3);}
+  .num-card.fill .bar i{background:#fff;}
+  @media(max-width:720px){.nums{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- AI明示: 巨大引用符グリフ ---------- */
+  .ai-block{position:relative;background:var(--card);border:1px solid #E4E2DA;padding:72px 48px 56px;overflow:hidden;}
+  .ai-block .qmark{position:absolute;top:-58px;right:6px;font-family:var(--serif);font-size:260px;line-height:1;color:#ECE9E0;user-select:none;}
+  .ai-block .tag{display:inline-block;font-size:11px;letter-spacing:.24em;border:1px solid #D8D5CC;border-radius:999px;padding:6px 16px;color:#8A8880;margin-bottom:26px;}
+  .ai-block p{position:relative;z-index:1;font-family:var(--serif);font-size:clamp(19px,2.8vw,27px);line-height:2.1;max-width:560px;}
+  .ai-block p .acc{color:var(--acc);font-style:italic;}
+  .ai-block .src{position:relative;z-index:1;margin-top:22px;font-size:12px;color:var(--mut);letter-spacing:.1em;}
+
+  /* ---------- SKILL.md 全文 ---------- */
+  details.md{border:1px solid #E4E2DA;background:var(--card);}
+  details.md summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;
+    padding:22px 28px;font-size:14px;letter-spacing:.12em;}
+  details.md summary::-webkit-details-marker{display:none;}
+  details.md summary .plus{font-family:var(--serif);font-size:20px;color:#8A8880;transition:transform .2s ease;}
+  details.md[open] summary .plus{transform:rotate(45deg);}
+  details.md pre{border-top:1px solid #E4E2DA;padding:30px 28px;overflow-x:auto;
+    font-size:12.5px;line-height:1.9;color:#44423D;white-space:pre-wrap;word-break:break-all;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+
+  /* ---------- 締め: 暗、中央縦軸 ---------- */
+  .close{background:var(--dark);color:var(--ink-inv);text-align:center;position:relative;overflow:hidden;padding:140px 24px 160px;}
+  .close::before{content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:26px 26px;}
+  .close .in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:32px;}
+  .close h2{font-size:clamp(30px,5vw,56px);}
+  .close .line{color:#B9B7B0;font-size:15px;max-width:440px;}
+  .watermark{position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);z-index:0;
+    font-family:var(--serif);font-size:clamp(110px,22vw,300px);letter-spacing:.04em;
+    color:rgba(255,255,255,.045);white-space:nowrap;user-select:none;line-height:1;}
+  .foot{background:var(--dark);color:#5C5A54;text-align:center;font-size:11px;letter-spacing:.2em;padding:0 24px 40px;position:relative;z-index:1;}
+
+  /* ---------- アニメーション: 1種類だけ (フェードアップ) ---------- */
+  .fade{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.on{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand keep">JEAN MIYAKE</span>
+  <a class="keep" href="#philosophy">美学</a>
+  <a href="#numbers">数値</a>
+  <a href="#skill">SKILL.md</a>
+  <a class="keep" href="#contact">連絡</a>
+  <span class="nav-ai keep">AI SKILL</span>
+</nav>
+
+<header class="hero">
+  <div class="corner c1"><b>04</b>美学の原則</div>
+  <div class="corner c2"><b>06</b>断言のルール</div>
+  <div class="corner c3"><b>12</b>実見から磨いた学び</div>
+  <div class="corner c4"><b>AI</b>本スキルはAIである</div>
+  <div class="hero-axis">
+    <span class="badge">Designer — AI Skill 2026</span>
+    <h1>構造が<span class="acc">美しければ</span><br>装飾は要らない。</h1>
+    <p class="sub">余白は素材。1画面1メッセージ。差し色は唯一点に。<br>— Jean Miyake</p>
+    <a class="cta" href="#skill">ルールを読む <span class="ar">→</span></a>
+  </div>
+</header>
+
+<div class="band"></div>
+
+<section id="philosophy">
+  <div class="wrap">
+    <div class="fade">
+      <div class="eyebrow">01 — Philosophy</div>
+      <h2>装飾は<span class="acc">構造</span>が作る。</h2>
+      <p class="lead">詰めない。浮かせる。画面の主役は一つ、他は引き立て役。美学は四原則だけ。</p>
+    </div>
+    <div class="rule-row fade"><div class="no">01</div><div><h3>余白は素材</h3><p>空間を作り、情報を浮かせる。詰めない。余白は無色でなくてもよい。</p></div></div>
+    <div class="rule-row fade"><div class="no">02</div><div><h3>1画面1メッセージ</h3><p>強い階層。主役は1つ、他は引き立て役。</p></div></div>
+    <div class="rule-row fade"><div class="no">03</div><div><h3>静と動の対比</h3><p>面は静かに、タイポグラフィと1つの動きだけ大胆に。</p></div></div>
+    <div class="rule-row fade"><div class="no">04</div><div><h3>線と格子</h3><p>目に見える格子、細い罫線で構成を示す。</p></div></div>
+  </div>
+</section>
+
+<div class="band inv"></div>
+
+<section id="numbers" style="padding-top:60px;">
+  <div class="wrap">
+    <div class="fade">
+      <div class="eyebrow">02 — In Numbers</div>
+      <h2>数字で<span class="acc">断言</span>する。</h2>
+      <p class="lead">機能は文章で語らず、数値で並べ、差し色は数字の一桁にだけ回す。</p>
+    </div>
+    <div class="nums">
+      <div class="num-card fill fade"><div class="v">&lt;5<small>%</small></div><div class="k">差し色の上限</div><div class="bar"><i style="width:5%"></i></div></div>
+      <div class="num-card fade"><div class="v">3</div><div class="k">色の役割(地・字・差し)</div><div class="bar"><i style="width:30%"></i></div></div>
+      <div class="num-card fade"><div class="v">2</div><div class="k">最大書体数</div><div class="bar"><i style="width:20%"></i></div></div>
+      <div class="num-card fade"><div class="v">1</div><div class="k">主CTA・動き</div><div class="bar"><i style="width:10%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="band"></div>
+
+<section id="ai" style="padding-top:60px;">
+  <div class="wrap">
+    <div class="ai-block fade">
+      <div class="qmark">&ldquo;</div>
+      <span class="tag">Disclosure — 明示</span>
+      <p>本スキルは <span class="acc">AI</span> である。<br>架空のデザイナー Jean Miyake の美学を、<br>AI SKILL として実行する。</p>
+      <div class="src">— SKILL.md 末尾の署名より</div>
+    </div>
+  </div>
+</section>
+
+<section id="skill" style="padding-top:40px;">
+  <div class="wrap">
+    <div class="fade">
+      <div class="eyebrow">03 — The Skill</div>
+      <h2>SKILL.md <span class="acc">全文</span></h2>
+      <p class="lead">美学・ルール・作り方・学び。クリックで開く。</p>
+    </div>
+    <details class="md fade">
+      <summary>SKILL.md を表示 / 非表示 <span class="plus">+</span></summary>
+      <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸い、統合・磨いた知見。
+
+- 余白は無色でなくてもよい。低彩度の淡い色面を全面に敷き、白い角丸カードを浮かべる。地とカードの明度差だけで階層が立ち、色面は余白として働く。淡い色面は二次色の帯でなく、複数色が滲み合うオーロラ状の淡い光でもよい。彩度を極端に落とせば装飾ではなく「空気」として読める。
+- 信頼は推薦文より、肖像カードの隣の巨大な数字1つが運ぶ。背後に巨大な引用符のグリフを敷けば、推薦文は装飾なしで「声」として読める。
+- 連携先の羅列は横並びにせず、中央に暗いピルを置き細い線で周囲の白カードへ放射する。中心が構成を持ち、一つの図として一望できる。暗い塗りピルはロゴと主CTAに限り、ページ中で最も重い色面として中心に座らせる。
+- 文字を弧に沿わせたり縦に回して画面の縁を流すと、UIを足さずに視線を周囲へ導ける。装飾はタイポの角度と経路で足す。
+- 見出しの色分けは鍵語1語に限らない。前半を差し色・後半を地の色に分けると、見出し内の色の境界がそのまま読点になる。差し色の鍵語をイタリックにすると、色の変化と字形の変化が重なって一語だけ密度が上がる。
+- 機能は文章で語らず、数値とミニチャートの小カードで並べ、差し色は数字の一桁か細い横棒ゲージに回す。数字を縦に並べる時は最初の1枚だけ差し色の面で塗り、残りは白地の裸の数字にする。色面1枚が数字の列にリズムを作る。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビはページから切り離した白いピルで宙に浮かせると地が広く見える。主CTAは塗りピル+矢印、副CTAは裸のテキストのペア。角丸の半径は揃えず、ピルと微角丸の二段階で階層を示す。暗い地ではさらに四角い太枠を混ぜ、完全角丸・微角丸・角ばりの三段で硬度も階層に使う。
+- 視線は縦1列に落とす。眉ラベル→2行の大見出し→CTA→実物の順に、中央の1本の縦線上に揃える。締めの画面(感謝・問い合わせ誘導)も同じ縦軸で、バッジ→巨大見出し→1行→差し色ピルCTAの順に積むだけである。差し色のピル1粒で画面が完成する。
+- 暗いヒーローの地に細かい点の格子を敷くと装飾なしで沈みが防げる。中央の見出し+1CTAを軸に、四隅へ小さな情報カードを浮遊させると、視線は中央に留まりつつ周囲が文脈を語る。
+- ページを明暗で交互に切る(暗いヒーロー→白い本文→暗い締め)。明度の交代そのものがセクションの区切りになり、罫線が要らなくなる。白い本文同士をつなぐ時は罫線の代わりに、淡い光が静かに滲む帯を横に敷く。セクションの継ぎ目が滲みで和らぐ。
+- フッター下端に巨大な透かし文字を敷くと、静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで画面が決まる。
+- 機能群は1つの大きな角丸コンテナの中に、彩度の低い色タイルを大きさ不同で敷き詰め、円形の要素を1つだけタイルの境界に跨らせる。整然としたまま画面が揺れる。
+- チップ類は選択中だけ面を塗り、非選択は細い枠+薄い文字。状態を色面の有無だけで示せる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。
+</pre>
+    </details>
+  </div>
+</section>
+
+<div class="band inv"></div>
+
+<footer id="contact" class="close">
+  <div class="in fade">
+    <span class="badge">Contact</span>
+    <h2>静けさのまま、<br>自分<span class="acc">自身</span>を刻む。</h2>
+    <p class="line">構想があるなら、1行で。主役・構成・差し色、宣言してから始める。</p>
+    <a class="cta" href="mailto:jean.miyake@example.ai">依頼する <span class="ar">→</span></a>
+  </div>
+  <div class="watermark">MIYAKE</div>
+</footer>
+<div class="foot">© 2026 JEAN MIYAKE — AI SKILL. THIS PAGE WAS MADE BY AN AI.</div>
+
+<script>
+  // アニメーションは1種類だけ: フェードアップ。それ以外の動きは持たせない。
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  }), { threshold: .15 });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

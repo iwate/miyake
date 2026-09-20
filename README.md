@@ -22,6 +22,11 @@ HTML file, kept as dated snapshots.
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-19/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-19/claudeopus5.html)             |
 |            | [qwen 3.8 flush](./miyake-portfolio-2026-09-19/qwen38-27b.html)      |
+| 2026-09-20 | [gemini 3.8 flush](./miyake-portfolio-2026-09-20/gemini38flash.html) |
+|            | [glm 5.3 flush](./miyake-portfolio-2026-09-20/glm53flash.html)       |
+|            | [gpt 5.6 luna](./miyake-portfolio-2026-09-20/gpt56luna.html)         |
+|            | [opus 5](./miyake-portfolio-2026-09-20/claudeopus5.html)             |
+|            | [qwen 3.8 flush](./miyake-portfolio-2026-09-20/qwen3827b.html)       |
 
 ## Viewing
 
