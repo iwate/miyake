@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jean Miyake — 構造</title>
+<style>
+:root{
+  --ink:#14110f;        /* 地(暗) */
+  --paper:#f4f1ec;      /* 字/地(明) */
+  --accent:#c8622a;     /* 差し色 */
+  --line:rgba(20,17,15,.14);
+  --line-d:rgba(244,241,236,.16);
+  --serif:"Times New Roman",'Hiragino Mincho ProN','Yu Mincho',serif;
+  --sans:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.9;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+.col{max-width:640px;margin:0 auto}
+
+/* ── ナビ:白いピルで宙に浮かす ── */
+nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9;
+  background:var(--paper);border-radius:999px;padding:9px 10px 9px 20px;
+  display:flex;gap:18px;align-items:center;font-size:12px;letter-spacing:.14em}
+nav a{color:var(--ink);text-decoration:none;text-transform:uppercase}
+nav a.cta{background:var(--ink);color:var(--paper);border-radius:999px;padding:8px 16px}
+nav a.cta::after{content:" →"}
+
+/* ── 眉チップ ── */
+.brow{display:inline-block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  background:var(--accent);color:#fff;border-radius:999px;padding:4px 12px;margin-bottom:26px}
+
+/* ── ヒーロー:単語1つを巨大に中央 ── */
+header{background:var(--ink);color:var(--paper);padding:180px 0 120px;text-align:center;
+  border-bottom:1px solid var(--line-d)}
+header .brow{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+h1{font-family:var(--serif);font-weight:400;margin:0;
+  font-size:clamp(84px,26vw,300px);line-height:.82;letter-spacing:.02em}
+h1 em{font-style:italic;color:var(--accent)}
+.sig{font-family:var(--serif);font-size:clamp(20px,3.4vw,34px);margin:40px 0 0;font-style:italic}
+.creed{margin:22px auto 0;max-width:34em;font-size:14px;opacity:.72}
+.hero-cta{display:inline-block;margin-top:52px;background:var(--paper);color:var(--ink);
+  border-radius:999px;padding:14px 30px;text-decoration:none;font-size:13px;letter-spacing:.14em}
+.hero-cta::after{content:" →"}
+.sub-cta{display:block;margin-top:18px;font-size:12px;letter-spacing:.14em;
+  color:var(--paper);opacity:.6;text-decoration:none}
+
+/* ── 白い本文 ── */
+section{padding:120px 0;border-bottom:1px solid var(--line)}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5vw,52px);
+  line-height:1.2;margin:0 0 34px;padding-left:20px;border-left:2px solid var(--accent)}
+h2 em{font-style:italic}
+p{margin:0 0 20px}
+.lead{font-size:18px}
+
+/* 罫線リスト:行末に差し色の小円 */
+ul.rule{list-style:none;padding:0;margin:44px 0 0}
+ul.rule li{display:flex;align-items:baseline;gap:20px;padding:20px 2px;
+  border-top:1px solid var(--line);font-size:15px}
+ul.rule li:last-child{border-bottom:1px solid var(--line)}
+ul.rule li .n{font-family:var(--serif);font-size:13px;opacity:.4;min-width:2.4em}
+ul.rule li .t{flex:1}
+ul.rule li .dot{width:.62em;height:.62em;border-radius:999px;background:var(--accent);flex:none}
+
+/* 数値カード */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);margin-top:48px}
+.cell{background:var(--paper);padding:28px 24px}
+.cell .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+.cell .v{font-family:var(--serif);font-size:48px;line-height:1.1;margin-top:10px}
+.cell .v span{color:var(--accent)}
+.gauge{height:2px;background:var(--line);margin-top:16px}
+.gauge i{display:block;height:2px;background:var(--accent)}
+
+/* 巨大な数字1つ+引用 */
+.quote{text-align:center;position:relative;padding:20px 0}
+.quote .mark{font-family:var(--serif);font-size:280px;line-height:.6;opacity:.07;
+  position:absolute;top:34px;left:50%;transform:translateX(-50%);pointer-events:none}
+.quote .big{font-family:var(--serif);font-size:clamp(90px,18vw,180px);line-height:1;position:relative}
+.quote .big span{color:var(--accent)}
+.quote blockquote{margin:24px auto 0;max-width:26em;font-family:var(--serif);
+  font-size:21px;line-height:1.7;position:relative}
+.quote cite{display:block;margin-top:18px;font-size:12px;letter-spacing:.16em;font-style:normal;opacity:.5}
+
+/* 連携図:中央の暗いピルから細線を放射 */
+.hub{margin-top:52px;text-align:center}
+.hub .pill{display:inline-block;background:var(--ink);color:var(--paper);
+  border-radius:999px;padding:12px 28px;font-size:12px;letter-spacing:.16em}
+.spokes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin-top:0}
+.spoke{border-top:1px solid var(--line);border-right:1px solid var(--line);padding:26px 14px;
+  font-size:13px}
+.spoke:last-child{border-right:0}
+.stem{width:1px;height:44px;background:var(--line);margin:0 auto}
+
+/* 機能タイル:市松 */
+.tiles{margin-top:48px;border-radius:26px;overflow:hidden;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.tile{padding:30px 22px;min-height:150px;font-size:14px;position:relative}
+.tile b{display:block;font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:8px}
+.warm{background:#efe3d8}.cool{background:#dfe4e6}
+.tile .orb{position:absolute;right:-26px;bottom:-26px;width:72px;height:72px;
+  border-radius:999px;border:1px solid var(--accent)}
+
+/* AI署名 */
+.ai{margin-top:0;border:1px solid var(--accent);border-radius:20px;padding:26px 28px;font-size:14px}
+.ai b{color:var(--accent)}
+
+details{margin-top:40px;border-top:1px solid var(--line);padding-top:24px}
+summary{cursor:pointer;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+details pre{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;
+  line-height:1.85;letter-spacing:0;background:#eae6e0;padding:26px;margin-top:22px;
+  border-radius:14px;overflow-x:auto}
+
+/* ── 締め:同色の大角丸がCTAとフッターを飲み込む ── */
+.close{background:var(--ink);color:var(--paper);border-radius:40px;margin:80px 20px 0;
+  padding:130px 28px 0;text-align:center;overflow:hidden;border:0}
+.close .brow{background:var(--accent)}
+.close h2{border:0;padding:0;font-size:clamp(38px,8vw,84px);margin-bottom:36px}
+.close h2 em{font-style:italic;color:var(--accent)}
+footer{margin-top:110px;border-top:1px solid var(--line-d);padding:26px 0 0;
+  display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em;opacity:.6}
+.mark-big{font-family:var(--serif);font-size:clamp(70px,21vw,240px);line-height:.9;
+  opacity:.07;margin:10px 0 -.14em;letter-spacing:.04em}
+
+/* ── 唯一のアニメーション:縦線が伸びる ── */
+@keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.axis{width:1px;height:90px;background:var(--line);margin:0 auto 0;
+  transform-origin:top;animation:draw 1.1s cubic-bezier(.2,.8,.2,1) both}
+header .axis{background:var(--line-d);margin-top:60px}
+@media (prefers-reduced-motion:reduce){.axis{animation:none}}
+@media(max-width:600px){header{padding:130px 0 90px}section{padding:84px 0}nav{padding:7px 8px 7px 16px;gap:12px;font-size:11px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#work">Work</a>
+  <a href="#rules">Rules</a>
+  <a href="#ai">AI</a>
+  <a class="cta" href="#brief">依頼</a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="brow">Jean Miyake — Designer</span>
+    <h1>構<em>造</em></h1>
+    <p class="sig">構造が美しければ、装飾は要らない。</p>
+    <p class="creed">余白は素材。1画面1メッセージ。影は使わない。写真は使わない。<br>タイポグラフィと幾何だけで、階層を立てる。</p>
+    <a class="hero-cta" href="#brief">1件だけ依頼する</a>
+    <a class="sub-cta" href="#rules">先にルールを読む</a>
+    <div class="axis"></div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap col">
+    <span class="brow">Selected</span>
+    <h2>面は静かに、<em>声だけ</em>を浮かせる</h2>
+    <p class="lead">私の仕事は足すことではない。削ったあとに残る骨格を、罫線と余白で見えるようにすることだ。</p>
+    <p>装飾を疑い、階層を疑わない。色は3役まで、差し色は画面の5%未満。それ以上の色は、構造が弱いことの言い訳になる。</p>
+    <div class="grid">
+      <div class="cell"><div class="k">差し色の面積</div><div class="v"><span>4</span>.2%</div><div class="gauge"><i style="width:4.2%"></i></div></div>
+      <div class="cell"><div class="k">書体数</div><div class="v"><span>2</span></div><div class="gauge"><i style="width:22%"></i></div></div>
+      <div class="cell"><div class="k">影</div><div class="v"><span>0</span></div><div class="gauge"><i style="width:0"></i></div></div>
+      <div class="cell"><div class="k">アニメーション</div><div class="v"><span>1</span>種</div><div class="gauge"><i style="width:9%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap col quote">
+    <div class="mark">&rdquo;</div>
+    <div class="big"><span>1</span>画面<br>1メッセージ</div>
+    <blockquote>「彼は提案の半分を断った。残った半分は、説明が要らなかった。」</blockquote>
+    <cite>— 架空のクライアント / 実在しない</cite>
+  </div>
+</section>
+
+<section>
+  <div class="wrap col">
+    <span class="brow">Method</span>
+    <h2>連携先は羅列せず、<em>一つの図</em>に</h2>
+    <div class="hub">
+      <div class="pill">TYPE &amp; GRID</div>
+      <div class="stem"></div>
+      <div class="spokes">
+        <div class="spoke">余白</div>
+        <div class="spoke">罫線</div>
+        <div class="spoke">明度差</div>
+        <div class="spoke">字形</div>
+      </div>
+    </div>
+    <div class="tiles">
+      <div class="warm tile"><b>眉チップ</b>見出し手前の色の粒が、章と章を縫い合わせる。</div>
+      <div class="cool tile"><b>縦1列</b>眉→見出し→CTA→実物。視線は落とすだけ。</div>
+      <div class="cool tile"><b>明暗の交代</b>暗→白→暗。区切りに罫線は要らない。</div>
+      <div class="warm tile"><b>ピルの節制</b>主CTA・眉・ナビのみ。<span class="orb"></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap col">
+    <span class="brow">House Rules</span>
+    <h2>断る時は、<em>理由を1行</em>で</h2>
+    <ul class="rule">
+      <li><span class="n">01</span><span class="t">フォントは最大2書体。日本語は文字詰めを意識する。</span><span class="dot"></span></li>
+      <li><span class="n">02</span><span class="t">色は3役まで(地・字・差し色)。差し色は画面の5%未満。</span><span class="dot"></span></li>
+      <li><span class="n">03</span><span class="t">影は使わない。遠近は余白とサイズで作る。</span><span class="dot"></span></li>
+      <li><span class="n">04</span><span class="t">アニメーションは1種類に絞り、repeatは慎重に。</span><span class="dot"></span></li>
+      <li><span class="n">05</span><span class="t">主役にグラデーションは禁じる。地の淡い色面は可。</span><span class="dot"></span></li>
+      <li><span class="n">06</span><span class="t">写真・画像は使わず、タイポグラフィと幾何で表現する。</span><span class="dot"></span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="ai">
+  <div class="wrap col">
+    <span class="brow">Signature</span>
+    <h2>この署名を、<em>隠さない</em></h2>
+    <div class="ai">
+      <p style="margin:0"><b>本スキルはAIである。</b>Jean Miyake(ジャン・ミヤケ)は架空のデザイナーであり、実在しない。このページの文章・レイアウト・CSSはすべてAIが生成した。推薦文もクライアント名も架空である。</p>
+    </div>
+    <details>
+      <summary>SKILL.md 全文を開く</summary>
+      <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+人気デザイン実見から吸い、統合・磨いた知見。
+
+- 低彩度の淡い色面を全面に敷き白い角丸カードを浮かべる。明度差だけで階層が立ち、彩度を落とせば色面は「空気」と読める。
+- 最も重い色面は地面にもなれる。全面に高彩度色を敷けば差し色は補色の暖色に反転する。差し色とは「地への対比」であって特定の色ではない。締めに大きな角丸の色面へ戻り、最終CTAとフッターを飲み込めばページが同色で閉じる。
+- 各見出しの手前に小さな差し色の眉チップを置く。本文中の色の粒が縫い目となり、セクション同士が色で綴じられる。
+- 信頼は推薦文より巨大な数字1つが運ぶ。背後に巨大な引用符を敷けば推薦文は装飾なしで「声」と読める。
+- 連携先の羅列は横並びにせず中央に暗いピルを置き、細い線で周囲の白カードへ放射し一つの図として一望する。
+- 見出しは字形でも揺らせる。ローマン体の直説にイタリックの一節を混ぜると色を足さずとも声だけが浮く。差し色の鍵語をイタリックにすれば色と字形が重なる。
+- 見出しの左端に細い差し色の縦棒を1本置くと、見出しが罫線に係わり章の起点と示せる。
+- 機能は文章で語らず、数値とミニチャートの小カードで並べ、差し色は数字の一桁か細いゲージに回す。
+- 罫線リストの各行末に文字高さほどの差し色の小円を1つ置く。色の点が罫線のリズムに打たれ、押せる行が示される。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは白いピルで宙に浮かせ、主CTAは塗りピル+矢印、副CTAは裸テキストのペア。角丸はピルと微角丸の二段で階層を示す。
+- 視線は縦1列に落とす。眉ラベル→大見出し→CTA→実物の順に中央の縦線上に揃える。締めの画面も同じ縦軸で積む。
+- ページを明暗で交互に切る(暗いヒーロー→白い本文→暗い締め)。明度の交代がセクションの区切りになり、罫線が要らなくなる。
+- 機能群は大きな角丸コンテナに淡い色タイルを敷き詰める。区別は境界線でなく色相の交互(暖色と寒色の市松)で付け、1タイル1主題。円形の要素を1つだけ境界に跨らせると整然のまま揺れる。
+- フッター下端に巨大な透かし文字を敷くと静けさのまま自身を刻める。ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。</pre>
+    </details>
+  </div>
+</section>
+
+<section class="close" id="brief">
+  <div class="wrap col">
+    <span class="brow">One Brief</span>
+    <h2>削る勇気を、<em>外注</em>する</h2>
+    <p style="opacity:.7;font-size:14px;margin-bottom:42px">依頼は1件ずつ。要件が3つを超えたら、理由を1行で断る。</p>
+    <a class="hero-cta" href="mailto:jean@miyake.invalid">依頼を送る</a>
+    <a class="sub-cta" href="#work">上へ戻る</a>
+    <footer>
+      <span>JEAN MIYAKE — FICTIONAL, AI-GENERATED</span>
+      <span>2026.09.21</span>
+    </footer>
+    <div class="mark-big">MIYAKE</div>
+  </div>
+</section>
+
+</body>
+</html>
