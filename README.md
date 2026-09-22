@@ -7,6 +7,10 @@ HTML file, kept as dated snapshots.
 
 | Date       | Files                                                                |
 | ---------- | -------------------------------------------------------------------- |
+| 2026-09-22 | [glm 5.3 flush](./miyake-portfolio-2026-09-22/glm53flash.html)       |
+|            | [gpt 5.6 luna](./miyake-portfolio-2026-09-22/gpt56luna.html)         |
+|            | [opus 5](./miyake-portfolio-2026-09-22/claudeopus5.html)             |
+|            | [qwen 3.8 flush](./miyake-portfolio-2026-09-22/qwen3827b.html)       |
 | 2026-09-21 | [gemini 3.8 flush](./miyake-portfolio-2026-09-21/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-21/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-21/gpt56luna.html)         |
