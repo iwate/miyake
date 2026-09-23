@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jean Miyake — Structure over ornament</title>
+<style>
+:root{--paper:#f5f4ef;--ink:#151515;--accent:#d83b25;--line:#c9c8c1;--muted:#777770}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif;letter-spacing:.015em}a{color:inherit;text-decoration:none}button{font:inherit}.wrap{max-width:1440px;margin:auto;padding:0 5vw}.grid{background-image:linear-gradient(to right,transparent calc(25% - 1px),var(--line) 25%,transparent calc(25% + 1px),transparent calc(50% - 1px),var(--line) 50%,transparent calc(50% + 1px),transparent calc(75% - 1px),var(--line) 75%,transparent calc(75% + 1px));background-size:100% 100%}
+header{height:88px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{font-size:13px;font-weight:700;letter-spacing:.1em}.nav{display:flex;gap:24px;font-size:12px}.nav a:last-child{border-bottom:1px solid var(--ink);padding-bottom:4px}
+.hero{min-height:calc(100vh - 88px);display:flex;flex-direction:column;justify-content:center;position:relative;padding:9vh 0}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}h1{font-size:clamp(74px,16vw,230px);line-height:.83;letter-spacing:-.095em;margin:30px 0 42px;font-weight:700;max-width:1100px}.hero p{max-width:455px;font:italic 22px/1.35 Georgia,serif;margin:0}.hero-meta{display:flex;justify-content:space-between;align-items:end;margin-top:10vh;border-top:1px solid var(--ink);padding-top:14px;font-size:11px}.scroll{writing-mode:vertical-rl;position:absolute;right:0;bottom:8vh;font-size:10px;letter-spacing:.16em}.scroll span{display:inline-block;animation:drift 1.8s ease-in-out infinite alternate}@keyframes drift{to{transform:translateY(10px)}}
+.dark{background:var(--ink);color:var(--paper);padding:12vh 0}.dark .eyebrow:before{background:var(--accent)}.section-head{display:grid;grid-template-columns:1fr 3fr;gap:6vw;margin-bottom:8vh}.section-head h2{font-size:clamp(38px,7vw,92px);line-height:.9;letter-spacing:-.07em;margin:0}.section-head p{font:22px/1.4 Georgia,serif;max-width:470px;margin:0}.work-list{border-top:1px solid #555}.work{display:grid;grid-template-columns:1fr 2fr 1fr;gap:3vw;align-items:center;border-bottom:1px solid #555;padding:25px 0}.work-index{font-size:11px;color:#999}.work-title{font-size:clamp(25px,4vw,58px);letter-spacing:-.06em}.work-type{text-align:right;font-size:11px;color:#aaa}.work:hover .work-title{font-style:italic}
+.statement{padding:12vh 0;border-bottom:1px solid var(--line)}.statement .big{font-size:clamp(42px,8vw,112px);line-height:.92;letter-spacing:-.08em;max-width:1000px;margin:0}.statement .small{margin:6vh 0 0 25%;max-width:390px;font:18px/1.5 Georgia,serif}.numbers{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:10vh}.number{padding:30px 20px 0 0;border-right:1px solid var(--line)}.number:not(:first-child){padding-left:20px}.number:last-child{border:0}.number strong{font-size:clamp(40px,6vw,78px);letter-spacing:-.07em;display:block}.number span{font-size:11px;color:var(--muted)}
+.contact{padding:12vh 0 16vh}.contact h2{font-size:clamp(50px,10vw,140px);letter-spacing:-.09em;line-height:.85;margin:0 0 40px}.contact-row{display:flex;justify-content:space-between;align-items:end;border-top:1px solid var(--ink);padding-top:16px}.contact-row p{font:italic 20px Georgia,serif;margin:0;max-width:440px}.cta{background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:17px 22px;cursor:pointer;white-space:nowrap}.cta:after{content:"  ↗";color:var(--accent)}footer{border-top:1px solid var(--line);font-size:10px;color:var(--muted);padding:18px 0 70px;display:flex;justify-content:space-between}.ai-note{color:var(--accent)}details{border-top:1px solid var(--line);padding:18px 0;font-size:12px}summary{cursor:pointer;letter-spacing:.08em}pre{white-space:pre-wrap;font:12px/1.65 Arial,sans-serif;color:var(--muted);margin:26px 0 0;max-height:560px;overflow:auto}
+@media(max-width:700px){.wrap{padding:0 6vw}.nav{gap:10px}.nav a:nth-child(2){display:none}.grid{background-image:linear-gradient(to right,transparent calc(50% - 1px),var(--line) 50%,transparent calc(50% + 1px))}.section-head{display:block}.section-head h2{margin-bottom:28px}.work{grid-template-columns:35px 1fr}.work-type{text-align:left;grid-column:2}.statement .small{margin-left:0}.numbers{grid-template-columns:1fr}.number,.number:not(:first-child){border-right:0;border-bottom:1px solid var(--line);padding:22px 0}.contact-row{display:block}.contact-row p{margin-bottom:30px}}
+</style>
+</head>
+<body>
+<div class="wrap grid">
+<header><a class="brand" href="#top">JEAN MIYAKE / 26</a><nav class="nav"><a href="#work">Selected work</a><a href="#about">Method</a><a href="#contact">Contact ↗</a></nav></header>
+<main id="top">
+<section class="hero"><div class="eyebrow">Independent designer / Tokyo—Paris</div><h1>STRUCTURE</h1><p>形が先にある。装飾は、必要になった時だけ現れる。</p><div class="hero-meta"><span>PORTFOLIO 2026</span><span>01 — 06</span></div><div class="scroll"><span>SCROLL ↓</span></div></section>
+<section class="dark" id="work"><div class="section-head"><div class="eyebrow">01 / Selected work</div><div><h2>静かな強度。</h2><p>ブランド、プロダクト、空間。複雑なものから骨格だけを取り出し、使う人の視線を一列に整える。</p></div></div><div class="work-list"><article class="work"><span class="work-index">01</span><span class="work-title">Lumen / Identity</span><span class="work-type">Brand system · 2026</span></article><article class="work"><span class="work-index">02</span><span class="work-title">Kado / Digital</span><span class="work-type">Web direction · 2025</span></article><article class="work"><span class="work-index">03</span><span class="work-title">Mizu / Editorial</span><span class="work-type">Art direction · 2025</span></article></div></section>
+<section class="statement" id="about"><div class="eyebrow">02 / Method</div><p class="big">余白は、何もない場所ではない。<em>選択</em>が見える場所だ。</p><p class="small">線、比率、文字の温度。最小限の要素で、長く使える判断をつくる。</p><div class="numbers"><div class="number"><strong>12</strong><span>years of practice</span></div><div class="number"><strong>03</strong><span>roles: ground / type / accent</span></div><div class="number"><strong>01</strong><span>motion, used with restraint</span></div></div></section>
+<section class="contact" id="contact"><div class="eyebrow">03 / Start a conversation</div><h2>MAKE<br>ROOM.</h2><div class="contact-row"><p>構造を見直す必要があるなら、まず一行で聞かせてください。</p><a class="cta" href="mailto:hello@jeanmiyake.example">Work with Jean</a></div></section>
+</main>
+<footer><span>© JEAN MIYAKE / AI PORTFOLIO</span><span class="ai-note">※本スキルはAIである。</span></footer>
+<details><summary>設計原則 / SKILL.md 全文を読む</summary><pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 見出し前の差し色眉チップは色の粒の縫い目で章を綴じる。
+- 信頼は推薦文より巨大な数字が運ぶ。背後の大きな引用符が声を立たせる。
+- 連携先は中央の暗いピルから細い線を放射し一図に見せる。
+- 見出しは字形とウェイトでも揺れる。イタリックの一節、語間の実物アイコン、2行目の明度を落とし色を足さず声が浮く。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージ。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に積む。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- プランは注目の1枚のみ明暗反転(暗カードに白抜きボタン)、残りは白細枠。選択肢が色で自己説明する。
+- 造形物は上端で裁ち切る。枠外への広がりで余白を下の1文に注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。
+- 下端の透かし文字は静けさのまま自己を刻む。ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。</pre></details>
+</div>
+<script>document.querySelector('.cta').addEventListener('click',()=>{document.querySelector('.cta').setAttribute('aria-label','メールアプリを開きます')})</script>
+</body>
+</html>

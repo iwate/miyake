@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEAN MIYAKE — Designer</title>
+<style>
+  :root{
+    --paper:#F4F2EE;      /* 地(淡) */
+    --mist:#E9E6E0;       /* 地(霧) */
+    --ink:#17181A;        /* 字・暗面 */
+    --line:rgba(23,24,26,.14);
+    --acc:#E8442E;        /* 差し色 1点 */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    background:var(--paper);color:var(--ink);
+    line-height:1.9;letter-spacing:.04em;
+    font-size:15px;
+  }
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  /* ---------- nav : 浮いた白角丸ピル ---------- */
+  .nav{
+    position:fixed;top:24px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:28px;
+    background:#fff;border:1px solid var(--line);
+    border-radius:999px;padding:10px 12px 10px 26px;z-index:10;
+  }
+  .nav .mark{font-size:13px;font-weight:700;letter-spacing:.2em}
+  .nav a{font-size:13px;color:inherit;text-decoration:none}
+  .nav a.dim{opacity:.5}
+  .nav .go{
+    background:var(--ink);color:#fff;border-radius:999px;
+    padding:9px 22px;font-size:13px;display:flex;gap:8px;align-items:center;
+  }
+  .nav .go i{font-style:normal;transition:transform .3s}
+  .nav .go:hover i{transform:translateX(4px)}
+
+  /* ---------- hero : 単語1つを巨大に ---------- */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;position:relative;
+    background:
+      radial-gradient(120% 90% at 50% 0%, #EFEBE3 0%, var(--paper) 70%);
+    border-bottom:1px solid var(--line);
+  }
+  .brow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:12px;letter-spacing:.35em;border:1px solid var(--ink);
+    border-radius:999px;padding:6px 18px;margin-bottom:48px;
+  }
+  .brow b{width:8px;height:8px;border-radius:50%;background:var(--acc);display:inline-block}
+  .hero h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(64px,16vw,220px);line-height:.95;
+    font-weight:400;letter-spacing:-.02em;text-align:center;
+  }
+  .hero h1 .sub{
+    display:block;font-family:inherit;font-size:.22em;letter-spacing:.5em;
+    opacity:.45;margin-top:24px;font-style:italic;
+  }
+  .hero .water{
+    position:absolute;bottom:-2vh;left:50%;transform:translateX(-50%);
+    font-family:Georgia,serif;font-size:clamp(40px,10vw,120px);
+    letter-spacing:.4em;white-space:nowrap;opacity:.07;user-select:none;
+  }
+
+  /* ---------- 明暗交互 ---------- */
+  section{padding:120px 24px}
+  .dark{background:var(--ink);color:var(--paper)}
+  .wrap{max-width:1060px;margin:0 auto}
+  .h2{
+    font-family:Georgia,serif;font-weight:400;
+    font-size:clamp(30px,4.6vw,52px);line-height:1.3;
+    margin:18px 0 40px;max-width:18em;
+  }
+  .h2 em{font-style:italic;opacity:.55}
+  .lbl{font-size:12px;letter-spacing:.35em;opacity:.6}
+  .lbl::before{
+    content:"";display:inline-block;width:8px;height:8px;
+    border-radius:50%;background:var(--acc);margin-right:10px;vertical-align:1px;
+  }
+
+  /* ---------- 数字 : 巨大な数字が信頼を運ぶ ---------- */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:rgba(244,242,238,.15);border:1px solid rgba(244,242,238,.15)}
+  .stat{background:var(--ink);padding:56px 24px}
+  .stat b{
+    display:block;font-family:Georgia,serif;font-weight:400;
+    font-size:clamp(56px,8vw,110px);line-height:1;
+  }
+  .stat b u{text-decoration:none;font-size:.4em;letter-spacing:.1em;margin-left:6px}
+  .stat span{font-size:13px;opacity:.55;letter-spacing:.2em}
+
+  /* ---------- 機能群 : 大角丸コンテナ+淡色タイル, 円を1つ境界に ---------- */
+  .feat{position:relative;border:1px solid var(--line);border-radius:40px;
+    background:#fff;padding:14px;overflow:visible}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .tile{border-radius:28px;padding:40px 32px;min-height:230px;position:relative}
+  .tile:nth-child(odd){background:var(--mist)}
+  .tile:nth-child(even){background:#EDE9E1}
+  .tile h3{font-size:16px;font-weight:700;letter-spacing:.15em;margin-bottom:10px}
+  .tile p{font-size:13px;opacity:.65;line-height:1.8}
+  .tile .num{
+    position:absolute;top:28px;right:32px;font-family:Georgia,serif;
+    font-size:15px;opacity:.4;font-style:italic;
+  }
+  .orb{
+    position:absolute;right:-70px;top:-70px;width:220px;height:220px;
+    border-radius:50%;border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    background:var(--paper);
+  }
+  .orb span{font-family:Georgia,serif;font-style:italic;font-size:15px;letter-spacing:.2em;opacity:.6}
+
+  /* ---------- 推薦 : 背後の大きな引用符 ---------- */
+  .quote{position:relative;padding:140px 24px;text-align:center}
+  .quote .q{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    font-family:Georgia,serif;font-size:clamp(120px,20vw,260px);
+    opacity:.08;line-height:1;user-select:none;
+  }
+  .quote blockquote{
+    font-family:Georgia,serif;font-style:italic;font-weight:400;
+    font-size:clamp(22px,3.4vw,36px);line-height:1.7;max-width:30em;
+    margin:0 auto 32px;
+  }
+  .quote cite{font-style:normal;font-size:12px;letter-spacing:.3em;opacity:.5}
+
+  /* ---------- 淡色帯 : 休符 ---------- */
+  .rest{background:var(--mist);text-align:center;padding:56px 24px}
+  .rest p{font-family:Georgia,serif;font-style:italic;font-size:19px;opacity:.7}
+
+  /* ---------- CTA : 全セクションがここへ ---------- */
+  .cta{text-align:center;background:var(--ink);color:var(--paper);
+    border-radius:44px;margin:0 24px}
+  .cta .wrap{max-width:720px}
+  .cta .btn{
+    display:inline-flex;align-items:center;gap:14px;margin-top:16px;
+    background:#fff;color:var(--ink);text-decoration:none;
+    border-radius:999px;padding:22px 54px;font-size:17px;font-weight:700;
+    letter-spacing:.15em;
+  }
+  .cta .btn i{font-style:normal;transition:transform .3s}
+  .cta .btn:hover i{transform:translateX(6px)}
+  .cta .btn:hover{outline:2px solid var(--acc);outline-offset:4px}
+  .cta .plain{display:block;margin-top:28px;font-size:13px;opacity:.5;letter-spacing:.2em}
+
+  /* ---------- footer / 明示 : 本スキルはAI ---------- */
+  footer{padding:100px 24px 80px;border-top:1px solid var(--line);margin-top:120px}
+  footer .wrap{max-width:860px}
+  .ai-note{
+    border:1px solid var(--ink);border-radius:24px;padding:32px 36px;
+    background:#fff;margin-bottom:48px;
+  }
+  .ai-note b{font-size:14px;letter-spacing:.25em;display:block;margin-bottom:12px}
+  .ai-note b::before{content:"";display:inline-block;width:8px;height:8px;
+    border-radius:50%;background:var(--acc);margin-right:10px}
+  .ai-note p{font-size:13px;opacity:.75}
+  details{border:1px solid var(--line);border-radius:24px;background:#fff}
+  summary{
+    cursor:pointer;list-style:none;padding:24px 32px;font-size:13px;
+    letter-spacing:.25em;font-weight:700;display:flex;justify-content:space-between;
+  }
+  summary::after{content:"+";font-family:Georgia,serif;font-weight:400}
+  details[open] summary::after{content:"−"}
+  details pre{
+    padding:8px 32px 36px;font-size:12px;line-height:1.8;
+    white-space:pre-wrap;word-break:break-all;opacity:.8;
+    font-family:"SFMono-Regular",Consolas,"Noto Sans JP",monospace;
+    max-height:520px;overflow:auto;
+  }
+  .sign{
+    margin-top:80px;display:flex;justify-content:space-between;
+    font-size:11px;letter-spacing:.3em;opacity:.45;
+  }
+  .fade{opacity:0;transform:translateY(18px);transition:opacity .8s,transform .8s}
+  .fade.on{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    .stats{grid-template-columns:1fr}
+    .tiles{grid-template-columns:1fr}
+    .orb{right:-40px;width:150px;height:150px}
+    .nav a.dim{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="mark">JEAN&nbsp;MIYAKE</span>
+  <a class="dim" href="#work">WORK</a>
+  <a class="dim" href="#word">WORD</a>
+  <a class="go" href="#contact">お問い合わせ<i>→</i></a>
+</nav>
+
+<header class="hero">
+  <span class="brow"><b></b>DESIGNER — TYPOGRAPHY &amp; GEOMETRY</span>
+  <h1>MIYAKE<span class="sub">STRUCTURE IS BEAUTY</span></h1>
+  <span class="water">JEAN·MIYAKE·2026</span>
+</header>
+
+<section class="dark">
+  <div class="wrap fade">
+    <span class="lbl">FACTS</span>
+    <h2 class="h2">装飾は要らない。<em>構造が語る。</em></h2>
+    <div class="stats">
+      <div class="stat"><b>0</b><span>使用した影の数</span></div>
+      <div class="stat"><b>1<u>画面</u></b><span>に1つのメッセージ</span></div>
+      <div class="stat"><b>&lt;5<u>%</u></b><span>差し色の占有率</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap fade">
+    <span class="lbl">WORK</span>
+    <h2 class="h2">機能は文章で語らず、<em>数値と格子で並べる。</em></h2>
+    <div class="feat">
+      <div class="orb"><span>EST. 2019</span></div>
+      <div class="tiles">
+        <div class="tile"><span class="num">01</span><h3>タイポグラフィ</h3><p>文字詰め・語間・明度だけで階層を作る。書体は2まで。</p></div>
+        <div class="tile"><span class="num">02</span><h3>幾何</h3><p>画像に頼らない。円と直線と格子で物を描く。</p></div>
+        <div class="tile"><span class="num">03</span><h3>余白</h3><p>空間を素材として扱う。詰めないことが設計である。</p></div>
+        <div class="tile"><span class="num">04</span><h3>明度階</h3><p>同系色の濃→淡5段。影なしで遠近を作る。</p></div>
+        <div class="tile"><span class="num">05</span><h3>動き1つ</h3><p>面は静かに。動くのはタイポグラフィだけ。</p></div>
+        <div class="tile"><span class="num">06</span><h3>格子</h3><p>目に見える罫線で構成自体を語る。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rest fade"><p>“静けさが、最後の装飾だ。”</p></div>
+
+<section class="dark quote" id="word">
+  <span class="q">“</span>
+  <div class="wrap fade">
+    <span class="lbl">MOTTO</span>
+    <blockquote>余白は素材。空間を作り、情報を浮かせる。<br>詰めない。</blockquote>
+    <cite>— JEAN MIYAKE</cite>
+  </div>
+</section>
+
+<section class="cta" id="contact" style="padding:0">
+  <div class="cta" style="border-radius:0">
+    <div class="wrap fade">
+      <span class="lbl" style="opacity:.5">CONTACT</span>
+      <h2 class="h2">次の<em>静けさ</em>を、作る。</h2>
+      <a class="btn" href="mailto:studio@miyake.example">はじめましょう<i>→</i></a>
+      <span class="plain">studio@miyake.example — 返信は構造的に。</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ai-note">
+      <b>DISCLOSURE</b>
+      <p>本サイトはスキルファイル「miyake」によって生成されています。
+      Jean Miyake は架空のデザイナーであり、本スキルはAIです。
+      表示されるデザイン・文章・数値のすべてはAIの出力であり、実在する人物・実績ではありません。</p>
+    </div>
+    <details>
+      <summary>SKILL.md の全文</summary>
+      <pre id="skill-src">---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 見出し前の差し色眉チップは色の粒の縫い目で章を綴じる。
+- 信頼は推薦文より巨大な数字が運ぶ。背後の大きな引用符が声を立たせる。
+- 連携先は中央の暗いピルから細い線を放射し一図に見せる。
+- 見出しは字形とウェイトでも揺れる。イタリックの一節、語間の実物アイコン、2行目の明度を落とし色を足さず声が浮く。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージ。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に積む。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- プランは注目の1枚のみ明暗反転(暗カードに白抜きボタン)、残りは白細枠。選択肢が色で自己説明する。
+- 造形物は上端で裁ち切る。枠外への広がりで余白を下の1文に注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。
+- 下端の透かし文字は静けさのまま自己を刻む。ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。
+</pre>
+    </details>
+    <div class="sign">
+      <span>© 2026 JEAN MIYAKE (AI)</span>
+      <span>NO PHOTOS — NO SHADOWS — ONE ACCENT</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// アニメーションは1種類だけ: 出現フェード(1回性)
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})
+},{threshold:.15});
+document.querySelectorAll(".fade").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

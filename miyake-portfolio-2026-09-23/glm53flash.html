@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Jean Miyake ポートフォリオ — 本ページはAIによって設計されています。">
+<title>Jean Miyake — Portfolio 2026|本スキルはAIです</title>
+<style>
+:root{
+  /* 同系色(インク)の明度段差 5段 + 地 + 差し色1 */
+  --ink:#181B24;
+  --ink2:#3E4457;
+  --mist:#ADB3C4;
+  --pale:#E9EBF1;
+  --paper:#F7F6F3;
+  --white:#FFFFFF;
+  --accent:#E4552A; /* 差し色:唯一点。全面積の5%未満 */
+  --sans:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --serif:Georgia,"Hiragino Mincho ProN","Yu Mincho",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.9;
+  letter-spacing:.05em;
+  font-feature-settings:"palt";
+  overflow-x:hidden;
+}
+img{display:none} /* 写真は使わない。幾何とタイポグラフィのみ */
+.wrap{max-width:1060px;margin:0 auto;padding:0 32px}
+
+/* ---- 浮遊ナビ:白角丸ピル、右端を暗塗りCTA ---- */
+nav{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%);
+  z-index:10;display:flex;align-items:center;gap:28px;
+  background:var(--white);border:1px solid var(--pale);
+  border-radius:999px;padding:10px 12px 10px 28px;
+}
+nav .logo{font-family:var(--serif);font-style:italic;font-size:18px;letter-spacing:.02em}
+nav .links{display:flex;gap:22px;font-size:12.5px}
+nav .links a{color:var(--ink2);text-decoration:none}
+nav .links a:hover{color:var(--ink)}
+nav .cta{
+  background:var(--ink);color:var(--white);text-decoration:none;
+  font-size:12.5px;padding:10px 22px;border-radius:999px;letter-spacing:.12em;
+}
+
+/* ---- 眉チップ:差し色。見出し前の色の粒 ---- */
+.chip{
+  display:inline-block;background:var(--accent);color:var(--white);
+  font-size:10.5px;letter-spacing:.24em;padding:5px 14px;border-radius:999px;
+  margin-bottom:28px;
+}
+
+/* ---- ヒーロー:単語1つを巨大に中央へ ---- */
+header.hero{
+  position:relative;text-align:center;overflow:hidden;
+  padding:200px 0 140px;
+  /* 地として敷く低彩度の淡い色面。同系グラデの霧=影の代わり */
+  background:linear-gradient(180deg,var(--paper) 0%,var(--pale) 100%);
+}
+.hero .word{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(5rem,15vw,13rem);line-height:1;letter-spacing:-.02em;
+  color:var(--ink);
+}
+.hero .lead{font-size:16px;color:var(--ink2);margin-top:8px}
+.hero .sub{font-size:12.5px;color:var(--mist);margin-top:20px}
+.pill{
+  display:inline-block;margin-top:44px;background:var(--ink);color:var(--white);
+  text-decoration:none;font-size:13.5px;letter-spacing:.14em;
+  padding:18px 44px;border-radius:999px;
+}
+.pill .arrow{margin-left:14px;color:var(--accent)}
+.hero .mark{ /* 下端の透かし文字。上端で裁ち切る */
+  position:absolute;left:50%;bottom:0;transform:translate(-50%,42%);
+  font-family:var(--sans);font-weight:700;white-space:nowrap;
+  font-size:clamp(4rem,11vw,9rem);letter-spacing:.08em;
+  color:var(--ink);opacity:.05;pointer-events:none;
+}
+
+/* ---- AI明示バンド:本スキルはAIである ---- */
+.ai-band{
+  background:var(--paper);border-top:1px solid var(--pale);border-bottom:1px solid var(--pale);
+  text-align:center;padding:26px 32px;font-size:12px;color:var(--ink2);
+}
+.ai-band .dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--accent);margin-right:10px;vertical-align:middle;
+}
+
+/* ---- 章:暗→白→暗の明度交互 ---- */
+section{padding:130px 0}
+.dark{background:var(--ink);color:var(--pale)}
+.dark .eyebrow-sub{color:var(--mist)}
+h2{
+  font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.4;font-weight:700;
+  letter-spacing:.06em;margin-bottom:20px;
+}
+h2 em{font-family:var(--serif);font-style:italic;font-weight:400}
+.rule{width:100%;height:1px;background:currentColor;opacity:.14;margin:70px 0 0}
+
+/* ---- 数値は信頼を運ぶ ---- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:70px}
+.stats .cell{border-top:1px solid rgba(233,235,241,.25);padding:30px 24px 0 0}
+.stats .num{font-size:clamp(3rem,6vw,4.6rem);font-weight:700;line-height:1.1;letter-spacing:-.01em}
+.stats .num small{font-size:.45em;font-weight:400;letter-spacing:.1em}
+.stats .lbl{font-size:12px;color:var(--mist);margin-top:10px}
+/* 差し色は数字かゲージ。5%を実際の5%幅で見せる */
+.gauge{height:4px;background:rgba(233,235,241,.18);border-radius:999px;margin-top:16px;overflow:hidden}
+.gauge i{display:block;height:100%;width:5%;background:var(--accent)}
+
+/* ---- 制作:大きな角丸コンテナに淡色タイル ---- */
+.works-shell{
+  position:relative;margin-top:70px;border:1px solid var(--pale);
+  border-radius:32px;padding:56px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+}
+.works-shell .ring{ /* 円形を1つだけ境界に跨らせる */
+  position:absolute;top:-70px;right:12%;width:150px;height:150px;
+  border:1.5px solid var(--mist);border-radius:50%;pointer-events:none;
+}
+.tile{border-radius:22px;padding:38px 30px;border:1px solid var(--pale)}
+.tile:nth-child(odd){background:var(--pale)}
+.tile:nth-child(even){background:var(--white)}
+.tile .no{font-size:11px;letter-spacing:.3em;color:var(--mist)}
+.tile h3{font-size:17px;margin:40px 0 8px;letter-spacing:.08em}
+.tile p{font-size:12.5px;color:var(--ink2)}
+
+/* ---- 休符:章間の淡色帯に1行コピー ---- */
+.rest{
+  text-align:center;padding:90px 32px;background:var(--paper);
+  font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2.6vw,1.7rem);
+  color:var(--ink2);border-top:1px solid var(--pale);
+}
+
+/* ---- 締めも同軸:白角丸カード+暗塗りCTA ---- */
+.contact-box{
+  margin:70px auto 0;max-width:640px;background:var(--white);color:var(--ink);
+  border-radius:28px;padding:60px 48px;text-align:center;
+}
+.contact-box .mail{font-family:var(--serif);font-style:italic;font-size:20px;margin-bottom:6px}
+.contact-box .note{font-size:12px;color:var(--mist);margin-bottom:34px}
+
+/* ---- フッター:透かし+AI明示+SKILL.md全文 ---- */
+footer{background:var(--ink);color:var(--mist);padding:110px 0 60px;position:relative;overflow:hidden}
+footer .mark{
+  text-align:center;font-weight:700;white-space:nowrap;
+  font-size:clamp(3.5rem,10vw,8rem);letter-spacing:.08em;
+  color:var(--pale);opacity:.05;line-height:1;margin-bottom:70px;
+}
+.ai-sign{border:1px solid rgba(233,235,241,.25);border-radius:18px;padding:28px 32px;font-size:13px;color:var(--pale)}
+.ai-sign strong{color:var(--white)}
+details{
+  margin-top:26px;border:1px solid rgba(233,235,241,.25);
+  border-radius:18px;padding:22px 32px;font-size:13px;
+}
+details summary{cursor:pointer;color:var(--pale);letter-spacing:.1em;font-size:12.5px}
+details summary::marker{color:var(--accent)}
+details pre{
+  margin-top:22px;white-space:pre-wrap;word-break:auto;
+  font-family:var(--sans);font-size:12px;line-height:1.9;color:var(--mist);
+}
+footer .fine{margin-top:34px;font-size:10.5px;letter-spacing:.2em;text-align:center;color:rgba(233,235,241,.4)}
+
+/* ---- 動きは1種類だけ:フェードアップ ---- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+@media (max-width:760px){
+  nav{gap:14px;padding-left:20px}
+  nav .links{display:none}
+  section{padding:90px 0}
+  .stats{grid-template-columns:1fr 1fr;gap:40px 0}
+  .works-shell{grid-template-columns:1fr;padding:28px}
+  .works-shell .ring{width:90px;height:90px;top:-46px}
+  .contact-box{padding:44px 26px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">Jean Miyake</span>
+  <div class="links">
+    <a href="#principles">Principles</a>
+    <a href="#works">Works</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a class="cta" href="mailto:hello@miyake.design">話す</a>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="chip">本ページはAIが設計しました</span>
+    <h1 class="word">Miyake</h1>
+    <p class="lead">構造が美しければ、装飾は要らない。</p>
+    <p class="sub">UI/UX DESIGN — TYPOGRAPHY &amp; GEOMETRY — 2026</p>
+    <a class="pill" href="mailto:hello@miyake.design">プロジェクトを相談する<span class="arrow">→</span></a>
+  </div>
+  <div class="mark">STRUCTURE OVER DECORATION</div>
+</header>
+
+<div class="ai-band">
+  <span class="dot"></span>お知らせ:デザイナー「Jean Miyake」は架空のペルソナであり、<strong>本スキルおよび本サイトはAI</strong>によって設計・実装されています。
+</div>
+
+<section class="dark" id="principles">
+  <div class="wrap">
+    <span class="chip">PRINCIPLES</span>
+    <h2>ルールは5つ。<br>数字が<em>設計</em>を証明する。</h2>
+    <p class="eyebrow-sub">機能は文章で語らない。数値とゲージで並べる。</p>
+    <div class="stats">
+      <div class="cell reveal">
+        <div class="num">2<small>書体</small></div>
+        <div class="lbl">フォントは最大2書体。日本語は文字詰めを意識する。</div>
+      </div>
+      <div class="cell reveal">
+        <div class="num">5<small>%未満</small></div>
+        <div class="gauge"><i></i></div>
+        <div class="lbl">差し色は画面の5%未満。唯一点に置く。</div>
+      </div>
+      <div class="cell reveal">
+        <div class="num">0<small>影</small></div>
+        <div class="lbl">影は使わない。遠近は余白とサイズで作る。</div>
+      </div>
+      <div class="cell reveal">
+        <div class="num">1<small>種類</small></div>
+        <div class="lbl">アニメーションは1種類に絞り、repeatは慎重に。</div>
+      </div>
+    </div>
+    <div class="rule"></div>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <span class="chip">WORKS</span>
+    <h2>1タイル、1主題。<br>色面は<em>空気</em>と読める。</h2>
+    <p class="eyebrow-sub" style="color:var(--ink2)">写真は使わない。タイポグラフィと幾何で表現する。</p>
+    <div class="works-shell">
+      <div class="ring"></div>
+      <div class="tile reveal">
+        <div class="no">01</div>
+        <h3>EDITORIAL — 雑誌の余白</h3>
+        <p>1画面1メッセージ。主役は1つ、他はすべて引き立て役。格子が読順を運ぶ。</p>
+      </div>
+      <div class="tile reveal">
+        <div class="no">02</div>
+        <h3>SAAS — 静のダッシュボード</h3>
+        <p>面は静かに、タイポグラフィと1つの動きだけ大胆に。罫線で構成を示す。</p>
+      </div>
+      <div class="tile reveal">
+        <div class="no">03</div>
+        <h3>BRAND — 単語のロゴ</h3>
+        <p>ヒーローは単語1つを巨大に中央へ置くだけで決まる。下端は透かしで締める。</p>
+      </div>
+      <div class="tile reveal">
+        <div class="no">04</div>
+        <h3>SYSTEM — 明度の階段</h3>
+        <p>パレットは同系色の明度段差5段。階段が深みを運び、影を不要にする。</p>
+      </div>
+      <div class="tile reveal">
+        <div class="no">05</div>
+        <h3>PRICING — 反転の1枚</h3>
+        <p>注目の1枚のみ明暗反転。選択肢が色で自己説明する。</p>
+      </div>
+      <div class="tile reveal">
+        <div class="no">06</div>
+        <h3>DATA — 数字の声</h3>
+        <p>信頼は推薦文より巨大な数字が運ぶ。差し色は数字かゲージにだけ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rest">
+  「余白は素材である。空間を作り、情報を浮かせる。」
+</div>
+
+<section class="dark" id="contact">
+  <div class="wrap" style="text-align:center">
+    <span class="chip">CONTACT</span>
+    <h2>1つの話し合いが、<br>一番の<em>近道</em>だ。</h2>
+    <div class="contact-box reveal">
+      <div class="mail">hello@miyake.design</div>
+      <div class="note">CTAは1つに絞り、全セクションをそこへ漏斗状に導いた。</div>
+      <a class="pill" href="mailto:hello@miyake.design" style="margin-top:0">プロジェクトを相談する<span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="mark">MIYAKE</div>
+  <div class="wrap">
+    <div class="ai-sign">
+      <strong>※本スキルはAIである。</strong>本ページのデザイナー「Jean Miyake」は架空の存在で、宣言・設計・実装のすべてをAIが行いました。
+    </div>
+    <details>
+      <summary>本デザイナーの設計原理 — SKILL.md 全文</summary>
+      <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 見出し前の差し色眉チップは色の粒の縫い目で章を綴じる。
+- 信頼は推薦文より巨大な数字が運ぶ。背後の大きな引用符が声を立たせる。
+- 連携先は中央の暗いピルから細い線を放射し一図に見せる。
+- 見出しは字形とウェイトでも揺れる。イタリックの一節、語間の実物アイコン、2行目の明度を落とし色を足さず声が浮く。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージ。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に積む。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- プランは注目の1枚のみ明暗反転(暗カードに白抜きボタン)、残りは白細枠。選択肢が色で自己説明する。
+- 造形物は上端で裁ち切る。枠外への広がりで余白を下の1文に注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。
+- 下端の透かし文字は静けさのまま自己を刻む。ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示する。</pre>
+    </details>
+    <div class="fine">JEAN MIYAKE — FICTIONAL DESIGNER BY AI — 2026.09.23</div>
+  </div>
+</footer>
+
+<script>
+// 動きは1種類のみ:フェードアップ。繰り返しなし、1度だけ。
+const io = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },
+  { threshold: 0.15 }
+);
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
