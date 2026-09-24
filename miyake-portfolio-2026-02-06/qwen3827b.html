@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Designer</title>
+<style>
+/* ============ 宣言: 主役=巨大中空語「MIYAKE」 構成=中央縦線・明暗交互 差し色=朱#E8442E ============ */
+:root{
+  --ink:#191E26;        /* 字 */
+  --mid:#5B6675;
+  --mist:#EFF2F6;       /* 地(淡) */
+  --mist2:#E3E8EF;
+  --paper:#F7F9FB;
+  --dark:#14181F;
+  --dark2:#1C222C;
+  --line:rgba(25,30,38,.16);
+  --accent:#E8442E;     /* 差し色: 5%未満 */
+  --serif:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif;
+  --sans:"Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP",Meiryo,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--mist);letter-spacing:.04em;line-height:1.9;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:#fff}
+h1,h2,h3{font-family:var(--serif);font-weight:400}
+a{color:inherit;text-decoration:none}
+
+/* ---- 十字トンボ(四隅の格子の証) ---- */
+.crop{position:relative}
+.crop::before,.crop::after,
+.crop .cb::before,.crop .cb::after{
+  content:"";position:absolute;width:14px;height:14px;pointer-events:none;
+}
+.crop::before{top:14px;left:14px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.crop::after{top:14px;right:14px;border-top:1px solid var(--line);border-right:1px solid var(--line)}
+.crop .cb::before{bottom:14px;left:14px;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}
+.crop .cb::after{bottom:14px;right:14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+
+/* ---- ナビ: 浮いた白角丸ピル / 右端を暗塗りCTAで締める ---- */
+nav{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:10;
+  display:flex;align-items:center;gap:2.2rem;
+  background:rgba(255,255,255,.92);border:1px solid var(--line);
+  border-radius:999px;padding:.7rem 1rem .7rem 1.8rem;
+  font-size:.8rem;
+}
+nav .mark{font-family:var(--serif);font-size:.95rem;letter-spacing:.14em}
+nav a{opacity:.65;transition:opacity .3s}
+nav a:hover{opacity:1}
+nav .navcta{background:var(--ink);color:#fff;border-radius:999px;padding:.55rem 1.3rem;opacity:1;transition:background .3s}
+nav .navcta:hover{background:var(--accent)}
+nav .navlinks{display:flex;gap:1.8rem}
+
+/* ---- ヒーロー: 単語1つを巨大に中央へ ---- */
+header{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,var(--mist2) 0%,var(--paper) 100%);
+  border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  display:inline-block;border:1px solid var(--line);border-radius:999px;
+  padding:.35rem 1.2rem;font-size:.72rem;letter-spacing:.3em;margin-bottom:3rem;
+}
+.eyebrow i{color:var(--accent);font-style:normal}
+.hero-word{line-height:.95}
+.hero-word .l1{
+  display:block;font-family:var(--serif);
+  font-size:clamp(4.5rem,17vw,15rem);letter-spacing:.06em;color:var(--ink);
+}
+.hero-word .l2{
+  display:block;font-family:var(--serif);
+  font-size:clamp(4.5rem,17vw,15rem);letter-spacing:.06em;color:transparent;
+  -webkit-text-stroke:1.5px var(--ink);
+}
+.hero-sub{
+  margin-top:2.6rem;font-size:.95rem;color:var(--mid);max-width:34em;
+}
+.hero-sub em{font-family:var(--serif);font-style:italic;color:var(--ink)}
+.hero-cta{margin-top:2.6rem}
+.pill-cta{
+  display:inline-flex;align-items:center;gap:.7rem;
+  background:var(--ink);color:#fff;border-radius:999px;
+  padding:.95rem 2.2rem;font-size:.85rem;letter-spacing:.2em;
+  transition:background .3s;
+}
+.pill-cta:hover{background:var(--accent)}
+.pill-cta .ar{transition:transform .3s}
+.pill-cta:hover .ar{transform:translateX(5px)}
+.ghost-link{display:inline-block;margin-left:1.6rem;font-size:.82rem;color:var(--mid);border-bottom:1px solid var(--line);padding-bottom:2px}
+.ghost-link:hover{color:var(--ink);border-color:var(--ink)}
+
+/* 巨大中空語が背景の模様になる(透かし) */
+.watermark{
+  position:absolute;left:50%;bottom:-6%;transform:translateX(-50%);
+  font-family:var(--serif);font-size:clamp(9rem,30vw,28rem);line-height:1;
+  color:transparent;-webkit-text-stroke:1px rgba(25,30,38,.10);
+  white-space:nowrap;pointer-events:none;user-select:none;
+}
+/* 右端の縦ドット頁送り */
+.dots{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:9;display:flex;flex-direction:column;gap:14px}
+.dots a{width:6px;height:6px;border-radius:50%;background:var(--ink);opacity:.25;display:block;transition:opacity .3s,box-shadow .3s}
+.dots a.on{opacity:1;box-shadow:0 0 0 4px var(--mist),0 0 0 5px var(--ink)}
+
+main{max-width:1180px;margin:0 auto}
+
+/* ---- 淡色帯(休符) ---- */
+.band{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--mist2);text-align:center;
+  padding:2.4rem 1rem;
+}
+.band p{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--mid)}
+.band p i{color:var(--accent);font-style:italic}
+
+/* ---- 暗章: 数字が信頼を運ぶ ---- */
+section.dark{background:var(--dark);color:var(--paper)}
+section.dark .cb::before,section.dark .cb::after,
+section.dark::before,section.dark::after{border-color:rgba(255,255,255,.22)}
+.stats{padding:7rem 0 6rem;position:relative;overflow:hidden}
+.stats .quote{
+  position:absolute;top:1rem;right:4%;font-family:var(--serif);
+  font-size:16rem;line-height:1;color:rgba(255,255,255,.06);pointer-events:none;
+}
+.stat-head{max-width:1180px;margin:0 auto 4rem;padding:0 2.5rem;display:flex;align-items:baseline;gap:1.4rem;flex-wrap:wrap}
+.kicker{font-size:.7rem;letter-spacing:.35em;color:rgba(247,249,251,.5)}
+.stat-head h2{font-size:clamp(1.6rem,3.4vw,2.4rem);letter-spacing:.1em}
+.stat-head h2 span{color:var(--accent)}
+.stat-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14)}
+.stat{background:var(--dark2);padding:3rem 2.5rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.stat .lbl{font-size:.75rem;letter-spacing:.28em;color:rgba(247,249,251,.55)}
+.stat .val{font-family:var(--serif);font-size:clamp(2.6rem,5.5vw,4.4rem);line-height:1}
+.stat .val small{font-size:1.1rem;letter-spacing:.2em;color:rgba(247,249,251,.55);margin-left:.3rem}
+.stat .val .a{color:var(--accent)}
+
+/* ---- 白章: 機能列は細い縦罫で切る ---- */
+.works{padding:7rem 2.5rem}
+.works .head{margin-bottom:4.5rem}
+.sec-label{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem 1.1rem;font-size:.68rem;letter-spacing:.3em;margin-bottom:1.6rem}
+.works h2{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:.08em;line-height:1.5}
+.works h2 .hollow{color:transparent;-webkit-text-stroke:1px var(--ink)}
+.works .sub{margin-top:1rem;color:var(--mid);font-size:.9rem;max-width:36em}
+.work-row{display:grid;grid-template-columns:120px 1fr 220px;gap:2.5rem;padding:2.4rem 0;border-top:1px solid var(--line);position:relative}
+.work-row:last-of-type{border-bottom:1px solid var(--line)}
+.work-row .idx{font-family:var(--serif);font-size:1.1rem;color:var(--mid)}
+.work-row .idx b{display:block;font-size:.7rem;letter-spacing:.3em;font-weight:400;margin-bottom:.4rem;color:var(--ink)}
+.work-row h3{font-size:clamp(1.3rem,2.6vw,1.9rem);letter-spacing:.12em;line-height:1.6}
+.work-row .body{font-size:.82rem;color:var(--mid);margin-top:.7rem;max-width:38em}
+.work-row .meta{text-align:right;font-size:.78rem;color:var(--mid);line-height:2.2}
+.work-row .meta .year{font-family:var(--serif);font-size:1.05rem;color:var(--ink)}
+.work-row .meta .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.15rem .8rem;font-size:.68rem;letter-spacing:.15em;margin-top:.5rem}
+/* 列間は箱で仕切らず縦罫で */
+@media(min-width:860px){
+  .work-row{grid-template-columns:120px 1fr 220px}
+  .work-row>*+*{border-left:1px solid var(--line);padding-left:2.5rem}
+  .work-row .meta{text-align:left}
+}
+@media(max-width:859px){
+  .work-row{grid-template-columns:1fr;gap:1rem}
+  .work-row .meta{text-align:left}
+}
+
+/* ---- 暗章: 美学(リスト) ---- */
+.aesthetic{padding:7rem 0 8rem}
+.aesthetic .inner{max-width:1180px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+.aesthetic h2{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.6;letter-spacing:.1em}
+.aesthetic h2 .a{color:var(--accent)}
+.aesthetic .intro{margin-top:1.6rem;font-size:.85rem;color:rgba(247,249,251,.6);max-width:26em}
+.rules{list-style:none}
+.rules li{display:flex;gap:1.4rem;align-items:baseline;padding:1.5rem 0;border-top:1px solid rgba(255,255,255,.14);font-size:.92rem}
+.rules li:last-child{border-bottom:1px solid rgba(255,255,255,.14)}
+.rules .no{font-family:var(--serif);color:var(--accent);font-size:.9rem;min-width:1.6em}
+@media(max-width:860px){.aesthetic .inner{grid-template-columns:1fr}}
+
+/* ---- 白章: コンタクト ---- */
+.contact{padding:7rem 2.5rem 8rem;text-align:center}
+.contact h2{font-size:clamp(2rem,5.5vw,3.6rem);letter-spacing:.1em;line-height:1.6}
+.contact h2 .hollow{color:transparent;-webkit-text-stroke:1px var(--ink)}
+.contact p{margin-top:1.4rem;color:var(--mid);font-size:.9rem}
+.contact .pill-cta{margin-top:2.8rem}
+
+/* ---- SKILL.md ---- */
+.skilldoc{background:var(--mist2);border-top:1px solid var(--line);padding:5rem 2.5rem 6rem}
+.skilldoc .inner{max-width:860px;margin:0 auto}
+.skilldoc h2{font-size:1.5rem;letter-spacing:.15em;margin-bottom:.6rem}
+.skilldoc .note{font-size:.78rem;color:var(--mid);margin-bottom:2rem}
+details{border:1px solid var(--line);background:var(--paper)}
+details summary{
+  cursor:pointer;padding:1.1rem 1.6rem;font-size:.85rem;letter-spacing:.25em;
+  list-style:none;display:flex;align-items:center;gap:.9rem;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+";font-family:var(--serif);font-size:1.1rem;color:var(--accent);transition:transform .3s;display:inline-block}
+details[open] summary::before{transform:rotate(45deg)}
+details pre{
+  margin:0;padding:1.6rem 2rem;border-top:1px solid var(--line);
+  font-size:.78rem;line-height:2;white-space:pre-wrap;word-break:break-all;
+  font-family:var(--sans);color:var(--ink);
+}
+
+/* ---- フッター ---- */
+footer{background:var(--dark);color:var(--paper);padding:4rem 2.5rem 3rem;position:relative}
+footer .inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+footer .sig{font-family:var(--serif);font-size:1.4rem;letter-spacing:.15em}
+footer .sig i{font-style:italic;color:var(--accent)}
+footer .fine{font-size:.72rem;color:rgba(247,249,251,.5);line-height:2.4;max-width:44em;margin-top:1rem}
+footer .ai-note{
+  margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.14);
+  font-size:.72rem;letter-spacing:.12em;color:rgba(247,249,251,.65);
+}
+footer .ai-note b{color:var(--accent);font-weight:400}
+
+/* ---- アニメーションは1種類: 出現時のフェードアップだけ ---- */
+.fade{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
+.fade.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<nav aria-label="メイン">
+  <span class="mark">JEAN&nbsp;MIYAKE</span>
+  <span class="navlinks">
+    <a href="#works">Work</a>
+    <a href="#aesthetic">Aesthetic</a>
+    <a href="#skill">SKILL.md</a>
+  </span>
+  <a class="navcta" href="#contact">CONTACT</a>
+</nav>
+
+<div class="dots" aria-hidden="true">
+  <a href="#top" class="on"></a><a href="#stats"></a><a href="#works"></a>
+  <a href="#aesthetic"></a><a href="#contact"></a>
+</div>
+
+<header id="top" class="crop">
+  <span class="cb" aria-hidden="true"></span>
+  <span class="eyebrow"><i>●</i>&nbsp;&nbsp;DESIGNER / TOKYO&nbsp;·&nbsp;KYOTO</span>
+  <h1 class="hero-word">
+    <span class="l1">JEAN</span>
+    <span class="l2">MIYAKE</span>
+  </h1>
+  <p class="hero-sub">構造が美しければ装飾は要らない。<br>
+     余白で空間を作り、<em>1画面に1つのメッセージ</em>だけを残す。</p>
+  <div class="hero-cta">
+    <a class="pill-cta" href="#works">WORKを見る <span class="ar">→</span></a>
+    <a class="ghost-link" href="#aesthetic">美学を読む</a>
+  </div>
+  <span class="watermark" aria-hidden="true">MIYAKE</span>
+</header>
+
+<main>
+
+<!-- 休符 -->
+<div class="band fade">
+  <p>「詰めない。<i>余白</i>が情報を浮かせる。」</p>
+</div>
+
+<!-- 暗章: 数字 -->
+<section id="stats" class="dark crop">
+  <span class="cb" aria-hidden="true"></span>
+  <span class="quote" aria-hidden="true">”</span>
+  <div class="stat-head fade">
+    <span class="kicker">FACTS</span>
+    <h2>数字が<span>声</span>を運ぶ</h2>
+  </div>
+  <div class="stat-grid fade">
+    <div class="stat"><span class="lbl">PROJECTS</span><span class="val"><span class="a">128</span></span></div>
+    <div class="stat"><span class="lbl">YEARS&nbsp;OF&nbsp;PRACTICE</span><span class="val">14</span></div>
+    <div class="stat"><span class="lbl">COLOR&nbsp;ROLES</span><span class="val">3<small>地・字・差シ</small></span></div>
+    <div class="stat"><span class="lbl">SHADOWS&nbsp;USED</span><span class="val">0<small>影は使わない</small></span></div>
+  </div>
+</section>
+
+<!-- 白章: 制作 -->
+<section id="works" class="works crop">
+  <span class="cb" aria-hidden="true"></span>
+  <div class="head fade">
+    <span class="sec-label">SELECTED WORKS</span>
+    <h2>四つの<em class="hollow">制作</em>。</h2>
+    <p class="sub">写真は使わない。タイポグラフィと幾何で、作品自身が名乗る。</p>
+  </div>
+
+  <article class="work-row fade">
+    <div class="idx"><b>NO.01</b>一</div>
+    <div>
+      <h3>白 / 墨 —— 編集デザイン</h3>
+      <p class="body">文字詰めを設計の中心に据えた季刊誌。余白は版心の4割。装丁は1色印刷のみ。</p>
+    </div>
+    <div class="meta"><span class="year">2025</span><br><span class="tag">EDITORIAL</span></div>
+  </article>
+
+  <article class="work-row fade">
+    <div class="idx"><b>NO.02</b>二</div>
+    <div>
+      <h3>格子 —— 建築サイトの再構築</h3>
+      <p class="body">目に見える罫線と十字トンボで構成を示す。影ゼロ、アニメーションはフェードのみ。</p>
+    </div>
+    <div class="meta"><span class="year">2025</span><br><span class="tag">WEB</span></div>
+  </article>
+
+  <article class="work-row fade">
+    <div class="idx"><b>NO.03</b>三</div>
+    <div>
+      <h3>一声 —— 陶器ブランドの書体設計</h3>
+      <p class="body">塗り・中空の二声で組む漢字とローマン。差し色は朱を一点に限定。</p>
+    </div>
+    <div class="meta"><span class="year">2024</span><br><span class="tag">TYPE</span></div>
+  </article>
+
+  <article class="work-row fade">
+    <div class="idx"><b>NO.04</b>四</div>
+    <div>
+      <h3>霧 —— デザインシステムの明度階梯</h3>
+      <p class="body">同系色の濃→淡5段でパレットを設計。色面は空気として読める階層システム。</p>
+    </div>
+    <div class="meta"><span class="year">2024</span><br><span class="tag">SYSTEM</span></div>
+  </article>
+</section>
+
+<!-- 休符 -->
+<div class="band fade">
+  <p>「線は飾りでなく、<i>基準</i>点。」</p>
+</div>
+
+<!-- 暗章: 美学 -->
+<section id="aesthetic" class="dark crop">
+  <span class="cb" aria-hidden="true"></span>
+  <div class="aesthetic">
+    <div class="inner">
+      <div class="fade">
+        <span class="kicker">AESTHETIC</span>
+        <h2 style="margin-top:1.4rem">六つの<br><span class="a">ルール</span>。</h2>
+        <p class="intro">美学は四つの柱。実行は六つの律。守れなかったページは、存在しない。</p>
+      </div>
+      <ul class="rules fade">
+        <li><span class="no">01</span>フォントは最大2書体。日本語は文字詰めを意識する。</li>
+        <li><span class="no">02</span>色は3役まで(地・字・差し色)。差し色は画面の5%未満。</li>
+        <li><span class="no">03</span>影は使わない。遠近は余白とサイズで作る。</li>
+        <li><span class="no">04</span>アニメーションは1種類に絞り、repeatは慎重に。</li>
+        <li><span class="no">05</span>主役へのグラデーションは禁。差し色は唯一点に。</li>
+        <li><span class="no">06</span>写真・画像は使わず、タイポグラフィと幾何で表現する。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 白章: コンタクト -->
+<section id="contact" class="contact crop">
+  <span class="cb" aria-hidden="true"></span>
+  <div class="fade">
+    <span class="sec-label">CONTACT</span>
+    <h2 style="margin-top:1.6rem">次の一枚を、<br><span class="hollow">余白</span>から。</h2>
+    <p>受注・相談は年間4件まで。理由は1行で伝えます。</p>
+    <a class="pill-cta" href="mailto:studio@jeanmiyake.example">EMAIL <span class="ar">→</span></a>
+  </div>
+</section>
+
+<!-- SKILL.md 全文 -->
+<section id="skill" class="skilldoc">
+  <div class="inner fade">
+    <h2>SKILL.md</h2>
+    <p class="note">このサイトの設計思想の全文。そのまま載せる。</p>
+    <details>
+      <summary>SKILL.md</summary>
+      <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 差し色は見出しの1語に置ける。外周の色マットと同色に反響させれば、画面全体が差し色1つで締まる。
+- 見出しは字形とウェイトでも揺れる。同型の行を「塗り」と「中空(アウトライン)」で1行ずつ分けると色を足さず二声になる。イタリックの一節、明度を落とした2行目も声が浮く。
+- 画面からはみ出す巨大な中空語は背景の模様になる。透かし文字は静けさのまま自己を刻む。
+- 機能列は箱で仕切らず細い縦罫で切る。列ごとに太い見出し+小さな本文を重ねればカード要らずで格子が読める。
+- 四隅の十字トンボは格子の証。飾りでなく基準点として置けば設計図の空気が出る。
+- 信頼は推薦文より巨大な数字が運ぶ。数値は半透明の暗パネルにラベル左・値右で積み、背後の大きな引用符が声を立たせる。
+- 連携先は中央の暗いピルから細い線を放射し一図に見せる。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージに。状態は小さな色分けピルチップで言わせる。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に積む。右端の縦ドット頁送りは1個だけリングで活動を示す。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- プランは注目の1枚のみ明暗反転(暗カードに白抜きボタン)、残りは白細枠。選択肢が色で自己説明する。
+- 造形物は上端で裁ち切る。枠外への広がりで余白を下の1文に注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。
+- ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。
+</pre>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="crop">
+  <span class="cb" aria-hidden="true"></span>
+  <div class="inner">
+    <div>
+      <div class="sig">JEAN <i>MIYAKE</i></div>
+      <p class="fine">余白は素材。1画面1メッセージ。<br>構造が美しければ装飾は要らない。</p>
+    </div>
+    <div>
+      <p class="fine">© 2026 Jean Miyake Design Practice<br>Works shown are fictional, composed for this portfolio.</p>
+    </div>
+  </div>
+  <div class="inner">
+    <p class="ai-note"><b>※ 本ポートフォリオはAI SKILLにより生成されたものです。</b><br>
+    「Jean Miyake」は架空のデザイナーであり、本ページのデザインは SKILL.md に記された美学・ルールに従い、AIが設計・実装しています。作品もすべて架空のものです。</p>
+  </div>
+</footer>
+
+<script>
+// アニメーションは1種類: 出現フェード + ドット頁送りの活動表示(状態変更のみ、repeatなし)
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.fade').forEach(function(el){io.observe(el);});
+
+  var dots=document.querySelectorAll('.dots a');
+  var secs=document.querySelectorAll('header#top,section[id],main section.contact');
+  var io2=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        var id=e.target.id;
+        dots.forEach(function(d){ d.classList.toggle('on', d.getAttribute('href')==='#'+id || (id==='top'&&d.getAttribute('href')==='#top') || (id==='contact'&&d.getAttribute('href')==='#contact')); });
+      }
+    });
+  },{threshold:.5});
+  ['top','stats','works','aesthetic','contact'].forEach(function(id){
+    var el=document.getElementById(id); if(el) io2.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

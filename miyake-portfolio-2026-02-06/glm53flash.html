@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Portfolio</title>
+<style>
+/* ============================================================
+   Jean Miyake / 宣言: 主役=中空の巨大語「余白」、構成=明暗交互の章を
+   中央縦軸に漏斗状に積む、差し色=朱1点(見出し1語とトンボ)。
+   ============================================================ */
+:root{
+  /* 同系色の明度段差 濃→淡5段 */
+  --k1:#191713;      /* 墨(暗面の地) */
+  --k2:#3a362f;
+  --k3:#8a857b;
+  --k4:#c9c4b9;
+  --k5:#f2efe8;      /* 淡色面(明面の地) */
+  --paper:#fbf9f4;   /* 白カード */
+  --ink:#22201c;     /* 字 */
+  --aka:#c7392b;     /* 差し色 朱:画面の5%未満 */
+  --serif:Georgia,"Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:"Helvetica Neue",Arial,"Hiragino Sans","Noto Sans JP",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--k5);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-feature-settings:"palt";
+  letter-spacing:.04em;
+  line-height:1.9;
+  overflow-x:hidden;
+}
+::selection{background:var(--aka);color:var(--paper)}
+
+/* ---- 四隅の十字トンボ:格子の証、基準点 ---- */
+.tombo{position:fixed;width:18px;height:18px;z-index:50;pointer-events:none}
+.tombo::before,.tombo::after{content:"";position:absolute;background:var(--aka)}
+.tombo::before{left:8px;top:0;width:1px;height:18px}
+.tombo::after{top:8px;left:0;height:1px;width:18px}
+.tombo.tl{top:16px;left:16px}.tombo.tr{top:16px;right:16px}
+.tombo.bl{bottom:16px;left:16px}.tombo.br{bottom:16px;right:16px}
+
+/* ---- 浮いた白角丸ピルナビ、右端を暗塗りCTAで締める ---- */
+nav{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%);
+  background:var(--paper);border:1px solid var(--k4);
+  border-radius:999px;display:flex;align-items:center;
+  padding:6px 6px 6px 28px;gap:22px;z-index:60;white-space:nowrap;
+}
+nav a{color:var(--k2);text-decoration:none;font-size:12px;letter-spacing:.14em}
+nav a:hover{color:var(--aka)}
+nav .cta{background:var(--k1);color:var(--paper);border-radius:999px;
+  padding:9px 20px;font-size:12px;letter-spacing:.14em}
+nav .cta:hover{background:var(--aka);color:var(--paper)}
+
+/* ---- 唯一のアニメーション:章の浮现(repeatなし・1種のみ) ---- */
+.reveal{opacity:0;transform:translateY(26px);
+  transition:opacity 1.1s cubic-bezier(.2,.6,.2,1),transform 1.1s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---- 章共通 ---- */
+section{position:relative}
+.wrap{max-width:1080px;margin:0 auto;padding:0 6vw}
+.eyebrow{font-size:11px;letter-spacing:.42em;color:var(--k3);text-transform:uppercase}
+.eyebrow b{color:var(--aka);font-weight:400}
+
+/* ============================================================
+   HERO 暗面:単語1つ「余白」を巨大に。塗りと中空の二声。
+   ============================================================ */
+#hero{background:var(--k1);color:var(--k5);min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;overflow:hidden}
+#hero .eyebrow{margin-bottom:5vh}
+.hero-word{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(88px,22vw,280px);line-height:1.04;letter-spacing:.06em;
+  color:var(--k5);
+}
+.hero-word .hollow{
+  display:block;color:transparent;
+  -webkit-text-stroke:1.5px var(--k4);text-stroke:1.5px var(--k4);
+}
+.hero-word .aka-dot{color:var(--aka)}          /* 差し色は1語 */
+.hero-sub{margin-top:4vh;font-size:14px;letter-spacing:.3em;color:var(--k3)}
+.hero-lead{margin-top:1.5vh;max-width:34em;font-size:14px;color:var(--k4)}
+.hero-cta{margin-top:6vh;display:inline-flex;align-items:center;gap:14px;
+  background:var(--paper);color:var(--ink);text-decoration:none;
+  border-radius:999px;padding:16px 34px;font-size:13px;letter-spacing:.2em}
+.hero-cta:hover{background:var(--aka);color:var(--paper)}
+.hero-cta .arr{font-size:15px}
+.scroll-hint{position:absolute;bottom:34px;font-size:10px;letter-spacing:.4em;color:var(--k3)}
+
+/* ---- 淡色帯の休符:1行コピー ---- */
+.rest{background:var(--k4);color:var(--k1);text-align:center;
+  padding:34px 6vw;font-family:var(--serif);font-size:clamp(15px,2.2vw,20px);letter-spacing:.14em}
+.rest em{font-style:normal;color:var(--aka)}
+
+/* ============================================================
+   明面I:機能列は箱で仕切らず細い縦罫で切る。カード要らず。
+   ============================================================ */
+#principle{background:var(--k5);padding:16vh 0 14vh}
+.sec-head{display:flex;align-items:baseline;gap:26px;margin-bottom:9vh}
+.sec-head h2{font-family:var(--serif);font-size:clamp(30px,4.6vw,52px);font-weight:700;letter-spacing:.08em}
+.sec-head h2 span{color:var(--aka)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr)}
+.col{padding:6px 30px 30px;border-left:1px solid var(--k4)}
+.col:first-child{border-left:none;padding-left:0}
+.col h3{font-size:15px;letter-spacing:.22em;font-weight:700;margin:14px 0 18px;
+  padding-top:14px;border-top:3px solid var(--k1)}
+.col:nth-child(2) h3{border-top-color:var(--aka)}   /* 差し色は一点のみ */
+.col p{font-size:13px;color:var(--k2)}
+.col .num{font-family:var(--serif);font-size:13px;color:var(--k3)}
+
+/* ============================================================
+   暗面:巨大な数字が信頼を運ぶ。半透明の暗パネル・ラベル左/値右。
+   ============================================================ */
+#numbers{background:var(--k1);color:var(--k5);padding:16vh 0;overflow:hidden}
+#numbers .eyebrow{color:var(--k3)}
+.quote-bg{position:absolute;right:-2vw;top:-4vh;font-family:var(--serif);
+  font-size:44vh;line-height:1;color:var(--k2);opacity:.35;pointer-events:none;user-select:none}
+.stat{display:flex;justify-content:space-between;align-items:baseline;
+  background:rgba(255,255,255,.05);border-left:1px solid var(--k2);
+  padding:26px 34px;margin-top:-1px}
+.stat .label{font-size:12px;letter-spacing:.28em;color:var(--k4)}
+.stat .value{font-family:var(--serif);font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:.04em}
+.stat .value small{font-size:.38em;color:var(--k3);letter-spacing:.2em;margin-left:10px}
+.stat.hot .value{color:var(--aka)}   /* 差し色は数字に */
+
+/* ============================================================
+   明面II:作品 — 造形物は上端で裁ち切る。幾何と透かし文字のみ。
+   ============================================================ */
+#works{background:var(--paper);padding:16vh 0 0}
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--k4)}
+.work{background:var(--paper);aspect-ratio:3/4;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:26px}
+.work .geo{position:absolute;top:0;left:0;right:0;height:62%}
+.work h4{font-family:var(--serif);font-size:19px;letter-spacing:.1em;position:relative}
+.work p{font-size:11px;letter-spacing:.2em;color:var(--k3);position:relative;margin-top:6px}
+.work .wm{position:absolute;top:8%;left:50%;transform:translateX(-50%);
+  font-family:var(--serif);font-size:84px;font-weight:700;color:transparent;
+  -webkit-text-stroke:1px var(--k4);letter-spacing:.08em;white-space:nowrap;user-select:none}
+/* 幾何:面は静かに、色は控えめに */
+.g1{background:linear-gradient(180deg,var(--k4) 0 58%,transparent 58%)}
+.g2{background:repeating-linear-gradient(90deg,var(--k4) 0 1px,transparent 1px 26px)}
+.g3{background:linear-gradient(180deg,transparent 0 30%,var(--k4) 30% 100%)}
+.g1::after{content:"";position:absolute;left:18%;bottom:-8%;width:64%;aspect-ratio:1;
+  border-radius:50%;background:var(--k1)}
+.g2::after{content:"";position:absolute;right:14%;top:18%;width:34%;aspect-ratio:1;
+  border-radius:50%;background:transparent;border:1px solid var(--k1)}
+.g3::after{content:"";position:absolute;left:14%;top:44%;width:44%;height:1px;background:var(--aka)}
+.work:hover .wm{-webkit-text-stroke-color:var(--k3)}
+
+/* ============================================================
+   暗面:連携 — 中央の暗いピルから細い線を放射。
+   ============================================================ */
+#funnel{background:var(--k1);color:var(--k5);padding:16vh 0}
+#funnel .eyebrow{color:var(--k3)}
+#funnel h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);margin:20px 0 8vh;letter-spacing:.08em}
+#funnel h2 span{color:transparent;-webkit-text-stroke:1px var(--k4)}
+.hub{position:relative;max-width:640px;margin:0 auto;height:300px}
+.hub .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:var(--k2);border-radius:999px;padding:14px 34px;font-size:13px;letter-spacing:.24em;z-index:2}
+.hub .node{position:absolute;background:var(--k1);border:1px solid var(--k3);
+  border-radius:999px;padding:8px 18px;font-size:11px;letter-spacing:.2em;color:var(--k4);z-index:2}
+.hub .node.hot{border-color:var(--aka);color:var(--aka)}
+.hub svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.hub line{stroke:var(--k2);stroke-width:1}
+
+/* ============================================================
+   締めの章:CTAは1つ。同軸に積む。
+   ============================================================ */
+#contact{background:var(--k5);padding:18vh 0;text-align:center}
+#contact h2{font-family:var(--serif);font-size:clamp(40px,7vw,84px);letter-spacing:.06em;margin:24px 0 10px}
+#contact h2 .hollow{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+#contact p{color:var(--k2);font-size:14px;max-width:36em;margin:0 auto 7vh}
+#contact .cta{display:inline-flex;align-items:center;gap:16px;
+  background:var(--k1);color:var(--paper);text-decoration:none;
+  border-radius:999px;padding:20px 48px;font-size:14px;letter-spacing:.24em}
+#contact .cta:hover{background:var(--aka)}
+#contact .sub{display:block;margin-top:26px;font-size:11px;letter-spacing:.28em;color:var(--k3)}
+
+/* ---- フッター:AI SKILLである旨の明示 ---- */
+footer{background:var(--k1);color:var(--k3);padding:56px 6vw 72px;font-size:11px;letter-spacing:.18em}
+footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  max-width:1080px;margin:0 auto 34px}
+footer .sig b{color:var(--aka);font-weight:400}
+footer .mark{font-family:var(--serif);color:var(--k2);font-size:15px;letter-spacing:.3em}
+details{max-width:1080px;margin:0 auto;border-top:1px solid var(--k2);padding-top:22px}
+summary{cursor:pointer;letter-spacing:.3em;font-size:11px;color:var(--k4)}
+summary:hover{color:var(--aka)}
+details pre{margin-top:20px;padding:24px;background:rgba(255,255,255,.04);
+  border-left:2px solid var(--k2);overflow-x:auto;
+  font-size:11px;line-height:1.8;color:var(--k4);letter-spacing:.02em;white-space:pre-wrap}
+
+@media (max-width:820px){
+  .cols{grid-template-columns:1fr;border-top:1px solid var(--k4)}
+  .col{border-left:none;padding:26px 0;border-top:1px solid var(--k4)}
+  .col:first-child{border-top:none}
+  .works-grid{grid-template-columns:1fr}
+  .hub{height:auto;padding:0 0 20px}
+  .hub svg{display:none}
+  .hub{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .hub .core{position:static;transform:none}
+  .hub .node{position:static}
+  nav{gap:12px;padding:6px 6px 6px 16px}
+  nav a:not(.cta){display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="tombo tl"></div><div class="tombo tr"></div>
+<div class="tombo bl"></div><div class="tombo br"></div>
+
+<nav>
+  <a href="#principle">PRINCIPLE</a>
+  <a href="#numbers">NUMBERS</a>
+  <a href="#works">WORKS</a>
+  <a class="cta" href="#contact">相談する →</a>
+</nav>
+
+<!-- ============ HERO 暗面:単語1つを巨大に ============ -->
+<section id="hero">
+  <p class="eyebrow reveal">JEAN MIYAKE — <b>STRUCTURE / NO ORNAMENT</b></p>
+  <h1 class="hero-word reveal">余白<span class="hollow">は素材<span class="aka-dot">。</span></span></h1>
+  <p class="hero-sub reveal">構造が美しければ、装飾は要らない。</p>
+  <p class="hero-lead reveal">面は静かに、タイポグラフィとただ一つの動きだけを大胆に。線と格子で構成を示し、遠近は影ではなく余白とサイズで作る。</p>
+  <a class="hero-cta reveal" href="#contact">仕事の相談 <span class="arr">→</span></a>
+  <p class="scroll-hint">SCROLL</p>
+</section>
+
+<!-- 休符 -->
+<p class="rest">画面の5%未満の<em>差し色</em>が、静けさを引き締める。</p>
+
+<!-- ============ 明面I:細い縦罫で切る機能列 ============ -->
+<section id="principle">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">01 — PRINCIPLE</p>
+      <h2>三つの<span>掟</span></h2>
+    </div>
+    <div class="cols">
+      <div class="col reveal">
+        <p class="num">i.</p>
+        <h3>主役はひとつ</h3>
+        <p>1画面1メッセージ。強い階層だけが視線を運ぶ。他はすべて引き立て役に回り、漏斗状にたった一つのCTAへ注ぐ。</p>
+      </div>
+      <div class="col reveal">
+        <p class="num">ii.</p>
+        <h3>色は三役まで</h3>
+        <p>地・字・差し色。同系色の明度段差五段で階段を作り、差し色は唯一点に置く。色面は空気と読ませる。</p>
+      </div>
+      <div class="col reveal">
+        <p class="num">iii.</p>
+        <h3>線で示す</h3>
+        <p>目に見える格子、細い罫線、四隅のトンボ。それらは飾りではなく基準点。設計図の空気を画面に残す。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 暗面:巨大な数字が信頼を運ぶ ============ -->
+<section id="numbers">
+  <p class="quote-bg">&ldquo;</p>
+  <div class="wrap">
+    <p class="eyebrow reveal">02 — NUMBERS</p>
+    <div class="sec-head reveal" style="margin-bottom:7vh">
+      <h2 style="color:var(--k5)">推薦文より、数字。</h2>
+    </div>
+    <div class="stat reveal"><span class="label">問い合わせからの初回提案</span><span class="value">48<small>HOURS</small></span></div>
+    <div class="stat reveal"><span class="label">納品後の手戻り率</span><span class="value hot">2<small>% 以下</small></span></div>
+    <div class="stat reveal"><span class="label">継続クライアントの比率</span><span class="value">8<small>/ 10</small></span></div>
+    <div class="stat reveal"><span class="label">ひとつの画面に置く動き</span><span class="value">1<small>ONLY</small></span></div>
+  </div>
+</section>
+
+<!-- ============ 明面II:作品 — 幾何と透かし文字 ============ -->
+<section id="works">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">03 — WORKS</p>
+      <h2>裁ち切る<span>。</span></h2>
+    </div>
+  </div>
+  <div class="works-grid">
+    <article class="work reveal">
+      <div class="geo g1"></div><span class="wm">静</span>
+      <h4>静 — 美術館アーカイブ</h4><p>TYPOGRAPHY / GRID / 2025</p>
+    </article>
+    <article class="work reveal">
+      <div class="geo g2"></div><span class="wm">格</span>
+      <h4>格 — 業務SaaS再設計</h4><p>SYSTEM / HAIRLINE / 2025</p>
+    </article>
+    <article class="work reveal">
+      <div class="geo g3"></div><span class="wm">朱</span>
+      <h4>朱 — ブランド立ち上げ</h4><p>IDENTITY / ACCENT / 2026</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 暗面:連携の放射図 ============ -->
+<section id="funnel">
+  <div class="wrap">
+    <p class="eyebrow reveal">04 — NETWORK</p>
+    <h2 class="reveal">ひとつの核から、<span>細い線</span>が伸びる。</h2>
+  </div>
+  <div class="hub reveal">
+    <svg viewBox="0 0 640 300" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="320" y1="150" x2="90"  y2="40"/>
+      <line x1="320" y1="150" x2="560" y2="52"/>
+      <line x1="320" y1="150" x2="70"  y2="220"/>
+      <line x1="320" y1="150" x2="330" y2="272"/>
+      <line x1="320" y1="150" x2="570" y2="236"/>
+    </svg>
+    <span class="core">STUDIO MIYAKE</span>
+    <span class="node" style="left:6%;top:6%">PRINT</span>
+    <span class="node" style="right:5%;top:10%">WEB</span>
+    <span class="node" style="left:2%;bottom:22%">TYPE</span>
+    <span class="node hot" style="left:47%;bottom:2%">NOW OPEN</span>
+    <span class="node" style="right:6%;bottom:14%">EDIT</span>
+  </div>
+</section>
+
+<!-- ============ 締め:CTAは1つ ============ -->
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow reveal">05 — CONTACT</p>
+    <h2 class="reveal">話を<br><span class="hollow">聞こう。</span></h2>
+    <p class="reveal">主役・構成・差し色の三語で設計を始めます。48時間以内に、最初の一行宣言をお返しします。</p>
+    <a class="cta reveal" href="mailto:hello@miyake.example">仕事の相談 →</a>
+    <span class="sub reveal">HELLO@MIYAKE.EXAMPLE — TOKYO / REMOTE</span>
+  </div>
+</section>
+
+<footer>
+  <div class="row">
+    <span class="mark">JEAN MIYAKE</span>
+    <span class="sig"><b>本ポートフォリオはAI SKILLにより生成</b></span>
+    <span>© 2026</span>
+  </div>
+  <details>
+    <summary>SKILL.md</summary>
+    <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 差し色は見出しの1語に置ける。外周の色マットと同色に反響させれば、画面全体が差し色1つで締まる。
+- 見出しは字形とウェイトでも揺れる。同型の行を「塗り」と「中空(アウトライン)」で1行ずつ分けると色を足さず二声になる。イタリックの一節、明度を落とした2行目も声が浮く。
+- 画面からはみ出す巨大な中空語は背景の模様になる。透かし文字は静けさのまま自己を刻む。
+- 機能列は箱で仕切らず細い縦罫で切る。列ごとに太い見出し+小さな本文を重ねればカード要らずで格子が読める。
+- 四隅の十字トンボは格子の証。飾りでなく基準点として置けば設計図の空気が出る。
+- 信頼は推薦文より巨大な数字が運ぶ。数値は半透明の暗パネルにラベル左・値右で積み、背後の大きな引用符が声を立たせる。
+- 連携先は中央の暗いピルから細い線を放射し一図に見せる。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージに。状態は小さな色分けピルチップで言わせる。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に積む。右端の縦ドット頁送りは1個だけリングで活動を示す。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- プランは注目の1枚のみ明暗反転(暗カードに白抜きボタン)、残りは白細枠。選択肢が色で自己説明する。
+- 造形物は上端で裁ち切る。枠外への広がりで余白を下の1文に注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。
+- ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。
+</pre>
+  </details>
+</footer>
+
+<script>
+/* 唯一のアニメーション:章の浮现。repeatはしない。 */
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
