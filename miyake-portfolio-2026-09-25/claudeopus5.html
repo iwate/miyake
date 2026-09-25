@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jean Miyake — 構造</title>
+<style>
+:root{
+  --ink:#14161a;        /* 字 */
+  --ink-2:#3a3f46;
+  --ink-3:#6e747c;
+  --paper:#edeae3;      /* 地・淡 */
+  --paper-2:#e3dfd6;
+  --paper-3:#f7f5f1;
+  --dark:#101216;       /* 地・濃 */
+  --dark-2:#1b1e24;
+  --accent:#d8410a;     /* 差し色 */
+  --rule:rgba(20,22,26,.14);
+  --rule-inv:rgba(237,234,227,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
+  font-size:15px;line-height:1.9;letter-spacing:.04em;
+  font-feature-settings:"palt" 1;
+}
+h1,h2,h3,.serif{
+  font-family:"Times New Roman","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  font-weight:400;letter-spacing:.01em;line-height:1.08;
+}
+a{color:inherit;text-decoration:none}
+
+/* 唯一のアニメーション: 上昇フェード(1回のみ) */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.18s}.d3{animation-delay:.31s}.d4{animation-delay:.44s}
+@media (prefers-reduced-motion:reduce){.rise{animation:none}}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.sect{padding:112px 0;position:relative}
+
+/* 四隅の十字トンボ = 格子の基準点 */
+.marks{position:fixed;inset:20px;pointer-events:none;z-index:5}
+.marks i{position:absolute;width:15px;height:15px;opacity:.5}
+.marks i::before,.marks i::after{content:"";position:absolute;background:var(--ink)}
+.marks i::before{left:7px;top:0;width:1px;height:15px}
+.marks i::after{top:7px;left:0;height:1px;width:15px}
+.marks .a{left:0;top:0}.marks .b{right:0;top:0}.marks .c{left:0;bottom:0}.marks .d{right:0;bottom:0}
+.on-dark .marks i::before,.on-dark .marks i::after{background:var(--paper)}
+
+/* ナビ: 浮いた白角丸ピル、右端を暗塗りCTAで締める */
+.nav{position:sticky;top:18px;z-index:10;display:flex;justify-content:center;padding:0 28px}
+.navpill{
+  display:flex;align-items:center;gap:26px;background:#fff;
+  border-radius:999px;padding:9px 10px 9px 24px;border:1px solid var(--rule);
+}
+.navpill .mark{font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.navpill nav{display:flex;gap:22px;font-size:12.5px;color:var(--ink-3);letter-spacing:.12em}
+.navpill nav a:hover{color:var(--ink)}
+.navpill .go{background:var(--dark);color:var(--paper);border-radius:999px;padding:9px 18px;font-size:12.5px;letter-spacing:.12em}
+@media(max-width:720px){.navpill nav{display:none}}
+
+/* 眉ラベル: ピル */
+.brow{display:inline-block;border:1px solid var(--rule);border-radius:999px;
+  padding:5px 15px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3)}
+.on-dark .brow{border-color:var(--rule-inv);color:rgba(237,234,227,.62)}
+
+/* ヒーロー: 単語1つを巨大に中央へ */
+.hero{padding:120px 0 96px;text-align:center;overflow:hidden}
+.hero .word{
+  font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  font-size:clamp(108px,27vw,340px);line-height:.88;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1px var(--ink);
+}
+.hero .word .fill{color:var(--ink);-webkit-text-stroke:0}
+.hero .lede{max-width:520px;margin:34px auto 0;color:var(--ink-2);font-size:14.5px}
+.hero .lede em{font-style:italic;font-family:"Times New Roman",serif}
+.axis{width:1px;height:64px;background:var(--rule);margin:40px auto 0}
+
+/* 数値: 半透明の暗パネル、ラベル左・値右 */
+.figs{background:var(--dark);color:var(--paper);border-radius:22px;overflow:hidden}
+.figs .row{display:flex;align-items:baseline;justify-content:space-between;
+  padding:22px 30px;border-top:1px solid var(--rule-inv)}
+.figs .row:first-child{border-top:0}
+.figs .lab{font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(237,234,227,.55)}
+.figs .val{font-family:"Times New Roman",serif;font-size:clamp(40px,7vw,68px);line-height:1}
+.figs .val.hot{color:var(--accent)}
+.figs .val small{font-size:.34em;letter-spacing:.1em;color:rgba(237,234,227,.5)}
+
+/* 機能列: 箱で仕切らず細い縦罫 */
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px}
+.cols > div{padding:0 26px;border-left:1px solid var(--rule)}
+.cols > div:first-child{padding-left:0;border-left:0}
+.cols h3{font-size:19px;margin-bottom:12px}
+.cols p{font-size:13.5px;color:var(--ink-3)}
+.cols .n{font-size:11px;letter-spacing:.24em;color:var(--ink-3);display:block;margin-bottom:14px}
+@media(max-width:820px){.cols{grid-template-columns:1fr 1fr;row-gap:36px}
+ .cols>div:nth-child(3){padding-left:0;border-left:0}}
+@media(max-width:520px){.cols{grid-template-columns:1fr}
+ .cols>div{padding-left:0;border-left:0;border-top:1px solid var(--rule);padding-top:26px}
+ .cols>div:first-child{border-top:0;padding-top:0}}
+
+/* 作品: 同型カード、注目1枚だけ明暗反転 */
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+.card{background:var(--paper-3);border:1px solid var(--rule);border-radius:20px;
+  padding:28px 26px 26px;min-height:300px;display:flex;flex-direction:column}
+.card .no{font-size:11px;letter-spacing:.24em;color:var(--ink-3)}
+.card h3{font-size:26px;margin:16px 0 10px}
+.card p{font-size:13px;color:var(--ink-3);flex:1}
+.card .tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+.chip{font-size:10.5px;letter-spacing:.14em;border:1px solid var(--rule);
+  border-radius:999px;padding:3px 11px;color:var(--ink-3)}
+.card.invert{background:var(--dark);border-color:var(--dark);color:var(--paper)}
+.card.invert .no,.card.invert p{color:rgba(237,234,227,.58)}
+.card.invert .chip{border-color:var(--rule-inv);color:rgba(237,234,227,.7)}
+.card.invert .gh{margin-top:18px;align-self:flex-start;border:1px solid var(--paper);
+  color:var(--paper);border-radius:999px;padding:8px 17px;font-size:12px;letter-spacing:.12em}
+.gauge{height:1px;background:var(--rule);margin:18px 0 0;position:relative}
+.gauge i{position:absolute;left:0;top:0;height:1px;background:var(--accent)}
+@media(max-width:820px){.works{grid-template-columns:1fr}}
+
+/* 章間の休符帯 */
+.rest{background:var(--paper-2);padding:74px 0;text-align:center}
+.rest p{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(20px,3.4vw,30px);color:var(--ink-2)}
+
+/* 暗章 */
+.dark{background:var(--dark);color:var(--paper)}
+.dark .brow{border-color:var(--rule-inv)}
+.dark h2{color:var(--paper)}
+.rules{list-style:none;margin-top:46px;border-top:1px solid var(--rule-inv)}
+.rules li{display:flex;gap:24px;padding:19px 4px;border-bottom:1px solid var(--rule-inv);font-size:14px;color:rgba(237,234,227,.78)}
+.rules li b{font-family:"Times New Roman",serif;font-weight:400;font-size:13px;color:rgba(237,234,227,.45);min-width:30px}
+
+/* 見出し: 塗りと中空で二声 */
+.two{font-size:clamp(38px,7vw,78px)}
+.two .hollow{display:block;color:transparent;-webkit-text-stroke:1px currentColor}
+
+/* CTA: 漏斗の底。塗りピル+矢印 */
+.close{text-align:center;padding:126px 0 118px}
+.close h2{font-size:clamp(40px,8vw,92px)}
+.close h2 .hot{color:var(--accent)}
+.cta{display:inline-flex;align-items:center;gap:12px;background:var(--dark);color:var(--paper);
+  border-radius:999px;padding:17px 34px;font-size:14px;letter-spacing:.1em;margin-top:40px}
+.cta span{font-family:"Times New Roman",serif}
+.sub{display:block;margin-top:22px;font-size:12.5px;letter-spacing:.14em;color:var(--ink-3);text-decoration:underline;text-underline-offset:5px}
+
+/* 署名 / SKILL.md */
+.sig{border-top:1px solid var(--rule);padding:60px 0 24px}
+.sig .ai{border:1px solid var(--accent);border-radius:18px;padding:22px 26px;max-width:720px}
+.sig .ai b{color:var(--accent);font-weight:400}
+.sig .ai p{font-size:13.5px;color:var(--ink-2)}
+details{margin-top:34px;border-top:1px solid var(--rule);padding-top:22px}
+summary{cursor:pointer;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"＋ ";color:var(--accent)}
+details[open] summary::before{content:"− "}
+details pre{margin-top:22px;background:var(--paper-3);border:1px solid var(--rule);border-radius:16px;
+  padding:24px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12px;line-height:1.85;white-space:pre-wrap;color:var(--ink-2)}
+.foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:36px 0 44px;font-size:11.5px;letter-spacing:.16em;color:var(--ink-3);text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div class="marks"><i class="a"></i><i class="b"></i><i class="c"></i><i class="d"></i></div>
+
+<div class="nav rise d1">
+  <div class="navpill">
+    <span class="mark serif">Jean&nbsp;Miyake</span>
+    <nav>
+      <a href="#figures">数値</a>
+      <a href="#practice">仕事</a>
+      <a href="#works">作品</a>
+      <a href="#rules">規律</a>
+    </nav>
+    <a class="go" href="#contact">依頼する</a>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <span class="brow rise d1">Designer / Tokyo — Paris</span>
+  <h1 class="word rise d2" aria-label="構造">構<span class="fill">造</span></h1>
+  <p class="lede serif rise d3">装飾を足す前に、構造を直す。<br>余白・格子・階層。<em>Structure first, always.</em></p>
+  <div class="axis rise d4"></div>
+</header>
+
+<section class="sect wrap" id="figures" style="padding-top:0">
+  <div class="figs rise">
+    <div class="row"><span class="lab">Years in practice</span><span class="val">14</span></div>
+    <div class="row"><span class="lab">Products shipped</span><span class="val">86</span></div>
+    <div class="row"><span class="lab">Median conversion lift</span><span class="val hot">+38<small>%</small></span></div>
+    <div class="row"><span class="lab">Typefaces per project</span><span class="val">2<small>max</small></span></div>
+  </div>
+</section>
+
+<section class="sect wrap" id="practice">
+  <span class="brow">Practice</span>
+  <h2 class="two serif" style="margin-top:22px">仕事は四列に<span class="hollow">畳まれている</span></h2>
+  <div class="cols">
+    <div><span class="n">01</span><h3>構造設計</h3><p>情報の階層を先に決める。画面は1つのメッセージだけを運ぶ。</p></div>
+    <div><span class="n">02</span><h3>タイポグラフィ</h3><p>2書体まで。和文は文字詰めで呼吸を整える。</p></div>
+    <div><span class="n">03</span><h3>色の規律</h3><p>地・字・差し色の三役。差し色は画面の5%未満に留める。</p></div>
+    <div><span class="n">04</span><h3>実装の受け渡し</h3><p>格子とトークンで渡す。影に頼らず、余白とサイズで遠近を作る。</p></div>
+  </div>
+</section>
+
+<div class="rest">
+  <div class="wrap"><p>詰めない。引く。——それだけで画面は静かになる。</p></div>
+</div>
+
+<section class="sect wrap" id="works">
+  <span class="brow">Selected</span>
+  <h2 class="two serif" style="margin-top:22px">三件だけ<span class="hollow">置いておく</span></h2>
+  <div class="works">
+    <article class="card">
+      <span class="no">01 / 2024</span>
+      <h3 class="serif">Kōshi<br>Banking</h3>
+      <p>明細を格子で読ませる。罫線だけで28画面を統一。</p>
+      <div class="gauge"><i style="width:62%"></i></div>
+      <div class="tags"><span class="chip">FINTECH</span><span class="chip">DESIGN SYSTEM</span></div>
+    </article>
+    <article class="card invert">
+      <span class="no">02 / 2025 — 主役</span>
+      <h3 class="serif">Hakuyō<br>Editorial</h3>
+      <p>写真を捨て、全記事を活字と幾何で構成。滞在時間 2.4倍。</p>
+      <div class="gauge" style="background:rgba(237,234,227,.2)"><i style="width:88%"></i></div>
+      <div class="tags"><span class="chip">MEDIA</span><span class="chip">TYPE ONLY</span></div>
+      <a class="gh" href="#contact">経緯を読む</a>
+    </article>
+    <article class="card">
+      <span class="no">03 / 2023</span>
+      <h3 class="serif">Seion<br>Health OS</h3>
+      <p>状態は小さな色分けピルに任せ、面は静かに保つ。</p>
+      <div class="gauge"><i style="width:47%"></i></div>
+      <div class="tags"><span class="chip">HEALTHCARE</span><span class="chip">DASHBOARD</span></div>
+    </article>
+  </div>
+</section>
+
+<section class="sect dark on-dark" id="rules">
+  <div class="wrap">
+    <span class="brow">Rules</span>
+    <h2 class="two serif" style="margin-top:22px;color:var(--paper)">守るのは<span class="hollow">六つ</span></h2>
+    <ol class="rules">
+      <li><b>01</b>フォントは最大2書体。日本語は文字詰めを意識する。</li>
+      <li><b>02</b>色は3役まで(地・字・差し色)。差し色は画面の5%未満。</li>
+      <li><b>03</b>影は使わない。遠近は余白とサイズで作る。</li>
+      <li><b>04</b>アニメーションは1種類に絞り、repeatは慎重に。</li>
+      <li><b>05</b>主役の見出し・CTAにグラデーションは禁じる。</li>
+      <li><b>06</b>写真は使わない。タイポグラフィと幾何で表現する。</li>
+    </ol>
+  </div>
+</section>
+
+<section class="close wrap" id="contact">
+  <span class="brow">Contact</span>
+  <h2 class="serif" style="margin-top:26px">構<span class="hot">造</span>から、始める。</h2>
+  <a class="cta" href="mailto:studio@miyake.example">依頼する <span>→</span></a>
+  <a class="sub" href="mailto:studio@miyake.example">studio@miyake.example</a>
+</section>
+
+<footer class="sig wrap">
+  <div class="ai">
+    <p><b>署名:</b> 本スキル「miyake」は <b>AI SKILL</b> である。Jean Miyake は実在の人物ではなく、AIのためのデザイン規範として書かれた架空のデザイナーであり、このポートフォリオもAIが同スキルに従って生成したものである。</p>
+  </div>
+
+  <details>
+    <summary>SKILL.md — 全文</summary>
+    <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 差し色は見出しの1語に置ける。外周の色マットと同色に反響させれば、画面全体が差し色1つで締まる。
+- 見出しは字形とウェイトでも揺れる。同型の行を「塗り」と「中空」で1行ずつ分けると色を足さず二声になる。イタリックの一節も声が浮く。
+- 画面からはみ出す巨大な中空語は背景の模様になる。透かし文字は静けさのまま自己を刻む。
+- 機能列は箱で仕切らず細い縦罫で切る。列ごとに太い見出し+小さな本文を重ねればカード要らずで格子が読める。
+- 四隅の十字トンボは格子の証。飾りでなく基準点として置けば設計図の空気が出る。
+- 信頼は推薦文より巨大な数字が運ぶ。数値は半透明の暗パネルにラベル左・値右で積む。
+- 連携先のロゴは単色に落とし、中央の暗いピルから細い線を放射して一図に見せる。彩度のあるロゴが並ぶと面が散る。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージに。状態は小さな色分けピルチップで言わせる。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に。右端の縦ドット頁送りは活動の1個だけリングで示す。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- 同型カードの羅列では注目の1枚だけ明暗反転(暗面に白抜きボタン)、残りは白細枠。色を足さず視線が定まる。
+- 造形物は上端か下端で裁ち切る。枠外への広がりで余白を生み、下の1文へ注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。直線の境界が疲れる画面では、緩い波で地色を刳り抜くと継ぎ目が風景になり章が連続して見える。
+- 主題の形を低彩度の模様にして背景に散らせば、地が静かに物語る。模様は地の濃度で留める。
+- ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。</pre>
+  </details>
+
+  <div class="foot">
+    <span>Jean Miyake — Fictional Designer, AI Skill</span>
+    <span>Generated 2026.09.25 — No images, no shadows</span>
+  </div>
+</footer>
+
+</body>
+</html>

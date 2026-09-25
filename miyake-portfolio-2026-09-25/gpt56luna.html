@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Jean Miyake — 構造が美しければ装飾は要らない。架空のデザイナーのポートフォリオ。">
+<title>Jean Miyake — Structure is Enough</title>
+<style>
+:root{--ground:#f4f1ea;--ink:#151515;--blue:#1648d8;--line:rgba(21,21,21,.22);--max:1180px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;letter-spacing:.015em}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--blue);color:var(--ground)}
+.shell{width:min(calc(100% - 48px),var(--max));margin:auto}
+.gridline{border-left:1px solid var(--line);border-right:1px solid var(--line)}
+header{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+header:before,header:after{content:"";position:absolute;width:13px;height:13px;border-top:1px solid var(--ink);top:28px}
+header:before{left:24px;border-left:1px solid var(--ink)} header:after{right:24px;border-right:1px solid var(--ink)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1px solid var(--line);font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+.nav strong{font-size:15px;letter-spacing:.04em}.nav a{border-bottom:1px solid var(--ink);padding-bottom:3px}
+.hero{flex:1;display:grid;align-content:center;justify-items:center;text-align:center;position:relative;padding:72px 0 110px}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin:0 0 30px}
+h1{font-size:clamp(76px,18vw,230px);line-height:.78;letter-spacing:-.095em;font-weight:900;margin:0;max-width:100%;white-space:nowrap}
+.hero-note{margin:43px auto 0;max-width:420px;font-size:14px;line-height:1.8}
+.cta{display:inline-flex;align-items:center;gap:22px;background:var(--ink);color:var(--ground);padding:16px 19px 16px 22px;border-radius:999px;font-size:12px;letter-spacing:.1em;margin-top:34px}.cta i{font-style:normal;font-size:19px;line-height:10px;color:var(--blue)}
+.scrollmark{position:absolute;bottom:28px;left:50%;font-size:10px;letter-spacing:.15em;writing-mode:vertical-rl}
+.section{padding:130px 0}.section.dark{background:var(--ink);color:var(--ground)}
+.section-head{display:grid;grid-template-columns:1fr 2fr;gap:32px;border-top:1px solid currentColor;padding-top:16px;margin-bottom:65px}.section-index{font-size:12px;letter-spacing:.12em}.section-title{font-size:clamp(36px,6vw,82px);line-height:.95;letter-spacing:-.06em;margin:0;max-width:700px}.section-intro{grid-column:2;max-width:490px;line-height:1.8;font-size:14px;margin:0}
+.works{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid currentColor}.work{min-height:350px;padding:25px 24px 32px;border-bottom:1px solid currentColor;display:flex;flex-direction:column;justify-content:space-between}.work:nth-child(odd){border-right:1px solid currentColor}.work:first-child{background:var(--blue);color:var(--ground);grid-row:span 2;min-height:700px}.work-meta{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em}.work h3{font-size:clamp(32px,4vw,60px);letter-spacing:-.07em;line-height:.9;margin:0 0 16px}.work p{font-size:13px;line-height:1.65;max-width:320px;margin:0}.shape{width:70%;aspect-ratio:1.7/1;border:1px solid currentColor;position:relative;margin:auto}.shape:before{content:"";position:absolute;width:42%;height:42%;background:currentColor;left:29%;top:29%}.shape.circle{border-radius:50%;aspect-ratio:1}.shape.circle:before{border-radius:50%;background:transparent;border:1px solid currentColor}.shape.lines:before{width:100%;height:1px;left:0;top:50%;background:currentColor}.shape.lines:after{content:"";position:absolute;width:1px;height:100%;left:50%;top:0;background:currentColor}
+.statement{padding:130px 0 150px;text-align:center;overflow:hidden}.statement p{font-size:clamp(34px,6vw,86px);line-height:.97;letter-spacing:-.065em;max-width:900px;margin:0 auto}.statement em{color:var(--blue);font-style:normal}.statement small{display:block;font-size:11px;letter-spacing:.14em;margin-bottom:32px;text-transform:uppercase}
+.practice{display:grid;grid-template-columns:1fr 2fr;gap:32px}.practice-list{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid currentColor}.practice-item{padding:20px 18px 40px 0;border-bottom:1px solid currentColor}.practice-item:not(:last-child){border-right:1px solid currentColor;padding-right:20px;margin-right:20px}.practice-item b{display:block;font-size:44px;letter-spacing:-.08em;margin-bottom:42px}.practice-item h3{font-size:15px;margin:0 0 14px}.practice-item p{font-size:13px;line-height:1.75;margin:0}
+.contact{padding:120px 0 45px}.contact-inner{border:1px solid var(--ink);padding:30px;display:grid;grid-template-columns:1fr auto;align-items:end}.contact h2{font-size:clamp(54px,10vw,140px);letter-spacing:-.09em;line-height:.78;margin:55px 0 15px}.contact p{font-size:13px;line-height:1.7;margin:0;max-width:370px}.contact .cta{margin:0}.footer{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.08em;padding-top:22px}.footer span:last-child{color:var(--blue)}
+details{margin-top:36px;border-top:1px solid var(--line);padding-top:18px}summary{cursor:pointer;font-size:11px;letter-spacing:.12em;text-transform:uppercase}details pre{white-space:pre-wrap;font:12px/1.7 monospace;max-height:480px;overflow:auto;padding:28px 0;margin:20px 0 0;border-top:1px solid var(--line)}
+@media(max-width:700px){.shell{width:min(calc(100% - 30px),var(--max))}.nav{padding:20px 0}.hero{padding:80px 0 100px}h1{font-size:23vw}.section{padding:80px 0}.section-head,.practice{display:block}.section-intro{margin-top:24px}.works{display:block}.work,.work:first-child{min-height:390px}.work:nth-child(odd){border-right:0}.practice-list{margin-top:48px;display:block}.practice-item:not(:last-child){border-right:0;padding-right:0;margin-right:0}.contact-inner{display:block;padding:22px}.contact h2{margin:75px 0 20px}.contact .cta{margin-top:30px}.footer{gap:20px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:no-preference){.hero h1{animation:arrive .9s cubic-bezier(.2,.8,.2,1) both}}@keyframes arrive{from{transform:translateY(22px);opacity:0}to{transform:translateY(0);opacity:1}}
+</style>
+</head>
+<body>
+<header class="shell">
+  <nav class="nav"><strong>Jean Miyake</strong><span>Independent designer / 2026</span><a href="#works">Index ↘</a></nav>
+  <div class="hero"><p class="eyebrow">Structure / Space / Signal</p><h1>FORM</h1><p class="hero-note">構造が美しければ、装飾は要らない。<br>私は、静かな画面に強い一文を置く。</p><a href="#works" style="margin-top:34px;font-size:12px;letter-spacing:.1em;border-bottom:1px solid currentColor;padding-bottom:5px">Selected work ↓</a><span class="scrollmark">SCROLL ↓</span></div>
+</header>
+<main>
+<section class="section dark" id="works"><div class="shell"><div class="section-head"><span class="section-index">01 / Selected work</span><h2 class="section-title">見るものを、<br>読むものへ。</h2><p class="section-intro">ブランド、デジタルプロダクト、空間。媒体が変わっても、仕事は同じだ。要素を減らし、関係を整え、ひとつの意思を残す。</p></div>
+<div class="works"><article class="work"><div class="work-meta"><span>A / 2026</span><span>Brand system</span></div><div class="shape circle"></div><div><h3>Quiet<br>Currency</h3><p>金融の信頼を、数字と余白の設計に翻訳した。</p></div></article><article class="work"><div class="work-meta"><span>B / 2025</span><span>Digital product</span></div><div class="shape lines"></div><div><h3>ONE<br>LINE</h3><p>選択肢を一本の流れにした。</p></div></article><article class="work"><div class="work-meta"><span>C / 2025</span><span>Editorial</span></div><div class="shape"></div><div><h3>After<br>Image</h3><p>画像を使わず、文字の密度で誌面をつくった。</p></div></article></div></div></section>
+<section class="statement"><div class="shell"><small>02 / Position</small><p>Less surface.<br><em>More signal.</em></p></div></section>
+<section class="section" id="method"><div class="shell"><div class="section-head"><span class="section-index">03 / Method</span><h2 class="section-title">大切なのは、<br>足す前の判断。</h2><p class="section-intro">罫線を引き、階層をつくり、最後に差し色をひとつ。デザインは、選ばなかったものの総和でもある。</p></div><div class="practice-list"><article class="practice-item"><b>01</b><h3>余白は素材</h3><p>空間を残すことで、情報は浮かび上がる。詰めないことを設計する。</p></article><article class="practice-item"><b>02</b><h3>主役はひとつ</h3><p>一画面一メッセージ。視線を迷わせる要素は、静かに退場させる。</p></article><article class="practice-item"><b>03</b><h3>線は構造</h3><p>細い罫線と格子で、見えない関係を見えるようにする。</p></article></div></div></section>
+<section class="section dark"><div class="shell practice"><span class="section-index">04 / Notes</span><div><h2 class="section-title">You bring<br>the question.</h2><p class="section-intro" style="margin-top:28px">私は答えを装飾しない。問いの形を見つけ、必要なものだけを残す。</p></div></div></section>
+<section class="contact" id="contact"><div class="shell"><div class="contact-inner"><div><span class="section-index">05 / Contact</span><h2>MAKE<br>ROOM.</h2><p>新しい構造をつくる依頼を受けています。まずは、まだ整っていない問いを送ってください。</p></div><a class="cta" href="mailto:hello@jeanmiyake.example">Say hello <i>↗</i></a></div><details><summary>AI SKILL / Jean Miyake の設計原則を読む</summary><pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 差し色は見出しの1語に置ける。外周の色マットと同色に反響させれば、画面全体が差し色1つで締まる。
+- 見出しは字形とウェイトでも揺れる。同型の行を「塗り」と「中空」で1行ずつ分けると色を足さず二声になる。イタリックの一節も声が浮く。
+- 画面からはみ出す巨大な中空語は背景の模様になる。透かし文字は静けさのまま自己を刻む。
+- 機能列は箱で仕切らず細い縦罫で切る。列ごとに太い見出し+小さな本文を重ねればカード要らずで格子が読める。
+- 四隅の十字トンボは格子の証。飾りでなく基準点として置けば設計図の空気が出る。
+- 信頼は推薦文より巨大な数字が運ぶ。数値は半透明の暗パネルにラベル左・値右で積む。
+- 連携先のロゴは単色に落とし、中央の暗いピルから細い線を放射して一図に見せる。彩度のあるロゴが並ぶと面が散る。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージに。状態は小さな色分けピルチップで言わせる。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に。右端の縦ドット頁送りは活動の1個だけリングで示す。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- 同型カードの羅列では注目の1枚だけ明暗反転(暗面に白抜きボタン)、残りは白細枠。色を足さず視線が定まる。
+- 造形物は上端か下端で裁ち切る。枠外への広がりで余白を生み、下の1文へ注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。直線の境界が疲れる画面では、緩い波で地色を刳り抜くと継ぎ目が風景になり章が連続して見える。
+- 主題の形を低彩度の模様にして背景に散らせば、地が静かに物語る。模様は地の濃度で留める。
+- ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。
+</pre></details><div class="footer"><span>© Jean Miyake — Fictional designer</span><span>※ 本スキルはAI SKILLである。Jean Miyakeは、その原則に従う架空のデザイナーです。</span></div></div></section>
+</main>
+<script>
+const link = document.querySelector('.nav a');
+link.addEventListener('click', () => document.querySelector('#contact').scrollIntoView({behavior:'smooth'}));
+</script>
+</body></html>

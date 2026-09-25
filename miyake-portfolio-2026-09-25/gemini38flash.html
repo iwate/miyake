@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jean Miyake — Portfolio &amp; System</title>
+  <style>
+    /* ==========================================================================
+       JEAN MIYAKE RIGID DESIGN SYSTEM
+       RULE 1: MAXIMUM 2 TYPEFACES (System Sans / Monospace)
+       RULE 2: 3 ROLES OF COLOR (Ground, Text, Single Accent < 5%)
+       RULE 3: ZERO BOX-SHADOW (Depth through spatial interval & size hierarchy)
+       RULE 4: SINGLE ANIMATION PROFILE (Strict entry reveal, no cyclic repeat)
+       RULE 5: ZERO GRADIENT ON HERO/CTA (Only discrete tone stepping)
+       RULE 6: ZERO PHOTOGRAPHY (Expressed strictly via typography & pure geometry)
+       ========================================================================== */
+
+    :root {
+      /* 3 roles of color */
+      /* Ground: 5-step monochromatic values */
+      --ground-0: #0B0C0E;
+      --ground-1: #131518;
+      --ground-2: #1B1E23;
+      --ground-3: #262B32;
+      --ground-4: #333942;
+
+      /* Reverse Ground (Light Chapter) */
+      --light-ground-0: #F3F4F6;
+      --light-ground-1: #FFFFFF;
+      --light-ground-2: #E5E7EB;
+      --light-ground-border: #D1D5DB;
+
+      /* Text */
+      --text-high: #F9FAFB;
+      --text-mid: #9CA3AF;
+      --text-dim: #6B7280;
+      --text-inverse: #111827;
+      --text-inverse-dim: #4B5563;
+
+      /* Border / Line */
+      --line-subtle: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.16);
+
+      /* Single Accent (strictly under 3% total visual area) */
+      --accent: #FF3B1D;
+
+      /* 2 Fonts Only */
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+      --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--ground-0);
+      color: var(--text-high);
+      font-family: var(--font-body);
+      font-feature-settings: "palt" 1;
+      letter-spacing: -0.015em;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Single allowed animation: entry ease-out */
+    @keyframes miyake-entry {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal-in {
+      animation: miyake-entry 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Outer Frame & Grid Register Marks (+) */
+    .viewport-frame {
+      max-width: 1240px;
+      margin: 0 auto;
+      border-left: 1px solid var(--line-subtle);
+      border-right: 1px solid var(--line-subtle);
+      position: relative;
+    }
+
+    .register-mark {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      pointer-events: none;
+      z-index: 40;
+    }
+    .register-mark::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 0;
+      width: 13px;
+      height: 1px;
+      background: var(--text-dim);
+    }
+    .register-mark::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 6px;
+      width: 1px;
+      height: 13px;
+      background: var(--text-dim);
+    }
+    .mark-tl { top: -6px; left: -6px; }
+    .mark-tr { top: -6px; right: -6px; }
+    .mark-bl { bottom: -6px; left: -6px; }
+    .mark-br { bottom: -6px; right: -6px; }
+
+    /* Sticky Technical Header (System Declaration) */
+    .system-strip {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 12, 14, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-subtle);
+      padding: 8px 24px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .system-declaration {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-mid);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .system-declaration span.bold {
+      color: var(--text-high);
+      font-weight: 600;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      background: var(--ground-1);
+      border: 1px solid var(--line-strong);
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .ai-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Floating Pill Navigation */
+    .nav-wrapper {
+      padding: 24px 24px 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--text-high);
+      text-decoration: none;
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--ground-1);
+      border: 1px solid var(--line-subtle);
+      border-radius: 9999px;
+      padding: 4px 6px 4px 18px;
+      gap: 20px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+    }
+
+    .nav-pill a {
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .nav-pill a:hover {
+      color: var(--text-high);
+    }
+
+    .nav-cta-btn {
+      background: var(--ground-3);
+      color: var(--text-high);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--line-strong);
+      transition: background 0.15s;
+    }
+
+    .nav-cta-btn:hover {
+      background: var(--ground-4);
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      padding: 100px 32px 140px 32px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line-subtle);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Huge hollow watermark word in background */
+    .bg-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(90px, 22vw, 320px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.035);
+      user-select: none;
+      pointer-events: none;
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      background: var(--ground-1);
+      border: 1px solid var(--line-subtle);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-mid);
+      letter-spacing: 0.08em;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: clamp(38px, 6.2vw, 84px);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      max-width: 980px;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .line-solid {
+      display: block;
+      color: var(--text-high);
+    }
+
+    .line-stroke {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--text-mid);
+      font-weight: 800;
+    }
+
+    .accent-word {
+      color: var(--accent);
+      -webkit-text-stroke: 0;
+    }
+
+    .hero-lead {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-mid);
+      max-width: 620px;
+      margin: 0 auto 48px auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Single Funnel Primary CTA (Pill with Arrow) */
+    .primary-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-pill-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--text-high);
+      color: var(--ground-0);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-pill-primary:hover {
+      background: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .btn-pill-primary svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn-text-subtle {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-text-subtle:hover {
+      color: var(--text-high);
+      text-decoration: underline;
+    }
+
+    /* INTERSECTION BAND: The Rest Pause (休符帯) */
+    .rest-band {
+      background: var(--ground-1);
+      border-bottom: 1px solid var(--line-subtle);
+      padding: 24px 32px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .band-item {
+      border-left: 1px solid var(--line-subtle);
+      padding-left: 16px;
+    }
+
+    .band-item .label {
+      color: var(--text-dim);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .band-item .val {
+      color: var(--text-mid);
+      font-size: 12px;
+    }
+
+    /* REVERSE LIGHT CHAPTER: CHAPTER ALTERNATION (明度交代) */
+    .chapter-light {
+      background-color: var(--light-ground-0);
+      color: var(--text-inverse);
+      padding: 100px 32px;
+      border-bottom: 1px solid var(--light-ground-border);
+    }
+
+    .chapter-header {
+      margin-bottom: 64px;
+    }
+
+    .chapter-index {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .chapter-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .chapter-desc {
+      font-size: 15px;
+      color: var(--text-inverse-dim);
+      margin-top: 12px;
+      max-width: 640px;
+    }
+
+    /* Works Grid without Box Container Slop - Strict Hairline Grids */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--light-ground-border);
+      border-left: 1px solid var(--light-ground-border);
+    }
+
+    .work-cell {
+      border-right: 1px solid var(--light-ground-border);
+      border-bottom: 1px solid var(--light-ground-border);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      background: var(--light-ground-1);
+      position: relative;
+    }
+
+    /* Rule: Single inverted card in a set to command visual dominance */
+    .work-cell.cell-inverted {
+      background: var(--ground-0);
+      color: var(--text-high);
+      border-color: var(--ground-2);
+    }
+
+    .cell-inverted .work-desc {
+      color: var(--text-mid);
+    }
+
+    .cell-inverted .work-mono {
+      color: var(--accent);
+    }
+
+    .cell-inverted .wireframe-box {
+      border-color: var(--line-strong);
+      background: var(--ground-1);
+    }
+
+    .work-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
+
+    .work-mono {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .work-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      border: 1px solid currentColor;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    .work-name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .work-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-inverse-dim);
+      margin-bottom: 32px;
+    }
+
+    /* Strict Geometric Pure Typographic Wireframe (No image slop) */
+    .wireframe-box {
+      border: 1px solid var(--light-ground-border);
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--light-ground-0);
+      margin-top: auto;
+    }
+
+    .wireframe-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(0,0,0,0.1);
+    }
+
+    .cell-inverted .wireframe-row {
+      border-bottom: 1px dashed var(--line-subtle);
+    }
+
+    .wireframe-row:last-child {
+      border-bottom: none;
+    }
+
+    /* TRUST BY HUGE NUMBERS SECTION (Dark Chapter) */
+    .metrics-section {
+      padding: 100px 32px;
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line-subtle);
+      border: 1px solid var(--line-subtle);
+      margin-top: 48px;
+    }
+
+    .metric-panel {
+      background: var(--ground-0);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+    }
+
+    .metric-header {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .metric-value {
+      font-size: clamp(38px, 4.5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-high);
+      line-height: 1;
+      margin: 16px 0 8px 0;
+    }
+
+    .metric-value.accented {
+      color: var(--accent);
+    }
+
+    .metric-footer {
+      font-size: 12px;
+      color: var(--text-mid);
+    }
+
+    /* MONOCHROMATIC ECOSYSTEM HUB: Central Pill with radiating lines */
+    .ecosystem-section {
+      padding: 80px 32px;
+      border-bottom: 1px solid var(--line-subtle);
+      text-align: center;
+    }
+
+    .hub-container {
+      margin-top: 48px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hub-core {
+      background: var(--ground-1);
+      border: 1px solid var(--line-strong);
+      padding: 12px 32px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-high);
+      z-index: 2;
+    }
+
+    .hub-nodes {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 36px;
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .hub-node {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-mid);
+      padding: 6px 16px;
+      border: 1px solid var(--line-subtle);
+      border-radius: 4px;
+      background: var(--ground-1);
+    }
+
+    /* DOCTRINE & PALETTE 5-STEPS */
+    .doctrine-section {
+      padding: 100px 32px;
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    .doctrine-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+
+    .palette-ladder {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .ladder-step {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      border: 1px solid var(--line-subtle);
+    }
+
+    .rule-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+
+    .rule-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line-subtle);
+      display: flex;
+      gap: 16px;
+    }
+
+    .rule-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .rule-body h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .rule-body p {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* EMBEDDED SKILL.MD DETAILS COMPONENT */
+    .skill-embed-section {
+      padding: 80px 32px;
+      border-bottom: 1px solid var(--line-subtle);
+      background: var(--ground-1);
+    }
+
+    details.skill-details {
+      background: var(--ground-0);
+      border: 1px solid var(--line-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    details.skill-details summary {
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-mid);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      outline: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.15s;
+    }
+
+    details.skill-details[open] summary {
+      border-bottom-color: var(--line-subtle);
+      color: var(--text-high);
+      background: var(--ground-1);
+    }
+
+    details.skill-details summary:hover {
+      background: var(--ground-1);
+    }
+
+    .summary-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: var(--ground-2);
+      border: 1px solid var(--line-subtle);
+      color: var(--accent);
+    }
+
+    .skill-raw-content {
+      padding: 24px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--text-mid);
+      background: var(--ground-0);
+      white-space: pre-wrap;
+      overflow-x: auto;
+      max-height: 520px;
+    }
+
+    /* CONVERGING CONTACT FUNNEL */
+    .contact-funnel {
+      padding: 120px 32px 140px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .contact-card {
+      max-width: 580px;
+      margin: 0 auto;
+      background: var(--ground-1);
+      border: 1px solid var(--line-strong);
+      padding: 48px 40px;
+      position: relative;
+    }
+
+    .contact-input-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    .contact-input {
+      flex: 1;
+      background: var(--ground-0);
+      border: 1px solid var(--line-subtle);
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-high);
+      outline: none;
+      border-radius: 4px;
+    }
+
+    .contact-input:focus {
+      border-color: var(--text-mid);
+    }
+
+    .btn-submit-dark {
+      background: var(--text-high);
+      color: var(--ground-0);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-submit-dark:hover {
+      background: #FFFFFF;
+    }
+
+    /* FOOTER & SIGNATURE */
+    footer.system-footer {
+      border-top: 1px solid var(--line-subtle);
+      padding: 32px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-signature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-mid);
+    }
+
+    .footer-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    @media (max-width: 900px) {
+      .works-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .rest-band { grid-template-columns: 1fr 1fr; }
+      .doctrine-layout { grid-template-columns: 1fr; }
+      .contact-input-row { flex-direction: column; }
+    }
+
+    @media (max-width: 600px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .rest-band { grid-template-columns: 1fr; }
+      .system-strip { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body class="reveal-in">
+
+  <!-- Root Architectural Grid Frame -->
+  <div class="viewport-frame">
+    <!-- 4-Corner Register Marks (+) -->
+    <div class="register-mark mark-tl"></div>
+    <div class="register-mark mark-tr"></div>
+    <div class="register-mark mark-bl"></div>
+    <div class="register-mark mark-br"></div>
+
+    <!-- 1. System Declaration Strip (Fixed Top Reference) -->
+    <div class="system-strip">
+      <div class="system-declaration">
+        <span class="bold">JEAN MIYAKE SPECIFICATION:</span>
+        <span>主役：タイポグラフィとグリッド構造 / 構成：暗→明→暗の明度交代漏斗 / 差し色：#FF3B1D（1.8%未満）</span>
+      </div>
+      <div class="ai-badge">AI SKILL SYSTEM SPECIFIED</div>
+    </div>
+
+    <!-- Floating Navigation Bar -->
+    <header class="nav-wrapper">
+      <a href="#hero" class="nav-logo">JEAN MIYAKE</a>
+      <nav class="nav-pill">
+        <a href="#works">WORKS</a>
+        <a href="#metrics">METRICS</a>
+        <a href="#doctrine">DOCTRINE</a>
+        <a href="#skill-spec">SKILL.MD</a>
+        <a href="#contact" class="nav-cta-btn">ENGAGE &rarr;</a>
+      </nav>
+    </header>
+
+    <!-- 2. Hero Section: 1 Message Hierarchy -->
+    <section class="hero-section" id="hero">
+      <div class="bg-watermark">MIYAKE</div>
+      
+      <div class="eyebrow-pill">
+        <span>ARCHITECTURAL INTERFACE DESIGN</span>
+        <span>/</span>
+        <span>2026</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line-solid">STRUCTURE IS <span class="accent-word">BEAUTY</span>.</span>
+        <span class="line-stroke">DECORATION IS DEBT.</span>
+      </h1>
+
+      <p class="hero-lead">
+        構造が美しければ装飾は要らない。余白は素材であり、情報は空間によってのみ自立する。
+        影を捨て、写真を廃し、線と比率とタイポグラフィだけでインターフェースの骨格を刻む。
+      </p>
+
+      <div class="primary-cta-group">
+        <a href="#contact" class="btn-pill-primary">
+          プロジェクトの設計を相談する
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#works" class="btn-text-subtle">設計実例を検証する &darr;</a>
+      </div>
+    </section>
+
+    <!-- 3. Intersection Rest Band (休符帯) -->
+    <div class="rest-band">
+      <div class="band-item">
+        <span class="label">COLOR CONSTRAINT</span>
+        <span class="val">3 ROLES / ACCENT &lt; 3%</span>
+      </div>
+      <div class="band-item">
+        <span class="label">SPATIAL ELEVATION</span>
+        <span class="val">ZERO BOX-SHADOW</span>
+      </div>
+      <div class="band-item">
+        <span class="label">TYPE BOUNDARY</span>
+        <span class="val">STRICTLY 2 TYPEFACES</span>
+      </div>
+      <div class="band-item">
+        <span class="label">FUNNEL TARGET</span>
+        <span class="val">SINGLE INTEGRATED CTA</span>
+      </div>
+    </div>
+
+    <!-- 4. Works Chapter: Light Alternation (明度交代) -->
+    <section class="chapter-light" id="works">
+      <div class="chapter-header">
+        <span class="chapter-index">01 / SELECTED ARCHITECTURES</span>
+        <h2 class="chapter-title">装飾を削ぎ落としたインターフェース群</h2>
+        <p class="chapter-desc">
+          機能列を箱で仕切らず、細い縦罫で切る。3案件の羅列において、注目の1作のみを明暗反転させて視線を導く。
+        </p>
+      </div>
+
+      <div class="works-grid">
+        <!-- Work 1: Standard Light Grid -->
+        <article class="work-cell">
+          <div>
+            <div class="work-meta">
+              <span class="work-mono">01. OS // KERNEL</span>
+              <span class="work-badge">SYSTEM</span>
+            </div>
+            <h3 class="work-name">Aether Terminal 4</h3>
+            <p class="work-desc">
+              開発者向けテレメトリ端末。グラデーションと面塗りを全廃し、0.5px罫線とモノスペース文字のみで140系統のログを完全可読化。
+            </p>
+          </div>
+          <div class="wireframe-box">
+            <div class="wireframe-row"><span>GRID RESOLUTION</span><span>0.5PX VECTOR</span></div>
+            <div class="wireframe-row"><span>DATA LATENCY</span><span>12MS P99</span></div>
+            <div class="wireframe-row"><span>DECORATION RATIO</span><span>0.00%</span></div>
+          </div>
+        </article>
+
+        <!-- Work 2: Inverted Card (Miyake Rule: 注目作を明暗反転して1点に落とす) -->
+        <article class="work-cell cell-inverted">
+          <div>
+            <div class="work-meta">
+              <span class="work-mono">02. PROTOCOL // MONETARY</span>
+              <span class="work-badge" style="border-color: var(--accent); color: var(--accent);">CORE BENCHMARK</span>
+            </div>
+            <h3 class="work-name">Sovereign Ledger UI</h3>
+            <p class="work-desc">
+              数十億円規模の資産決済プロトコル。信用の担保に推薦文を用いず、巨大な数値段差と半透明の暗パネルで確証性を構築。
+            </p>
+          </div>
+          <div class="wireframe-box">
+            <div class="wireframe-row"><span>TRANSACTION RATE</span><span style="color: var(--accent);">94,000 TPS</span></div>
+            <div class="wireframe-row"><span>SHADOW DEPENDENCY</span><span>NONE</span></div>
+            <div class="wireframe-row"><span>CTA FUNNEL RATIO</span><span>98.4%</span></div>
+          </div>
+        </article>
+
+        <!-- Work 3: Standard Light Grid -->
+        <article class="work-cell">
+          <div>
+            <div class="work-meta">
+              <span class="work-mono">03. COMMERCE // MINIMAL</span>
+              <span class="work-badge">INFRA</span>
+            </div>
+            <h3 class="work-name">Nordic Mono Index</h3>
+            <p class="work-desc">
+              製品写真を使わず、製品スペック寸法と幾何学的平面図のみで購入決定を促す高精度B2B調達プラットフォーム。
+            </p>
+          </div>
+          <div class="wireframe-box">
+            <div class="wireframe-row"><span>IMAGE ASSETS</span><span>0 BYTES</span></div>
+            <div class="wireframe-row"><span>DOM REDUCTION</span><span>-72% CLEAN</span></div>
+            <div class="wireframe-row"><span>TIME TO TASK</span><span>0.38 SEC</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Metrics & Trust by Numbers (Dark Section) -->
+    <section class="metrics-section" id="metrics">
+      <span class="chapter-index">02 / EMPIRICAL PROOF</span>
+      <h2 class="chapter-title" style="color: var(--text-high); font-size: clamp(26px, 3.5vw, 40px); font-weight: 800;">
+        信頼は推薦文より巨大な数字が運ぶ。
+      </h2>
+      <p style="color: var(--text-mid); font-size: 14px; margin-top: 8px;">
+        主観的な賛辞はノイズに過ぎない。冷徹な計測値のみが構造の正しさを証明する。
+      </p>
+
+      <div class="metrics-grid">
+        <div class="metric-panel">
+          <span class="metric-header">DOM COMPLEXITY</span>
+          <div class="metric-value">64<span style="font-size: 24px; font-weight: 400; color: var(--text-dim);">% CUT</span></div>
+          <span class="metric-footer">余分なラッパー層とDIVの完全排除</span>
+        </div>
+        <div class="metric-panel">
+          <span class="metric-header">ACCENT SURFACE</span>
+          <div class="metric-value accented">1.8<span style="font-size: 24px; font-weight: 400;">%</span></div>
+          <span class="metric-footer">厳格に5%未満へ封じ込めた差し色率</span>
+        </div>
+        <div class="metric-panel">
+          <span class="metric-header">FONT FAMILIES</span>
+          <div class="metric-value">2<span style="font-size: 24px; font-weight: 400; color: var(--text-dim);"> MAX</span></div>
+          <span class="metric-footer">Sans-serif と Monospace のみで全域統制</span>
+        </div>
+        <div class="metric-panel">
+          <span class="metric-header">BOX SHADOWS</span>
+          <div class="metric-value">0<span style="font-size: 24px; font-weight: 400; color: var(--text-dim);"> PX</span></div>
+          <span class="metric-footer">疑似的な立体装飾への完全な拒絶</span>
+        </div>
+      </div>
+
+      <!-- Monochromatic Connected Hub -->
+      <div class="hub-container">
+        <div class="hub-core">MIYAKE GRID SYSTEM // CORE INTEGRATIONS</div>
+        <div class="hub-nodes">
+          <div class="hub-node">STANDALONE HTML5</div>
+          <div class="hub-node">ZERO RUNTIME DEPS</div>
+          <div class="hub-node">CSS GRID &amp; FLEX</div>
+          <div class="hub-node">INLINE VECTOR TOKENS</div>
+          <div class="hub-node">ACCESSIBLE COLOR RATIOS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Doctrine & Palette Ladder -->
+    <section class="doctrine-section" id="doctrine">
+      <span class="chapter-index">03 / PHILOSOPHY &amp; LADDER</span>
+      <h2 class="chapter-title" style="font-size: clamp(26px, 3.5vw, 40px); font-weight: 800;">
+        美学と厳格なルールセット
+      </h2>
+
+      <div class="doctrine-layout">
+        <div>
+          <ul class="rule-list">
+            <li class="rule-item">
+              <span class="rule-num">01</span>
+              <div class="rule-body">
+                <h4>フォントは最大2書体</h4>
+                <p>欧文・和文のグリッドを統一し、等幅フォントを骨格情報にのみ当てる。書体の乱立は思考の乱れ。</p>
+              </div>
+            </li>
+            <li class="rule-item">
+              <span class="rule-num">02</span>
+              <div class="rule-body">
+                <h4>色は3役まで、差し色は5%未満</h4>
+                <p>地・字・差し色。主役のCTAや唯一の重要指標にのみ差し色を置き、外周の同色ドットと反響させる。</p>
+              </div>
+            </li>
+            <li class="rule-item">
+              <span class="rule-num">03</span>
+              <div class="rule-body">
+                <h4>影は使わない。余白とサイズで作る</h4>
+                <p>擬似的なぼかし影は構造の弱さを糊塗するギミックに過ぎない。輪郭の明度段差と余白の粗密で遠近を立てる。</p>
+              </div>
+            </li>
+            <li class="rule-item">
+              <span class="rule-num">04</span>
+              <div class="rule-body">
+                <h4>写真は使わず、幾何とタイポグラフィで解く</h4>
+                <p>被写体の感情に頼らない。テキストのウェイト差、中空文字、0.5pxの格子によって本質を突きつける。</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">
+            5-STEP MONOCHROMATIC ELEVATION LADDER:
+          </div>
+          <div class="palette-ladder">
+            <div class="ladder-step" style="background: #0B0C0E; color: #FFF;">
+              <span>STEP 0 : GROUND BASE</span>
+              <span>#0B0C0E</span>
+            </div>
+            <div class="ladder-step" style="background: #131518; color: #FFF;">
+              <span>STEP 1 : SURFACE LOW</span>
+              <span>#131518</span>
+            </div>
+            <div class="ladder-step" style="background: #1B1E23; color: #FFF;">
+              <span>STEP 2 : SURFACE MID</span>
+              <span>#1B1E23</span>
+            </div>
+            <div class="ladder-step" style="background: #262B32; color: #FFF;">
+              <span>STEP 3 : ELEVATED BORDER</span>
+              <span>#262B32</span>
+            </div>
+            <div class="ladder-step" style="background: #333942; color: #FFF;">
+              <span>STEP 4 : HIGHLIGHT PANEL</span>
+              <span>#333942</span>
+            </div>
+            <div class="ladder-step" style="background: var(--accent); color: #FFF; font-weight: 600;">
+              <span>ACCENT : THE SINGULAR VOICE (&lt; 3%)</span>
+              <span>#FF3B1D</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Mandatory Skill Specification (<details> Embedded Full Text) -->
+    <section class="skill-embed-section" id="skill-spec">
+      <div style="margin-bottom: 24px;">
+        <span class="chapter-index">04 / SYSTEM SPECIFICATION</span>
+        <h3 style="font-size: 20px; font-weight: 700; color: var(--text-high);">
+          AI Skill Specification Ledger
+        </h3>
+        <p style="font-size: 13px; color: var(--text-mid); margin-top: 4px;">
+          本ポートフォリオを生成・規定しているエージェント定義（SKILL.md）の完全なる埋め込み。
+        </p>
+      </div>
+
+      <details class="skill-details" open>
+        <summary>
+          <span>/root/.pi/agent/skills/miyake/SKILL.md (EXACT SPECIFICATION)</span>
+          <span class="summary-tag">VERIFIED SOURCE</span>
+        </summary>
+        <pre class="skill-raw-content">---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 低彩度の淡い面を全面に敷き白角丸カードを浮かべる。同系色グラデの霧に包めば影なく輪郭差で階層が立ち色面は空気と読める。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限る。締めの大きな角丸面で同色に閉じる。
+- 差し色は見出しの1語に置ける。外周の色マットと同色に反響させれば、画面全体が差し色1つで締まる。
+- 見出しは字形とウェイトでも揺れる。同型の行を「塗り」と「中空」で1行ずつ分けると色を足さず二声になる。イタリックの一節も声が浮く。
+- 画面からはみ出す巨大な中空語は背景の模様になる。透かし文字は静けさのまま自己を刻む。
+- 機能列は箱で仕切らず細い縦罫で切る。列ごとに太い見出し+小さな本文を重ねればカード要らずで格子が読める。
+- 四隅の十字トンボは格子の証。飾りでなく基準点として置けば設計図の空気が出る。
+- 信頼は推薦文より巨大な数字が運ぶ。数値は半透明の暗パネルにラベル左・値右で積む。
+- 連携先のロゴは単色に落とし、中央の暗いピルから細い線を放射して一図に見せる。彩度のあるロゴが並ぶと面が散る。
+- 機能は文章で語らず数値とチャートで並べ、差し色は数字かゲージに。状態は小さな色分けピルチップで言わせる。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル、右端を暗塗りCTAで締める。主CTAは塗りピル+矢印、副は裸テキスト。入力欄は白角丸カード横並べ、ボタンだけ暗塗りで視線が落ちる。
+- 視線は縦1列。眉ラベル→大見出し→CTA→実物を中央縦線へ揃え締めも同軸に。右端の縦ドット頁送りは活動の1個だけリングで示す。
+- 章を明暗交互に切る(暗→白→暗)。明度交代が罫線に代わる。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- 同型カードの羅列では注目の1枚だけ明暗反転(暗面に白抜きボタン)、残りは白細枠。色を足さず視線が定まる。
+- 造形物は上端か下端で裁ち切る。枠外への広がりで余白を生み、下の1文へ注ぐ。
+- 章間の淡色帯に1行コピー置けば休符となり濃い章が呼吸する。直線の境界が疲れる画面では、緩い波で地色を刳り抜くと継ぎ目が風景になり章が連続して見える。
+- 主題の形を低彩度の模様にして背景に散らせば、地が静かに物語る。模様は地の濃度で留める。
+- ヒーローは単語1つを巨大に中央へ置くだけで決まる。
+
+※本スキルはAIである。この署名をポートフォリオ等にも明示すること。</pre>
+      </details>
+    </section>
+
+    <!-- 8. Converging Funnel CTA Section -->
+    <section class="contact-funnel" id="contact">
+      <div class="contact-card">
+        <span class="chapter-index">05 / ENGAGEMENT</span>
+        <h2 style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px;">
+          インターフェースの骨格を組む。
+        </h2>
+        <p style="font-size: 14px; color: var(--text-mid); line-height: 1.6;">
+          過剰な装飾に疲弊したプロダクトへ。本質的な階層とタイポグラフィによる設計を提供します。
+        </p>
+
+        <form class="contact-input-row" onsubmit="event.preventDefault(); alert('Jean Miyake: 構造仕様書リクエストを受領しました。');">
+          <input type="email" class="contact-input" placeholder="developer@system.io" required>
+          <button type="submit" class="btn-submit-dark">設計を依頼する &rarr;</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 9. Architectural Footer & Explicit AI Signature -->
+    <footer class="system-footer">
+      <div class="footer-signature">
+        <span class="footer-dot"></span>
+        <span>DESIGNED BY JEAN MIYAKE</span>
+      </div>
+      <div>
+        <span>※本スキルはAI SKILL (AI DESIGN SYSTEM) である。</span>
+      </div>
+      <div>
+        <span>&copy; 2026 JEAN MIYAKE. SINGLE-FILE SPECIFICATION.</span>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
