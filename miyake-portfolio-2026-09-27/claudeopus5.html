@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jean Miyake — 構造</title>
+<!-- 宣言:主役は巨大語「構造」、構成は明暗交互の縦一軸(眉→見出し→CTA)、差し色は朱 #E2462F を数値とCTAの点のみに。 -->
+<style>
+:root{
+  --c5:#1A1A18; --c4:#585349; --c3:#9C968A; --c2:#DDD7CC; --c1:#F2EEE7;
+  --ink:#1A1A18; --acc:#E2462F;
+  --g:1px solid var(--c2);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--c1);color:var(--ink);
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-feature-settings:"palt" 1; letter-spacing:.04em; line-height:1.9;
+}
+.mono{font-family:ui-monospace,"SFMono-Regular",Menlo,monospace;letter-spacing:.14em;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+/* --- 唯一のアニメーション:立ち上がり --- */
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.rise{animation:rise .9s cubic-bezier(.16,.84,.3,1) both}
+.rise:nth-child(2){animation-delay:.08s}.rise:nth-child(3){animation-delay:.16s}
+@media (prefers-reduced-motion:reduce){.rise{animation:none}}
+
+/* --- ナビ:浮いた白角丸ピル + 右端暗塗りCTA --- */
+nav{position:sticky;top:18px;z-index:9;margin:18px auto 0;max-width:1040px;padding:0 28px}
+.navpill{display:flex;align-items:center;gap:28px;background:#fff;border:var(--g);
+  border-radius:999px;padding:9px 10px 9px 24px}
+.navpill a{color:var(--c4);text-decoration:none;font-size:12px;letter-spacing:.18em}
+.navpill a:hover{color:var(--ink)}
+.navpill .brand{margin-right:auto;font-size:13px;letter-spacing:.3em;color:var(--ink)}
+.navcta{background:var(--c5);color:#fff !important;border-radius:999px;padding:10px 20px}
+
+/* --- HERO --- */
+header{padding:96px 0 0;position:relative;overflow:hidden}
+.brow{display:inline-block;border:var(--g);border-radius:999px;padding:6px 16px;
+  font-size:11px;letter-spacing:.3em;color:var(--c4);background:#fff}
+.h1{margin:36px 0 0;font-size:clamp(76px,21vw,260px);line-height:.86;letter-spacing:.02em;font-weight:400}
+.hollow{color:transparent;-webkit-text-stroke:1px var(--c3);text-stroke:1px var(--c3);display:block}
+.lede{max-width:34em;margin:34px auto 0;font-size:15px;color:var(--c4)}
+.center{text-align:center}
+.cta{display:inline-flex;align-items:center;gap:12px;background:var(--c5);color:#fff;
+  text-decoration:none;border-radius:999px;padding:16px 30px;font-size:13px;letter-spacing:.2em;margin-top:34px}
+.cta i{font-style:normal;color:var(--acc)}
+.sub{display:block;margin-top:14px;font-size:12px;letter-spacing:.2em;color:var(--c3);text-decoration:none}
+.sub:hover{color:var(--ink)}
+.metas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:40px}
+.metas span{background:#fff;border:var(--g);border-radius:999px;padding:7px 15px;font-size:11px;letter-spacing:.16em;color:var(--c4)}
+/* 端で裁ち切る曲線:静止に唯一の運動 */
+.curve{position:absolute;left:-14vw;bottom:-52vh;width:128vw;height:128vh;
+  border:1px solid var(--c2);border-radius:50%;pointer-events:none}
+
+/* --- 帯(休符) --- */
+.band{background:var(--c5);color:var(--c2);margin-top:96px}
+.band p{margin:0;padding:34px 0;font-size:13px;letter-spacing:.28em;text-align:center}
+
+/* --- 機能列:縦罫で切る + トンボ --- */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:var(--g);position:relative}
+.grid>div{padding:34px 24px 44px;border-left:var(--g)}
+.grid>div:first-child{border-left:0;padding-left:0}
+.grid h3{margin:0 0 12px;font-size:19px;font-weight:400}
+.grid p{margin:0;font-size:12.5px;color:var(--c4);line-height:1.95}
+.grid .no{display:block;font-size:11px;letter-spacing:.2em;color:var(--c3);margin-bottom:22px}
+section{padding:88px 0}
+.sec-h{font-size:12px;letter-spacing:.3em;color:var(--c3);margin:0 0 40px}
+
+/* --- 数字 --- */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:var(--g);border-bottom:var(--g)}
+.nums>div{padding:44px 0;border-left:var(--g);text-align:center}
+.nums>div:first-child{border-left:0}
+.nums b{display:block;font-size:clamp(46px,8vw,86px);font-weight:400;line-height:1;letter-spacing:-.01em}
+.nums b em{font-style:normal;color:var(--acc)}
+.nums small{display:block;margin-top:14px;font-size:11px;letter-spacing:.2em;color:var(--c3)}
+.gauge{height:3px;background:var(--c2);margin-top:26px}
+.gauge i{display:block;height:3px;background:var(--acc)}
+
+/* --- 仕事:同型カード、注目の1枚だけ反転 --- */
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:var(--g);border-radius:18px;padding:28px 24px 30px;min-height:230px;
+  display:flex;flex-direction:column}
+.card.on{background:var(--c5);border-color:var(--c5);color:var(--c1)}
+.card .yr{font-size:11px;letter-spacing:.2em;color:var(--c3)}
+.card.on .yr{color:var(--c3)}
+.card h4{margin:auto 0 10px;font-size:26px;font-weight:400;line-height:1.35}
+.card p{margin:0;font-size:12px;color:var(--c4);letter-spacing:.06em}
+.card.on p{color:var(--c2)}
+
+/* --- 原則:塗りと中空の二声 --- */
+.rules{border-top:var(--g)}
+.rules div{border-bottom:var(--g);padding:22px 0;display:flex;gap:24px;align-items:baseline}
+.rules .n{font-size:11px;letter-spacing:.2em;color:var(--c3);min-width:3em}
+.rules .t{font-size:clamp(20px,3.4vw,34px);line-height:1.4}
+.rules div:nth-child(even) .t{color:transparent;-webkit-text-stroke:1px var(--c4)}
+
+/* --- 開示 --- */
+.disclose{background:var(--c2);border-radius:26px;padding:34px 30px;margin-top:20px}
+.disclose h2{margin:0 0 12px;font-size:20px;font-weight:400}
+.disclose p{margin:0;font-size:13px;color:var(--c4);max-width:52em}
+details{margin-top:24px;border-top:1px solid var(--c3);padding-top:18px}
+summary{cursor:pointer;font-size:12px;letter-spacing:.2em;color:var(--c4)}
+pre{margin:18px 0 0;padding:22px;background:var(--c1);border-radius:14px;overflow:auto;
+  font-family:ui-monospace,Menlo,monospace;font-size:11.5px;line-height:1.85;letter-spacing:.02em;
+  white-space:pre-wrap;max-height:60vh}
+
+/* --- 締め:同軸・大きな角丸面 --- */
+.close{background:var(--c5);color:var(--c1);border-radius:34px;padding:88px 28px;margin:0 0 28px;text-align:center}
+.close .brow{background:transparent;border-color:var(--c4);color:var(--c3)}
+.close h2{font-size:clamp(40px,9vw,96px);margin:28px 0 0;font-weight:400;line-height:1}
+.close .cta{background:var(--c1);color:var(--c5)}
+footer{padding:0 0 70px;text-align:center;font-size:11px;letter-spacing:.2em;color:var(--c3)}
+@media(max-width:820px){
+  .grid,.works,.nums{grid-template-columns:1fr}
+  .grid>div{border-left:0;border-bottom:var(--g);padding:28px 0}
+  .nums>div{border-left:0;border-top:var(--g)}
+  .navpill a:not(.navcta){display:none}
+  header{padding-top:56px}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="navpill">
+  <span class="brand">JEAN MIYAKE</span>
+  <a href="#work">WORK</a><a href="#rule">PRINCIPLE</a><a href="#ai">AI</a>
+  <a class="navcta" href="#contact">依頼する</a>
+</div></nav>
+
+<header class="center">
+  <div class="wrap">
+    <span class="brow rise">DESIGNER — TOKYO / 2026</span>
+    <h1 class="h1 rise">構造<span class="hollow">STRUCTURE</span></h1>
+    <p class="lede rise">構造が美しければ装飾は要らない。余白は素材、主役は1つ。<br>私は画面から線を引き算して、読める階層だけを残します。</p>
+    <a class="cta" href="#contact">依頼する <i>→</i></a>
+    <a class="sub" href="#work">仕事を見る</a>
+    <div class="metas">
+      <span>UI / UX</span><span>タイポグラフィ</span><span>デザインシステム</span><span>1画面1メッセージ</span><span>影を使わない</span>
+    </div>
+  </div>
+  <div class="curve"></div>
+</header>
+
+<div class="band"><p>装 飾 で は な く 、 秩 序 。</p></div>
+
+<section id="rule"><div class="wrap">
+  <p class="sec-h">01 — 私の設計原則</p>
+  <div class="grid">
+    <div><span class="no">A</span><h3>余白は素材</h3><p>空間が情報を浮かせる。詰めた画面は速く見えて遅い。</p></div>
+    <div><span class="no">B</span><h3>色は3役</h3><p>地・字・差し色。差し色は面積の5%未満、唯一点に置く。</p></div>
+    <div><span class="no">C</span><h3>影は使わない</h3><p>遠近は余白とサイズで作る。淡い面と白の対比で階層は立つ。</p></div>
+    <div><span class="no">D</span><h3>動きは1種類</h3><p>面は静かに、タイポグラフィと1つの動きだけ大胆に。</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <p class="sec-h">02 — 数字</p>
+  <div class="nums">
+    <div><b>1<em>4</em></b><small>YEARS IN PRACTICE</small></div>
+    <div><b>8<em>6</em></b><small>SHIPPED SCREENS / YEAR</small></div>
+    <div><b><em>3</em></b><small>COLORS, MAX</small></div>
+  </div>
+  <div class="gauge"><i style="width:23%"></i></div>
+  <p class="mono" style="font-size:11px;color:var(--c3);margin-top:12px">差し色の占有率 — 目標 5% 未満</p>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <p class="sec-h">03 — 仕事</p>
+  <div class="works">
+    <div class="card on"><span class="yr">2026</span><h4>Kōshi<br>Design System</h4><p>格子と罫線だけで組んだ12製品共通の基盤。</p></div>
+    <div class="card"><span class="yr">2025</span><h4>Hakuchi<br>Banking</h4><p>数字を主役に据えた明細画面。装飾ゼロ。</p></div>
+    <div class="card"><span class="yr">2024</span><h4>Seion<br>Reader</h4><p>日本語の文字詰めに全振りした長文体験。</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <p class="sec-h">04 — 断り方</p>
+  <div class="rules">
+    <div><span class="n">01</span><span class="t">主役の見出しにグラデーションは敷かない</span></div>
+    <div><span class="n">02</span><span class="t">写真は使わない、幾何とタイポで語る</span></div>
+    <div><span class="n">03</span><span class="t">CTAは1つ、全章をそこへ漏斗状に導く</span></div>
+    <div><span class="n">04</span><span class="t">書体は2つまで、迷いは階層の欠陥</span></div>
+  </div>
+</div></section>
+
+<section id="ai"><div class="wrap">
+  <div class="disclose">
+    <h2>このポートフォリオはAIによるものです</h2>
+    <p><strong>Jean Miyake は架空の人物です。</strong>本ページは AI(大規模言語モデル)が「miyake」スキル
+    — 美学とルールを記述したプロンプト文書 — に従って生成した架空のデザイナー・ポートフォリオです。
+    実在の人物・案件・受賞歴・数値ではありません。振る舞いの根拠となったスキル定義の全文を以下に開示します。</p>
+    <details>
+      <summary>SKILL.md の全文を読む（miyake / 原文ママ）</summary>
+      <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 淡い面を全面に敷き白角丸カードを浮かべ、同系色グラデの霧で包めば影なく階層が立つ。章内の帯にも敷けば浮きが章ごとに繰り返される。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限り、締めの大きな角丸面で同色に閉じる。
+- 差し色は見出しの1語に置き、外周の色マットと同色に反響させて全体を1色で締める。見出しの周囲に細枠チップを楕円軌道に散らせば字面が舞う。差し色はチップ1つまで。
+- 同型の行を「塗り」と「中空」で1行ずつ分けると色を足さず二声になる。巨大な中空語を画面からはみ出させれば透かし文字となり、模様でありながら静けさを保つ。
+- 機能列は箱で仕切らず細い縦罫で切り、列ごとに太い見出し+小さな本文を重ねればカード要らずで格子が読める。四隅の十字トンボは基準点に。
+- 信頼は推薦文より巨大な数字が運ぶ。機能は文章で語らず数値とチャートで並べ、差し色は数字・ゲージ・色分けピルチップに。
+- 連携先のロゴは単色に落とし、中央の暗いピルから細い線を放射して一図に見せる。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル+右端暗塗りCTA。主CTAは塗りピル+矢印、副は裸テキスト。評価・属性などのメタ情報は白ピルの横列で巨大見出しの足元に束ね、CTAへ階段で落とす。
+- ヒーローは単語1つを巨大に中央へ。視線は眉ラベル→大見出し→CTA→実物の縦1列に揃え、締めも同軸に。
+- 章は明暗交互に切り、帯の1行コピーは休符。緩い波で地色を刳り抜けば章が連続して見える。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- 同型カードの羅列では注目の1枚だけ明暗反転、残りは白細枠。色を足さず視線が定まる。
+- 造形物は画面の端で裁ち切る(どの端でも)。枠外への出血が余白と深さを生み、下の1文へ注ぐ。
+- 主題の形を低彩度の模様に散らせば地が物語る(地の濃度で留める)。差し色なら散らさず、太い曲線1本を画面の半分外へ走らせて静止に唯一の運動を。
+- 複数画面は整列にせずわずかな傾きと重なりで1枚のポスターに編集する。傾きだけで奥行きが出る。
+</pre>
+    </details>
+  </div>
+</div></section>
+
+<div class="wrap" id="contact">
+  <div class="close">
+    <span class="brow">NEXT</span>
+    <h2>構造から。</h2>
+    <a class="cta" href="mailto:hello@example.invalid">依頼する <i>→</i></a>
+  </div>
+</div>
+<footer>JEAN MIYAKE — FICTIONAL, AI-GENERATED — 2026.09.27</footer>
+</body>
+</html>

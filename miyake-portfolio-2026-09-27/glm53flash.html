@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!-- 主役: 「MIYAKE」巨大中空タイポ(透かし文字) / 構成: 明暗交互5章+細い縦罫の格子、CTA(依頼)への漏斗 / 差し色: 朱の一点(CTA矢印と締めの大面) -->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Portfolio</title>
+<style>
+  :root{
+    --ink:#1a1a1c;        /* 字 */
+    --paper:#f4f2ee;      /* 地(淡) */
+    --paper-dark:#222226; /* 地(濃) */
+    --line:rgba(26,26,28,.18);
+    --line-inv:rgba(244,242,238,.22);
+    --vermilion:#e0442a;  /* 差し色: 唯一の朱 */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    background:var(--paper);color:var(--ink);
+    letter-spacing:.04em;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .pill{border-radius:999px;}
+  .kicker{
+    display:inline-block;font-size:.72rem;letter-spacing:.28em;
+    border:1px solid var(--line);padding:.45em 1.4em;
+  }
+  /* ---- nav ---- */
+  nav{
+    position:fixed;top:1.2rem;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:2rem;
+    background:rgba(255,255,255,.82);backdrop-filter:blur(6px);
+    border:1px solid var(--line);padding:.6rem .7rem .6rem 2rem;
+    z-index:10;font-size:.8rem;
+  }
+  nav a{color:var(--ink);text-decoration:none;letter-spacing:.15em;}
+  nav .cta{
+    background:var(--ink);color:var(--paper);padding:.55em 1.4em;
+  }
+  /* ---- hero ---- */
+  header{
+    min-height:100vh;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;
+    position:relative;overflow:hidden;padding:6rem 2rem 4rem;
+  }
+  header .watermark{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    font-size:clamp(8rem,26vw,22rem);font-weight:800;letter-spacing:.05em;
+    color:transparent;-webkit-text-stroke:1px rgba(26,26,28,.10);
+    white-space:nowrap;pointer-events:none;user-select:none;
+  }
+  header h1{
+    font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;line-height:1.25;
+    letter-spacing:.06em;margin:2.4rem 0 1rem;
+  }
+  header h1 em{font-style:normal;color:var(--vermilion);}
+  header p.lead{max-width:34em;font-size:.95rem;color:#555;}
+  .cta-main{
+    display:inline-block;margin-top:2.6rem;background:var(--ink);color:var(--paper);
+    text-decoration:none;padding:1em 3em;font-size:.9rem;letter-spacing:.2em;
+  }
+  .cta-main span{color:var(--vermilion);margin-left:.8em;}
+  .meta-row{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:2rem;}
+  .meta-row span{border:1px solid var(--line);background:#fff;padding:.4em 1.1em;font-size:.72rem;letter-spacing:.15em;}
+  /* ---- sections ---- */
+  section{padding:7rem 8vw;position:relative;}
+  section.dark{background:var(--paper-dark);color:var(--paper);}
+  .sec-head{display:flex;align-items:baseline;gap:2rem;margin-bottom:4rem;}
+  .sec-head h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:.08em;}
+  .sec-head h2 em{font-style:normal;color:var(--vermilion);}
+  .sec-head .num{font-size:.75rem;letter-spacing:.3em;opacity:.55;}
+  .rule{width:100%;height:1px;background:var(--line);margin:4rem 0;}
+  section.dark .rule{background:var(--line-inv);}
+  /* grid with thin vertical rules, no cards */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);}
+  .col{padding:0 2rem;border-left:1px solid var(--line);}
+  section.dark .col{border-left-color:var(--line-inv);}
+  .col:first-child{border-left:none;padding-left:0;}
+  .col h3{font-size:1.05rem;letter-spacing:.12em;margin-bottom:1rem;}
+  .col p{font-size:.85rem;color:#555;}
+  section.dark .col p{color:#b9b9bd;}
+  /* philosophy list */
+  .phi{max-width:44rem;margin:0 auto;}
+  .phi li{list-style:none;padding:1.6rem 0;border-bottom:1px solid var(--line);display:flex;gap:1.5rem;}
+  section.dark .phi li{border-bottom-color:var(--line-inv);}
+  .phi .no{font-size:.8rem;letter-spacing:.2em;color:var(--vermilion);font-weight:700;padding-top:.2em;}
+  .phi b{display:block;font-size:1.05rem;letter-spacing:.1em;margin-bottom:.3rem;}
+  .phi small{font-size:.83rem;color:#555;display:block;}
+  section.dark .phi small{color:#b9b9bd;}
+  /* AI notice */
+  .ai-notice{
+    margin:0 auto 4rem;max-width:44rem;border:1px solid var(--vermilion);
+    padding:1.6rem 2rem;font-size:.85rem;line-height:1.9;
+  }
+  .ai-notice b{color:var(--vermilion);letter-spacing:.1em;}
+  /* numbers */
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;}
+  .nums .n{font-size:clamp(2.4rem,5vw,4rem);font-weight:800;letter-spacing:.02em;}
+  .nums .n em{font-style:normal;color:var(--vermilion);}
+  .nums small{display:block;font-size:.75rem;letter-spacing:.25em;margin-top:.6rem;opacity:.65;}
+  /* works: same-type rows, one inverted */
+  .works{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-inv);}
+  section.dark .work{background:var(--paper-dark);padding:2.4rem 2rem;min-height:16rem;display:flex;flex-direction:column;justify-content:space-between;}
+  .work.hot{background:var(--paper);color:var(--ink);}
+  .work h3{font-size:1.15rem;letter-spacing:.12em;}
+  .work p{font-size:.8rem;opacity:.7;}
+  .work .year{font-size:.7rem;letter-spacing:.3em;opacity:.5;}
+  /* CTA final */
+  .final{background:var(--paper-dark);color:var(--paper);text-align:center;padding:9rem 8vw;}
+  .final h2{font-size:clamp(2rem,5vw,3.6rem);font-weight:800;letter-spacing:.08em;margin-bottom:1.2rem;}
+  .final .cta-main{background:var(--vermilion);}
+  .final .cta-main span{color:var(--paper);}
+  /* details / skill */
+  details.skill{max-width:52rem;margin:0 auto;border:1px solid var(--line);}
+  details.skill summary{
+    cursor:pointer;padding:1.2rem 2rem;font-size:.8rem;letter-spacing:.2em;
+    background:#fff;list-style:none;
+  }
+  details.skill summary::marker{content:none;}
+  details.skill summary::after{content:" +";float:right;color:var(--vermilion);}
+  details.skill[open] summary::after{content:" −";}
+  details.skill pre{
+    padding:2rem;font-size:.72rem;line-height:1.8;white-space:pre-wrap;
+    word-break:break-word;background:#fff;color:#444;max-height:32rem;overflow:auto;
+  }
+  footer{padding:3rem 8vw;font-size:.7rem;letter-spacing:.25em;opacity:.55;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  /* the one animation: a single thin vermilion line draws across the hero */
+  .draw{height:1px;background:var(--vermilion);width:min(60vw,26rem);margin:2.2rem auto 0;transform-origin:left;animation:draw 1.6s cubic-bezier(.7,0,.2,1) .4s both;}
+  @keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media(max-width:760px){
+    .cols,.nums,.works{grid-template-columns:1fr;}
+    .col{border-left:none;border-top:1px solid var(--line);padding:2rem 0;}
+    section.dark .col{border-top-color:var(--line-inv);}
+    .col:first-child{border-top:none;padding-top:0;}
+    nav{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="pill">
+  <a href="#work">WORKS</a>
+  <a href="#philosophy">PHILOSOPHY</a>
+  <a href="#skill">SKILL</a>
+  <a href="#contact" class="cta pill">依頼する</a>
+</nav>
+
+<header>
+  <div class="watermark">MIYAKE</div>
+  <span class="kicker pill">JEAN MIYAKE — UI / WEB DESIGN</span>
+  <h1>構造が美しければ、<br><em>装飾は要らない。</em></h1>
+  <div class="draw"></div>
+  <p class="lead">余白は素材。線と格子で構成を示し、差し色は一点に。<br>静けさの中で、主役だけが立つページをつくります。</p>
+  <a class="cta-main pill" href="#contact">依頼を受け付ける<span>→</span></a>
+  <div class="meta-row">
+    <span>EST. 2026</span><span>TOKYO / PARIS</span><span>TYPE × GRID × 1 COLOR</span>
+  </div>
+</header>
+
+<section id="philosophy" class="dark">
+  <div class="sec-head"><span class="num">01</span><h2>哲学 <em>/</em> PHILOSOPHY</h2></div>
+  <ul class="phi">
+    <li><span class="no">I.</span><span><b>余白は素材である</b><small>空間を作り、情報を浮かせる。詰めない。</small></span></li>
+    <li><span class="no">II.</span><span><b>1画面1メッセージ</b><small>主役は1つ。他はすべて引き立て役に徹する。</small></span></li>
+    <li><span class="no">III.</span><span><b>静と動の対比</b><small>面は静かに。タイポグラフィと、たった1つの動きだけ大胆に。</small></span></li>
+    <li><span class="no">IV.</span><span><b>線と格子</b><small>目に見える格子、細い罫線で構成を示す。</small></span></li>
+  </ul>
+</section>
+
+<section id="work">
+  <div class="sec-head"><span class="num">02</span><h2>仕事 <em>/</em> WORKS</h2></div>
+  <div class="nums">
+    <div><span class="n">38<em>+</em></span><small>PROJECTS</small></div>
+    <div><span class="n">11</span><small>AWARDS</small></div>
+    <div><span class="n">5<em>%</em></span><small>ACCENT COLOR — MAX</small></div>
+  </div>
+  <div class="rule"></div>
+  <div class="cols">
+    <div class="col"><h3>品牌の再構築</h3><p>ロゴ単色化と罫線格子で、既存資産を崩さずに階層だけを立て替える。</p></div>
+    <div class="col"><h3>数字で語るLP</h3><p>推薦文を排し、巨大な数値とゲージで信頼を運ぶ。差し色は数字に。</p></div>
+    <div class="col"><h3>透かしタイポ</h3><p>巨大な中空語を画面からはみ出させ、模様でありながら静けさを保つ。</p></div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="sec-head"><span class="num">03</span><h2>選抜 <em>/</em> SELECTED</h2></div>
+  <div class="works">
+    <div class="work"><span class="year">2026</span><h3>KAKERA</h3><p>陶器ブランドの全展開。明暗交互の章構成。</p></div>
+    <div class="work hot"><span class="year">2026</span><h3>MONO-METER</h3><p>計測SaaS。数値とゲージが主役のLP。</p></div>
+    <div class="work"><span class="year">2025</span><h3>HAZI</h3><p>罫線で切り分けた機能一覧、カード要らず。</p></div>
+  </div>
+</section>
+
+<section id="contact" class="final">
+  <h2>次の構造を、<br>一緒に。</h2>
+  <p style="opacity:.6;max-width:30em;margin:0 auto 2.6rem;">まずは1行だけ。プロジェクトの輪郭を教えてください。</p>
+  <a class="cta-main pill" href="mailto:hello@miyake.example">依頼する<span>→</span></a>
+</section>
+
+<section id="skill">
+  <div class="sec-head"><span class="num">04</span><h2>設計規範 <em>/</em> SKILL</h2></div>
+  <div class="ai-notice">
+    <b>※ 本ポートフォリオ、および「Jean Miyake」はAIによって生成された架空のデザイナーです。</b><br>
+    このページ自身も、以下のSKILL.mdの美学とルールに従い構成されています。
+  </div>
+  <details class="skill">
+    <summary>SKILL.MD — 全文を開く</summary>
+    <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言してから書く。
+- 断る時は理由を1行で。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差(濃→淡5段)で作る。階段が深みを運ぶ。
+- 淡い面を全面に敷き白角丸カードを浮かべ、同系色グラデの霧で包めば影なく階層が立つ。章内の帯にも敷けば浮きが章ごとに繰り返される。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限り、締めの大きな角丸面で同色に閉じる。
+- 差し色は見出しの1語に置き、外周の色マットと同色に反響させて全体を1色で締める。見出しの周囲に細枠チップを楕円軌道に散らせば字面が舞う。差し色はチップ1つまで。
+- 同型の行を「塗り」と「中空」で1行ずつ分けると色を足さず二声になる。巨大な中空語を画面からはみ出させれば透かし文字となり、模様でありながら静けさを保つ。
+- 機能列は箱で仕切らず細い縦罫で切り、列ごとに太い見出し+小さな本文を重ねればカード要らずで格子が読める。四隅の十字トンボは基準点に。
+- 信頼は推薦文より巨大な数字が運ぶ。機能は文章で語らず数値とチャートで並べ、差し色は数字・ゲージ・色分けピルチップに。
+- 連携先のロゴは単色に落とし、中央の暗いピルから細い線を放射して一図に見せる。
+- ピル(完全角丸)は主CTA・眉ラベル・ナビに限る。ナビは浮いた白角丸ピル+右端暗塗りCTA。主CTAは塗りピル+矢印、副は裸テキスト。評価・属性などのメタ情報は白ピルの横列で巨大見出しの足元に束ね、CTAへ階段で落とす。
+- ヒーローは単語1つを巨大に中央へ。視線は眉ラベル→大見出し→CTA→実物の縦1列に揃え、締めも同軸に。
+- 章は明暗交互に切り、帯の1行コピーは休符。緩い波で地色を刳り抜けば章が連続して見える。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め色相交互で1タイル1主題。円形を1つだけ境界に跨らせると揺れる。
+- 同型カードの羅列では注目の1枚だけ明暗反転、残りは白細枠。色を足さず視線が定まる。
+- 造形物は画面の端で裁ち切る(どの端でも)。枠外への出血が余白と深さを生み、下の1文へ注ぐ。
+- 主題の形を低彩度の模様に散らせば地が物語る(地の濃度で留める)。差し色なら散らさず、太い曲線1本を画面の半分外へ走らせて静止に唯一の運動を。
+- 複数画面は整列にせずわずかな傾きと重なりで1枚のポスターに編集する。傾きだけで奥行きが出る。
+</pre>
+  </details>
+</section>
+
+<footer>
+  <span>© 2026 JEAN MIYAKE</span>
+  <span>TYPE × GRID × 1 COLOR</span>
+</footer>
+
+</body>
+</html>

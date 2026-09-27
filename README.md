@@ -7,50 +7,55 @@ HTML file, kept as dated snapshots.
 
 | Date       | Files                                                                |
 | ---------- | -------------------------------------------------------------------- |
+| 2026-09-27 | [gemini 3.8 flush](./miyake-portfolio-2026-09-27/gemini38flash.html) |
+|            | [glm 5.3 flush](./miyake-portfolio-2026-09-27/glm53flash.html)       |
+|            | [gpt 5.6 luna](./miyake-portfolio-2026-09-27/gpt56luna.html)         |
+|            | [opus 5](./miyake-portfolio-2026-09-27/claudeopus5.html)             |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-27/qwen3827b.html)         |
 | 2026-09-25 | [gemini 3.8 flush](./miyake-portfolio-2026-09-25/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-25/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-25/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-25/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-25/qwen3827b.html)       |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-25/qwen3827b.html)         |
 | 2026-09-24 | [gemini 3.8 flush](./miyake-portfolio-2026-09-24/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-24/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-24/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-24/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-24/qwen3827b.html)       |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-24/qwen3827b.html)         |
 | 2026-09-23 | [gemini 3.8 flush](./miyake-portfolio-2026-09-23/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-23/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-23/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-23/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-23/qwen3827b.html)       |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-23/qwen3827b.html)         |
 | 2026-09-22 | [glm 5.3 flush](./miyake-portfolio-2026-09-22/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-22/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-22/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-22/qwen3827b.html)       |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-22/qwen3827b.html)         |
 | 2026-09-21 | [gemini 3.8 flush](./miyake-portfolio-2026-09-21/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-21/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-21/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-21/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-21/qwen3827b.html)       |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-21/qwen3827b.html)         |
 | 2026-09-20 | [gemini 3.8 flush](./miyake-portfolio-2026-09-20/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-20/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-20/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-20/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-20/qwen3827b.html)       |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-20/qwen3827b.html)         |
 | 2026-09-19 | [gemini 3.8 flush](./miyake-portfolio-2026-09-19/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-19/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-19/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-19/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-19/qwen38-27b.html)      |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-19/qwen38-27b.html)        |
 | 2026-09-18 | [gemini 3.8 flush](./miyake-portfolio-2026-09-18/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-18/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-18/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-18/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-18/qwen38-27b.html)      |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-18/qwen38-27b.html)        |
 | 2026-09-17 | [gemini 3.8 flush](./miyake-portfolio-2026-09-17/gemini38flash.html) |
 |            | [glm 5.3 flush](./miyake-portfolio-2026-09-17/glm53flash.html)       |
 |            | [gpt 5.6 luna](./miyake-portfolio-2026-09-17/gpt56luna.html)         |
 |            | [opus 5](./miyake-portfolio-2026-09-17/claudeopus5.html)             |
-|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-17/qwen38-27b.html)      |
+|            | [qwen 3.8 27b](./miyake-portfolio-2026-09-17/qwen38-27b.html)        |
 
 ## Viewing
 
@@ -58,8 +63,9 @@ https://iwate.github.io/miyake/
 
 ## Conventions
 
-- When a new version is made, add it as `miyake-portfolio-YYYY-MM-DD/{model}.html` and
-  keep old versions as history (git already tracks history — add a new file only
-  when you want an explicit snapshot)
+- When a new version is made, add it as
+  `miyake-portfolio-YYYY-MM-DD/{model}.html` and keep old versions as history
+  (git already tracks history — add a new file only when you want an explicit
+  snapshot)
 - Implementation follows Miyake's aesthetic (the skill): assertive, one point
   instead of repetition, at most one animation
