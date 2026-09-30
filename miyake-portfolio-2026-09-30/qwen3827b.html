@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Architecture of Surface</title>
+<style>
+/* -------------------------------------------------------------
+   JEAN MIYAKE DESIGN SYSTEM:
+   1. Typography: 2 families only (System Sans & Monospace)
+   2. Colors: 3 roles only (Base: #F3F3F0, Text: #111111, Accent: #FF3B00)
+   3. Zero Shadows: Depth achieved through scale and whitespace
+   4. Single Animation: Subtle hairline coordinate pulse
+   5. No photos: Typography & Geometry exclusively
+------------------------------------------------------------- */
+
+:root {
+  --bg: #F3F3F0;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #ECEBE6;
+  --text: #111111;
+  --text-muted: #737370;
+  --border: #D8D7D0;
+  --border-dark: #111111;
+  --accent: #FF3B00;
+  --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", sans-serif;
+  --font-mono: "SF Mono", "Menlo", "Monaco", "Consolas", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  box-shadow: none !important;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-main);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+}
+
+/* Single Allowed Animation */
+@keyframes coordinate-shift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(6px, 0, 0); }
+}
+
+.animate-mark {
+  display: inline-block;
+  animation: coordinate-shift 2.4s ease-in-out infinite;
+}
+
+/* Structural Grid & Lines */
+.grid-frame {
+  max-width: 1280px;
+  margin: 0 auto;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+  position: relative;
+}
+
+.border-b {
+  border-bottom: 1px solid var(--border);
+}
+
+.border-t {
+  border-top: 1px solid var(--border);
+}
+
+/* Pill components */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pill-muted {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.pill-cta {
+  background: var(--text);
+  color: var(--bg);
+  padding: 0.85rem 1.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.pill-cta:hover {
+  opacity: 0.88;
+}
+
+.pill-accent-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  position: sticky;
+  top: 0;
+  background: rgba(243, 243, 240, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero {
+  padding: 5rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.hero-headline {
+  font-size: clamp(3rem, 11vw, 9.5rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  word-break: break-all;
+}
+
+.hero-headline .accent-char {
+  color: var(--accent);
+}
+
+.hero-sub {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.hero-statement {
+  font-size: 1.35rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.action-note {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Works: 1 Big + 4 Small Asymmetric Grid */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 2.5rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.work-main {
+  padding: 3rem 2rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-card);
+}
+
+.work-subs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.work-sub-item {
+  padding: 2rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+}
+
+.work-sub-item:nth-child(2n) {
+  border-right: none;
+}
+
+.work-sub-item:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.work-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.work-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.work-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.geom-canvas {
+  width: 100%;
+  height: 180px;
+  margin: 2rem 0;
+}
+
+/* Metrics Section: Huge Numbers */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+
+.metric-col {
+  padding: 3.5rem 2rem;
+  border-right: 1px solid var(--border);
+}
+
+.metric-col:last-child {
+  border-right: none;
+}
+
+.metric-num {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-family: var(--font-mono);
+  margin-bottom: 0.75rem;
+}
+
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* AI Skill Banner & Disclosure */
+.disclosure-section {
+  padding: 3rem 2rem;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border);
+}
+
+.disclosure-card {
+  border: 1px solid var(--border-dark);
+  padding: 2rem;
+  background: #FFFFFF;
+}
+
+.badge-tag {
+  display: inline-block;
+  background: var(--border-dark);
+  color: #FFFFFF;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.disclosure-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.disclosure-body {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Details Spec Embed */
+details.spec-container {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+details.spec-container summary {
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--bg-card);
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+details.spec-container summary:hover {
+  background: var(--bg-subtle);
+}
+
+.spec-pre {
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--bg);
+  color: var(--text);
+  border-top: 1px solid var(--border);
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Mid & Closing Section: 3-fold repetition of Headline & Single CTA */
+.closing-section {
+  padding: 5rem 2rem;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.closing-headline {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+}
+
+/* Massive Bleeding Wordmark Signature */
+.signature-wrap {
+  overflow: hidden;
+  line-height: 0.78;
+  padding-top: 2rem;
+  background: var(--bg);
+}
+
+.massive-signature {
+  font-size: clamp(4.5rem, 16vw, 15rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: var(--border-dark);
+  white-space: nowrap;
+  display: block;
+  transform: translateY(12%);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 840px) {
+  .hero-sub {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .works-grid {
+    grid-template-columns: 1fr;
+  }
+  .work-main {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .work-subs {
+    grid-template-columns: 1fr;
+  }
+  .work-sub-item {
+    border-right: none;
+  }
+  .work-sub-item:nth-last-child(2) {
+    border-bottom: 1px solid var(--border);
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .metric-col {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .metric-col:last-child {
+    border-bottom: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-frame">
+
+  <!-- Header -->
+  <header>
+    <div class="brand">JEAN MIYAKE <span class="pill-accent-dot"></span> 2026</div>
+    <nav>
+      <span class="pill pill-muted">TOKYO / ARCHITECTURAL UI</span>
+      <a href="#contact" class="pill pill-cta">COMMISSION <span class="animate-mark">➔</span></a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero border-b">
+    <div class="hero-meta">
+      <span class="pill pill-muted">ARCHETYPE: 01 / PRINCIPLE</span>
+      <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">MONOCHROME &amp; MONOSPACE</span>
+    </div>
+
+    <!-- Massive hero headline piercing the frame -->
+    <h1 class="hero-headline">
+      STRUC<span class="accent-char">T</span>URE
+    </h1>
+
+    <div class="hero-sub">
+      <div class="hero-statement">
+        構造が美しければ装飾は要らない。<br>
+        余白は素材。面は静かに、グリッドは厳格に。
+      </div>
+      <div class="hero-actions">
+        <p class="action-note">
+          1画面1メッセージ。色は地・字・1点の朱赤のみで統制する。
+          シャドウを排し、比率と段差だけで深度を刻む。
+        </p>
+        <a href="#contact" class="pill pill-cta">COMMISSION <span class="animate-mark">➔</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works: 1 Big + 4 Small Asymmetric Grid -->
+  <section>
+    <div class="section-header">
+      <div class="section-title">02 / SELECTED WORKS</div>
+      <div class="pill pill-muted">NON-DECORATIVE SYSTEMS</div>
+    </div>
+
+    <div class="works-grid">
+      <!-- Big Work 1 -->
+      <div class="work-main">
+        <div>
+          <div class="work-eyebrow">CASE 01 — FINTECH PLATFORM</div>
+          <h2 class="work-title">QUANTUM LEDGER SYSTEM</h2>
+          <p class="work-desc">
+            過度な装飾とチャートの過密を解体。等幅数字と罫線グリッドのみで1秒あたりの取引集中度を可視化した次世代金融端末。
+          </p>
+        </div>
+
+        <!-- Typography & Geometry without photos -->
+        <svg class="geom-canvas" viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="600" height="200" fill="#ECEBE6"/>
+          <line x1="0" y1="50" x2="600" y2="50" stroke="#D8D7D0" stroke-width="1"/>
+          <line x1="0" y1="100" x2="600" y2="100" stroke="#D8D7D0" stroke-width="1"/>
+          <line x1="0" y1="150" x2="600" y2="150" stroke="#D8D7D0" stroke-width="1"/>
+          <line x1="200" y1="0" x2="200" y2="200" stroke="#D8D7D0" stroke-width="1"/>
+          <line x1="400" y1="0" x2="400" y2="200" stroke="#D8D7D0" stroke-width="1"/>
+          <!-- Strict geometric accents -->
+          <rect x="200" y="50" width="200" height="50" fill="#111111"/>
+          <text x="215" y="82" fill="#FFFFFF" font-family="monospace" font-size="12" letter-spacing="2">DENSITY 0.94</text>
+          <circle cx="500" cy="100" r="32" stroke="#111111" stroke-width="2"/>
+          <circle cx="500" cy="100" r="4" fill="#FF3B00"/>
+        </svg>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family: var(--font-mono); font-size: 0.75rem;">ROLE: SYSTEM DESIGN</span>
+          <span class="pill pill-muted">PROD / 2025</span>
+        </div>
+      </div>
+
+      <!-- 4 Small Works -->
+      <div class="work-subs">
+        <div class="work-sub-item">
+          <div>
+            <div class="work-eyebrow">02 — LOGISTICS OS</div>
+            <h3 class="work-title" style="font-size: 1.15rem;">KINETIC ROUTE</h3>
+            <p class="work-desc">ミリ秒精度の動態監視。黒とオフホワイトの境界線のみで配送経路を伝達。</p>
+          </div>
+          <svg width="100%" height="40" viewBox="0 0 200 40">
+            <line x1="0" y1="20" x2="180" y2="20" stroke="#111111" stroke-width="1"/>
+            <polygon points="180,16 195,20 180,24" fill="#111111"/>
+          </svg>
+        </div>
+
+        <div class="work-sub-item">
+          <div>
+            <div class="work-eyebrow">03 — DEV TOOL</div>
+            <h3 class="work-title" style="font-size: 1.15rem;">ZERO PROTOCOL</h3>
+            <p class="work-desc">開発者の認知負荷を半減させる、影を排除した純粋な等幅テキストエディタ。</p>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">
+            [0x00] EXECUTE_CLEAN
+          </div>
+        </div>
+
+        <div class="work-sub-item">
+          <div>
+            <div class="work-eyebrow">04 — TYPOGRAPHY</div>
+            <h3 class="work-title" style="font-size: 1.15rem;">KOSHO TYPE</h3>
+            <p class="work-desc">活字の幾何構造をWebコンポーネントとして再定義した骨格フォントエンジン。</p>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 900;">
+            Aa Bb 01
+          </div>
+        </div>
+
+        <div class="work-sub-item">
+          <div>
+            <div class="work-eyebrow">05 — HARDWARE I/O</div>
+            <h3 class="work-title" style="font-size: 1.15rem;">LINEAR DIAL</h3>
+            <p class="work-desc">物理ダイヤルと1:1で同期する高密度インダストリアルコンソール。</p>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);">
+            ● SYNCED 100Hz
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics: Huge Numbers carry trust -->
+  <section class="border-b">
+    <div class="metrics-grid">
+      <div class="metric-col">
+        <div class="metric-num">0<span style="font-size: 2rem; color: var(--accent);">PX</span></div>
+        <div class="metric-label">SHADOW EFFECTS USED / 影の完全排除</div>
+      </div>
+      <div class="metric-col">
+        <div class="metric-num">3<span style="font-size: 2rem;">ROLES</span></div>
+        <div class="metric-label">COLOR ROLES MAX / 地・字・朱赤</div>
+      </div>
+      <div class="metric-col">
+        <div class="metric-num">&lt;5<span style="font-size: 2rem; color: var(--accent);">%</span></div>
+        <div class="metric-label">ACCENT RATIO / 差し色の画面占有率</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notice: AI Skill Disclosure Section -->
+  <section class="disclosure-section">
+    <div class="disclosure-card">
+      <span class="badge-tag">AI SKILL ARTIFACT / 架空デザイナー表明</span>
+      <h3 class="disclosure-title">本ポートフォリオは、AIエージェント拡張スキル「Jean Miyake」による生成成果物です。</h3>
+      <p class="disclosure-body">
+        本ページに掲載されている人物「Jean Miyake(ジャン・ミヤケ)」、経歴、および実績は、デザイン哲学と厳格な制約（「余白は素材」「構造が美しければ装飾は要らない」「影を使わない」「色は3役まで」「写真不使用・幾何とタイポグラフィのみ」）を具現化するために作られたAIプロンプト/エージェント拡張スキル（AI SKILL）に基づく架空の存在です。
+      </p>
+
+      <!-- SKILL.md Embedded Details -->
+      <details class="spec-container">
+        <summary>
+          <span>VIEW SPECIFICATION: /root/.pi/agent/skills/miyake/SKILL.md (全文を展開)</span>
+          <span style="font-size: 0.7rem; color: var(--accent);">[OPEN SPEC]</span>
+        </summary>
+        <pre class="spec-pre"><code>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。差し色は唯一点に。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言、断る時も理由は1行。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差5段。階段が深みを運ぶ。
+- 淡い全面に白角丸カードを浮かべ、同系色グラデの霧で包めば影なく階層が立つ。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面の二スケールに限り、締めで同色に閉じる。
+- 差し色は見出しの1語に置き外周と反響させて締める。面グリッドには差し色の文字タイルを1枚だけ混ぜる。
+- 色を足さず明暗で二声を出す。同型の行は塗りと中空を交互に、カード列は淡色で分け注目1枚だけ反転。巨大な中空語は裁ち切りで透かしに。
+- 見出しの1語を絵や幾何のグリフに置き換え、読む手を一拍止める。
+- 機能列は番号の極小アイブロウ+太い見出し+小さな本文で切り、箱も罫線も要らない。番号主役の欄は巨大タイルにし、面積で数を読ませる。
+- 信頼は推薦文より巨大な数字が運ぶ。推薦は肩書の暗い小カード+巨大数字+大きな引用文、隅に淡い巨大引用符。統計は円バッジの横列、差し色は数字・ゲージ・ピル。
+- 連携先のロゴは単色に落とし、中央の暗いピルから細い線を放射して一団に見せる。
+- ピルは主CTA・眉ラベル・ナビ・入力列に限る。ナビは浮いた白角丸+右端暗塗りCTA、主CTAは塗りピル+矢印、副は裸テキスト、入力は白ピル1列を暗ボタンで締める。メタは白ピル横列を見出しの足元に束ねCTAへ。
+- ヒーローは単語1つを巨大に。見出しは背景面に重ね裁ち切りからはみ出し、字が面を貫く。視線は眉ラベル→大見出し→CTA→実物を縦1列に揃え、締めも同軸。
+- 同じ見出しをヒーロー・中盤・締めに3度反復し、毎回直下に同じCTAを置く。
+- 1章は左上に巨大見出し、右上に小文、右下にCTAの2カラムで縦積みの単調を消す。
+- 濃い角丸面を淡い地に1枚浮かせ、白字+造形物1点、下端の帯は白抜き。
+- 章は明暗交互、帯の1行コピーは休符。境界は紙を破るか緩い波で刳る。
+- 機能群は大きな角丸コンテナに淡色タイルを敷き詰め、色相交替で1タイル1主題。円を1つだけ境界に跨らせる。
+- グリッドは1大+4小の非対称。
+- 主題の形は低彩度の模様に散らせば地が物語る。差し色は散らさず、太い曲線1本か造形物を半分外へ走らせ、出血が深さを生む。
+- 複数画面は傾きと重なりでポスターに編集する。最下部で裁ち切った巨大ワードマークが署名。</code></pre>
+      </details>
+    </div>
+  </section>
+
+  <!-- Closing Section: Repetition of Headline and CTA -->
+  <section class="closing-section" id="contact">
+    <div class="hero-meta">
+      <span class="pill pill-muted">ARCHETYPE: 01 / PRINCIPLE (REITERATED)</span>
+    </div>
+    <h2 class="closing-headline">
+      STRUCTURE
+    </h2>
+    <p style="font-size: 1.1rem; max-width: 640px; margin-bottom: 2rem; color: var(--text);">
+      装飾を削ぎ落とし、本質的なレイアウト骨格のみで勝負するプロダクトデザインの相談をお受けします。
+    </p>
+    <div>
+      <a href="mailto:commission@jean-miyake.example" class="pill pill-cta">COMMISSION <span class="animate-mark">➔</span></a>
+    </div>
+  </section>
+
+  <!-- Massive Wordmark Cutoff -->
+  <div class="signature-wrap">
+    <div class="massive-signature">JEAN MIYAKE</div>
+  </div>
+
+</div>
+
+</body>
+</html>
