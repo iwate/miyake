@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEAN MIYAKE — Portfolio 2026</title>
+<style>
+:root{
+  --paper:#F4F2ED;      /* 地 */
+  --ink:#1C1B18;        /* 字 */
+  --tile:#E9E6DE;       /* 地・5段階梯 */
+  --tile2:#DFDCD2;
+  --tile3:#D2CEC2;
+  --line:#C9C5B8;
+  --accent:#E34234;     /* 差し色・朱 */
+  --serif:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+  --sans:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.9;letter-spacing:.04em}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+
+/* 罫線・格子 */
+.rule{border:0;border-top:1px solid var(--line)}
+.eyebrow{font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink);opacity:.55}
+
+/* 1画面1メッセージ・主役 */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:28px 0 48px}
+.topbar{display:flex;justify-content:space-between;align-items:center}
+.topbar .name{font-family:var(--serif);font-size:14px;letter-spacing:.3em}
+.topbar .loc{font-size:11px;letter-spacing:.25em;opacity:.55}
+.hero h1{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(72px,15vw,190px);line-height:.95;letter-spacing:-.01em;
+  margin:12vh 0 6vh;
+}
+.hero h1 .jp{display:block;font-size:clamp(18px,2.6vw,26px);letter-spacing:.5em;margin-top:28px;font-weight:400}
+.hero h1 .jp b{color:var(--accent);font-weight:700}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end}
+.hero-foot p{max-width:420px;font-size:13px;opacity:.8}
+
+/* CTAは1つ・塗りピル+矢印 */
+.cta{
+  display:inline-flex;align-items:center;gap:14px;text-decoration:none;
+  background:var(--ink);color:var(--paper);
+  padding:16px 30px;border-radius:999px;
+  font-size:13px;letter-spacing:.2em;
+}
+.cta i{font-style:normal;transition:none}
+.cta:hover{background:var(--accent)}
+.cta-ghost{text-decoration:none;color:var(--ink);font-size:12px;letter-spacing:.2em;border-bottom:1px solid var(--line);padding-bottom:2px}
+
+/* 帯・区切り */
+.band{display:flex;gap:56px;align-items:baseline;overflow:hidden;white-space:nowrap;padding:44px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--serif);font-size:15px;letter-spacing:.3em}
+.band span{opacity:.55}
+.band em{font-style:normal;color:var(--accent)}
+
+/* 章 */
+section.chapter{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:56px}
+.sec-head h2{font-family:var(--serif);font-size:clamp(34px,5vw,56px);font-weight:700;line-height:1.2}
+.sec-head h2 .ac{color:var(--accent)}
+.sec-head .note{font-size:12px;max-width:240px;opacity:.65;text-align:right}
+
+/* 1大+4小 */
+.grid{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:auto auto;gap:14px}
+.tile{background:var(--tile);border-radius:20px;padding:36px;display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:280px}
+.tile.big{grid-column:1/5;grid-row:1/3;background:var(--tile3)}
+.tile .no{font-family:var(--serif);font-size:13px;letter-spacing:.3em;opacity:.5}
+.tile h3{font-family:var(--serif);font-size:clamp(24px,3vw,34px);line-height:1.45;font-weight:700}
+.tile p{font-size:12.5px;opacity:.7}
+.tile.big h3{font-size:clamp(34px,5vw,54px)}
+.tile.flip{background:var(--ink);color:var(--paper)}
+.tile.flip p{opacity:.75}
+.tile .ac-dot{width:10px;height:10px;background:var(--accent);border-radius:50%}
+
+/* 数字が信頼を運ぶ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:44px 28px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat .num{font-family:var(--serif);font-size:clamp(44px,6vw,72px);font-weight:700;line-height:1}
+.stat .num small{font-size:.4em;font-weight:400}
+.stat .cap{font-size:11px;letter-spacing:.25em;opacity:.6;margin-top:14px}
+
+/* 作品列・塗りと中空を交互に */
+.works{border-top:1px solid var(--line)}
+.work{display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line)}
+.work:nth-child(even){background:var(--tile)}
+.work .yr{font-family:var(--serif);font-size:14px;opacity:.55}
+.work .ti{font-family:var(--serif);font-size:clamp(20px,2.6vw,30px);font-weight:700}
+.work .tg{font-size:11px;letter-spacing:.25em;opacity:.6}
+
+/* 署名・裁ち切り巨大語 */
+.sig{overflow:hidden;text-align:center;padding:40px 0 0}
+.sig span{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(90px,17vw,220px);line-height:.8;transform:translateY(28%);color:var(--tile3)}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:11px;letter-spacing:.15em;opacity:.6;display:flex;justify-content:space-between}
+footer .ai-note{color:var(--accent);opacity:1;font-weight:700}
+
+/* アニメーションは1種類のみ・静かに浮かぶ */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* 出典 */
+details.src{margin:0 0 80px;background:var(--tile);border-radius:20px;padding:28px}
+details.src summary{cursor:pointer;font-family:var(--serif);font-size:15px;letter-spacing:.15em;font-weight:700;list-style:none}
+details.src summary::before{content:"＋ ";color:var(--accent)}
+details.src[open] summary::before{content:"－ "}
+details.src pre{margin-top:20px;font-size:11px;line-height:1.8;white-space:pre-wrap;word-break:break-all;opacity:.8;max-height:400px;overflow:auto;border-top:1px solid var(--line);padding-top:16px}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr 1fr}
+  .tile.big{grid-column:1/3;grid-row:auto}
+  .sec-head{flex-direction:column;gap:16px}
+  .sec-head .note{text-align:left}
+  .work{grid-template-columns:56px 1fr}
+  .work .tg{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="topbar">
+      <span class="name">JEAN MIYAKE</span>
+      <span class="loc">KYOOTO / PARIS</span>
+    </div>
+    <h1>
+      MIYAKE<span class="jp">構造が美しいなら<b>装飾</b>は要らない</span>
+    </h1>
+    <div class="hero-foot">
+      <p>空間を作り、情報を浮かせる。余白は素材だ。このポートフォリオ自体が、そのための一枚の紙である。</p>
+      <a class="cta" href="#work">作品を見る <i>→</i></a>
+    </div>
+  </header>
+
+  <!-- ===== 帯 ===== -->
+  <div class="band rv">
+    <span>空間</span><span>／</span><span>階層</span><span>／</span><em>朱</em><span>／</span><span>格子</span><span>／</span><span>静と動</span><span>／</span><span>空間</span><span>／</span><span>／</span><span>階層</span>
+  </div>
+
+  <!-- ===== 哲学・1大+4小 ===== -->
+  <section class="chapter" id="philosophy">
+    <div class="sec-head rv">
+      <h2>余白が<br><span class="ac">語らせる</span></h2>
+      <div class="note">詰めない。主張は1つ、他は引き立て役。主役だけが画面に君臨する。</div>
+    </div>
+    <div class="grid">
+      <div class="tile big rv">
+        <span class="no">01 — 余白</span>
+        <h3>空間は作る。<br>情報は浮かせる。<br>詰めない。</h3>
+        <p>白地に細い罫線だけ。距離が階層をつくり、距離が目を導く。</p>
+      </div>
+      <div class="tile flip rv">
+        <span class="no">02 — 主役</span>
+        <div><h3>1画面1メッセージ</h3><p>強い階層。主役は1つ。</p></div>
+      </div>
+      <div class="tile rv">
+        <span class="ac-dot"></span>
+        <div><h3>静と動</h3><p>面は静かに、1つの動きだけ大胆に。</p></div>
+      </div>
+      <div class="tile rv">
+        <span class="no">03 — 格子</span>
+        <div><h3>線は見える</h3><p>細い罫線が構成を示す。</p></div>
+      </div>
+      <div class="tile rv">
+        <span class="no">04 — 2書体</span>
+        <div><h3>明朝×ゴシック</h3><p>書体は2まで。詰めが命。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 数字 ===== -->
+  <section class="chapter" id="proof">
+    <div class="sec-head rv">
+      <h2>数字は<br>嘘をつかない</h2>
+      <div class="note">推薦文より巨大な数字が信頼を運ぶ。</div>
+    </div>
+    <div class="stats rv">
+      <div class="stat"><div class="num">20<small>年</small></div><div class="cap">DESIGN PRACTICE</div></div>
+      <div class="stat"><div class="num">1<small>色</small></div><div class="cap">ACCENT — 朱の5%まで</div></div>
+      <div class="stat"><div class="num">0<small>枚</small></div><div class="cap">PHOTO / SHADOW</div></div>
+    </div>
+  </section>
+
+  <!-- ===== 作品 ===== -->
+  <section class="chapter" id="work">
+    <div class="sec-head rv">
+      <h2>選択された<br><span class="ac">作品</span></h2>
+      <div class="note">近年から4点だけ。残りは不要だった。</div>
+    </div>
+    <div class="works rv">
+      <div class="work"><span class="yr">2026</span><span class="ti">静の百貨店 — EC リニューアル</span><span class="tg">WEB / BRAND</span></div>
+      <div class="work"><span class="yr">2025</span><span class="ti">線香の時間 —  Packaging</span><span class="tg">PRINT / TYPE</span></div>
+      <div class="work"><span class="yr">2024</span><span class="ti">格子の邸宅 — ギャラリー導線</span><span class="tg">SIGNAGE / UX</span></div>
+      <div class="work"><span class="yr">2023</span><span class="ti">朱の駅 — 視覚アイデンティティ</span><span class="tg">IDENTITY</span></div>
+    </div>
+    <div style="padding:48px 0 0" class="rv">
+      <a class="cta" href="#contact">連絡する <i>→</i></a>
+    </div>
+  </section>
+
+  <!-- ===== SKILL.md 出典 ===== -->
+  <details class="src">
+    <summary>本作品の設計規範 — SKILL.md 全文(AI SKILL として生成)</summary>
+    <pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+
+# デザイナー Jean Miyake
+
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+
+- 実装前に「主役・構成・差し色」を1行で宣言、断る時も理由は1行。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+
+- パレットは同系色の明度段差5段。階段が深みを運ぶ。
+- 淡い全面に白角丸カードを浮かべ、同系色グラデの霧で包めば影なく階層が立つ。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面に限り、締めで同色に閉じる。
+- 差し色は見出しの1語に置き外周と反響させて締める。面グリッドには差し色のタイルを1枚だけ。
+- 色を足さず明暗で二声を出す。同型の行は塗りと中空を交互に、カード列は淡色で分け注目1枚だけ反転。巨大な中空語は裁ち切りで透かしに。
+- 見出しの1語だけを変える。差し色・別書体・幾何グリフのいずれか1つに限れば、読む手が一拍止まる。
+- 機能列は極小アイブロウ+太い見出し+小さな本文で切り、箱も罫線も要らない。番号主役は巨大タイルを。
+- 信頼は推薦文より巨大な数字が運ぶ。肩書は暗い小カード、引用は大きく。仕様はアイコン+数値+単位の極小タイルを罫線1本で3列に切り、統計は円バッジ横列へ並べる。
+- 価格や年のような対の値を画面の対角へ離して置き、視線を往復させる。
+- 連携先のロゴは単色に落とし、中央の暗いピルから細い線を放射して一団に見せる。
+- ピルは主CTA・眉ラベル・ナビ・入力に限る。ナビは浮いた白角丸+右端暗塗りCTA、主CTAは塗りピル+矢印、副は裸テキスト、入力は白ピルを暗ボタンで締める。
+- ヒーローは単語1つを巨大に。見出しは背景面に重ね裁ち切りからはみ出し、字が面を貫く。視線は眉ラベル→見出し→CTA→実物を縦1列。章は左上に巨大見出し、右上に小文、右下にCTA。
+- 濃い角丸面は淡い地に1枚だけ浮かせ白字+造形物1点、章は明暗交互、帯の1行コピーは休符。境界は紙を破るか緩い波で刳る。
+- 機能群は大きな角丸コンテナに淡色タイル、色相交替で1タイル1主題、円を1つ境界に跨らせる。グリッドは1大+4小。
+- 主題の形は低彩度の模様に散らせば地が物語る。差し色は散らさず、太い曲線1本か造形物を半分外へ走らせ、出血が深さを生む。
+- 複数画面は傾きと重なりでポスターに編集し、最下部で裁ち切りの巨大ワードマークが署名。比較の2面は同一構図を左右に等倍、間に細い矢印。
+- 面の切り替わりは淡い帯に大の語を斜線区切りで横一列に並べ、語で刻む。
+- カード列は端で裁ち切り1枚目だけ見せ、上端の差し色帯と極小ラベルで一団に束ねる。</pre>
+  </details>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="chapter" id="contact">
+    <div class="sec-head rv">
+      <h2>次の一枚を、<br>一緒に<span class="ac">切る</span></h2>
+      <div class="note">受注は年4点まで。静けさを求める方へ。</div>
+    </div>
+    <div class="rv" style="display:flex;align-items:center;gap:40px;flex-wrap:wrap">
+      <a class="cta" href="mailto:studio@miyake.example">studio@miyake.example <i>→</i></a>
+      <span class="cta-ghost">PRESS KIT 2026</span>
+    </div>
+  </section>
+
+  <!-- ===== 署名 ===== -->
+  <div class="sig" aria-hidden="true"><span>MIYAKE</span></div>
+
+  <footer>
+    <span>© 2026 JEAN MIYAKE — JAPAN</span>
+    <span class="ai-note">※ 本ページは AI SKILL「miyake」による生成物です / Generated by AI skill "miyake" (fictional designer)</span>
+  </footer>
+
+</div>
+
+<script>
+// アニメーションは1種類: 静かに浮かぶ(once)
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
