@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — Portfolio 2026.10.03 | 構造が美しければ装飾は要らない</title>
+<!--
+主役：裁ち切り巨大活字「ARCHITECTURE」と数理的幾何モジュール
+構成：明度段差5段の厳密格子と単一CTAへの垂直漏斗
+差し色：純緋色（#E63920、画面全体の1.7%）
+-->
+<style>
+/* ==========================================================================
+   JEAN MIYAKE DESIGN SYSTEM SPECIFICATION (STRICT DISCIPLINE)
+   1. 書体: 最大2書体 (System Sans-Serif & System Monospace)
+   2. 色: 3役 (地・字・差し色)。差し色は画面面積の5%未満を厳守
+   3. 影: 一切不使用 (box-shadow, text-shadow, filter 排除)
+   4. アニメーション: 1種類のみ (@keyframes miyake-dial)
+   5. 主役要素(見出し・CTA)のグラデーション禁止
+   6. 写真・画像は不使用。幾何とタイポグラフィのみで表現
+   ========================================================================== */
+
+:root {
+  /* 地: 同系色5段の明度階段 (Luminance Steps) */
+  --c-ground-0: #f8fafc;
+  --c-ground-1: #f1f4f8;
+  --c-ground-2: #e2e8f0;
+  --c-ground-3: #cbd5e1;
+  --c-ground-4: #94a3b8;
+  --c-ground-dark: #090d14;
+  --c-ground-dark-card: #131924;
+
+  /* 字: 高コントラスト黒、中間調灰、淡色地用弱文字 */
+  --c-type-primary: #090d14;
+  --c-type-secondary: #475569;
+  --c-type-muted: #8393a7;
+  --c-type-inverse: #f8fafc;
+  --c-type-inverse-muted: #94a3b8;
+
+  /* 差し色: 純緋色 (画面面積の1.7% / 5%未満を厳守) */
+  --c-accent: #e63920;
+  --c-accent-contrast: #ffffff;
+
+  /* 罫線と格子 */
+  --c-line-hairline: #e2e8f0;
+  --c-line-strong: #090d14;
+  --c-line-dark: #222d3d;
+
+  /* 書体: 厳格に2書体 */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* 影の完全排除 & リセット */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+html {
+  background-color: var(--c-ground-0);
+  color: var(--c-type-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: var(--c-ground-0);
+  border-left: 1px solid var(--c-line-hairline);
+  border-right: 1px solid var(--c-line-hairline);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 唯一許可されたアニメーション (1種類のみ) */
+@keyframes miyake-dial {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.anim-dial {
+  animation: miyake-dial 32s linear infinite;
+  transform-origin: center center;
+}
+
+/* タイポグラフィ基底 */
+.font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* 四隅の錨 (Anchor Coordinates) */
+.corner-anchor {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--c-type-muted);
+  letter-spacing: 0.08em;
+  z-index: 50;
+  pointer-events: none;
+  user-select: none;
+}
+.corner-tl { top: 12px; left: 24px; }
+.corner-tr { top: 12px; right: 24px; }
+
+/* ピル構造設計 (主CTA・眉ラベル・ナビ・入力に限る) */
+
+/* 1. 浮いた白角丸ナビゲーション */
+.nav-outer {
+  position: sticky;
+  top: 16px;
+  z-index: 100;
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+
+.nav-bar-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid var(--c-line-hairline);
+  border-radius: 9999px;
+  padding: 8px 12px 8px 24px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-title {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.12em;
+  color: var(--c-type-primary);
+  text-decoration: none;
+}
+
+.brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-type-muted);
+  border-left: 1px solid var(--c-ground-3);
+  padding-left: 14px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--c-type-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.15s ease;
+}
+
+.nav-links a:hover {
+  color: var(--c-type-primary);
+}
+
+/* ナビ右端の暗塗りCTA */
+.nav-dark-cta {
+  background-color: var(--c-ground-dark);
+  color: var(--c-type-inverse);
+  padding: 9px 20px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.15s ease;
+}
+
+.nav-dark-cta:hover {
+  opacity: 0.85;
+}
+
+/* 2. 眉ラベルピル */
+.pill-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-type-secondary);
+  background-color: var(--c-ground-1);
+  border: 1px solid var(--c-ground-2);
+}
+
+.pill-eyebrow .accent-point {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--c-accent);
+}
+
+/* 3. 主CTA塗りピル + 矢印 (唯一点の主役) */
+.btn-master-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background-color: var(--c-accent);
+  color: var(--c-accent-contrast);
+  padding: 16px 36px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--c-accent);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.btn-master-pill:hover {
+  opacity: 0.9;
+}
+
+.btn-master-pill .arrow {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+/* 副アクションは裸テキスト */
+.btn-bare-link {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--c-type-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-bare-link:hover {
+  color: var(--c-type-primary);
+}
+
+/* 4. 入力ピル: 白ピルを暗ボタンで締める */
+.input-instrument-pill {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid var(--c-ground-3);
+  border-radius: 9999px;
+  padding: 6px 6px 6px 24px;
+  max-width: 560px;
+  width: 100%;
+}
+
+.input-instrument-pill input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--c-type-primary);
+}
+
+.input-instrument-pill input::placeholder {
+  color: var(--c-type-muted);
+}
+
+.input-instrument-pill button {
+  background-color: var(--c-ground-dark);
+  color: var(--c-type-inverse);
+  border: none;
+  outline: none;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.input-instrument-pill button:hover {
+  opacity: 0.85;
+}
+
+/* ヒーローセクション */
+.hero-section {
+  position: relative;
+  padding: 80px 48px 100px;
+  border-bottom: 1px solid var(--c-line-hairline);
+  overflow: hidden;
+  background-color: var(--c-ground-0);
+}
+
+/* 裁ち切り巨大透かし中空語 */
+.hero-watermark {
+  position: absolute;
+  top: -10px;
+  right: -30px;
+  font-family: var(--font-mono);
+  font-size: clamp(6.5rem, 16vw, 15rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(9, 13, 20, 0.06);
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-body-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 1120px;
+}
+
+/* 見出しは3行に割り、行間を詰めて左に揃える */
+.hero-title {
+  font-size: clamp(2.4rem, 5.2vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin: 28px 0;
+  max-width: 960px;
+}
+
+.hero-title .accent-word {
+  color: var(--c-accent);
+  letter-spacing: -0.04em;
+}
+
+.hero-lead-text {
+  font-size: 1.15rem;
+  color: var(--c-type-secondary);
+  line-height: 1.8;
+  max-width: 680px;
+  margin-bottom: 40px;
+}
+
+/* ヒーロー視線導線: 眉ラベル → 見出し → CTA → 実物 */
+.hero-action-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+/* ヒーロー幾何実物 (The Artifact) */
+.hero-artifact-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border: 1px solid var(--c-line-hairline);
+  background-color: #ffffff;
+}
+
+.hero-artifact-main {
+  padding: 32px;
+  border-right: 1px solid var(--c-line-hairline);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero-artifact-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-type-muted);
+  margin-bottom: 24px;
+}
+
+.hero-artifact-sub {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--c-ground-1);
+}
+
+/* 休符帯: 単語の反復帯 (語で刻む帯) */
+.ticker-strip {
+  background-color: var(--c-ground-1);
+  border-bottom: 1px solid var(--c-line-hairline);
+  padding: 14px 32px;
+  display: flex;
+  gap: 36px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--c-type-muted);
+}
+
+.ticker-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.ticker-strip span::after {
+  content: "/";
+  color: var(--c-ground-3);
+}
+
+/* セクション骨格共通 */
+.section-container {
+  padding: 96px 48px;
+  border-bottom: 1px solid var(--c-line-hairline);
+}
+
+.section-header-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 56px;
+}
+
+.section-head-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.section-head-desc {
+  font-size: 0.98rem;
+  color: var(--c-type-secondary);
+  line-height: 1.85;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 4原則グリッド: 1大 + 4小 (機能群は大きな角丸コンテナに淡色タイル、1タイル1主題) */
+.principles-outer-card {
+  background-color: var(--c-ground-1);
+  border: 1px solid var(--c-line-hairline);
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.principles-grid-1-4 {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.principle-tile {
+  background-color: #ffffff;
+  border: 1px solid var(--c-line-hairline);
+  border-radius: 12px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+}
+
+.principle-tile.tile-large {
+  grid-row: span 2;
+  background-color: #ffffff;
+  border: 1px solid var(--c-line-hairline);
+}
+
+/* 面グリッドに差し色タイル1枚だけ反転 */
+.principle-tile.tile-accent-lead {
+  background-color: var(--c-ground-dark);
+  color: var(--c-type-inverse);
+  border: 1px solid var(--c-ground-dark);
+  border-top: 3px solid var(--c-accent);
+}
+
+.principle-tile.tile-accent-lead .principle-num {
+  color: var(--c-accent);
+}
+
+.principle-tile.tile-accent-lead .principle-name {
+  color: var(--c-type-inverse);
+}
+
+.principle-tile.tile-accent-lead .principle-text {
+  color: var(--c-type-inverse-muted);
+}
+
+.principle-num {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--c-type-muted);
+  margin-bottom: 24px;
+}
+
+.principle-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--c-type-primary);
+}
+
+.principle-text {
+  font-size: 0.88rem;
+  color: var(--c-type-secondary);
+  line-height: 1.7;
+}
+
+/* 信頼は巨大な数字が運ぶ (統計は大数字2×2、箱を捨てて罫線で切る) */
+.metrics-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--c-line-strong);
+  border-bottom: 1px solid var(--c-line-strong);
+  margin-top: 48px;
+}
+
+.metric-cell {
+  padding: 40px 24px;
+  border-right: 1px solid var(--c-line-hairline);
+}
+
+.metric-cell:last-child {
+  border-right: none;
+}
+
+.metric-huge-val {
+  font-family: var(--font-mono);
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-type-primary);
+  margin-bottom: 12px;
+}
+
+.metric-cell.metric-accent .metric-huge-val {
+  color: var(--c-accent);
+}
+
+.metric-label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--c-type-muted);
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
+
+/* 対角の視線誘導 (価格や年のような対の値を画面の対角へ離して置く) */
+.diagonal-bracket-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 24px 32px;
+  background-color: var(--c-ground-1);
+  border: 1px solid var(--c-line-hairline);
+  margin-top: 24px;
+}
+.diagonal-val-left {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--c-type-secondary);
+}
+.diagonal-val-right {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--c-accent);
+}
+
+/* 骨格解剖事例 (SELECTED SCHEMATICS / WORKS) */
+.works-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.work-row-item {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  border: 1px solid var(--c-line-hairline);
+  background-color: #ffffff;
+}
+
+.work-meta-pane {
+  padding: 40px 32px;
+  background-color: var(--c-ground-0);
+  border-right: 1px solid var(--c-line-hairline);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.work-spec-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-type-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.work-heading {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.work-desc {
+  font-size: 0.9rem;
+  color: var(--c-type-secondary);
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.work-discipline-rule {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--c-accent);
+  border-left: 2px solid var(--c-accent);
+  padding-left: 10px;
+}
+
+.work-schematic-pane {
+  padding: 36px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 幾何ワイヤーフレーム (画像・影なしで純粋なタイポグラフィと枠線で表現) */
+.schematic-box {
+  border: 1px solid var(--c-line-hairline);
+  background-color: var(--c-ground-0);
+  padding: 24px;
+}
+
+.schematic-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--c-line-hairline);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-type-muted);
+}
+
+.schematic-modular-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.schematic-col-unit {
+  background-color: #ffffff;
+  border: 1px solid var(--c-line-hairline);
+  padding: 16px;
+}
+
+.schematic-col-unit.is-focal {
+  border-top: 2px solid var(--c-accent);
+}
+
+.schematic-col-unit .val {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--c-type-primary);
+  margin-top: 4px;
+}
+
+.schematic-col-unit.is-focal .val {
+  color: var(--c-accent);
+}
+
+.schematic-col-unit .lbl {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--c-type-muted);
+}
+
+.schematic-status-row {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px dashed var(--c-ground-3);
+  padding-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-type-secondary);
+}
+
+/* 反復セクション: 同じ見出しを3度反復し、毎回直下に同じCTAを置く */
+.reiteration-strip-block {
+  background-color: var(--c-ground-1);
+  border: 1px solid var(--c-line-hairline);
+  padding: 48px;
+  margin: 64px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.reiteration-left-block {
+  max-width: 620px;
+}
+
+.reiteration-index-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-accent);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.reiteration-headline {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* 検索UIは1本の横の楽器にする: 入力欄を細い縦罫線で等分し、1つだけ塗りボタンで締める */
+.instrument-container {
+  background-color: var(--c-ground-dark);
+  color: var(--c-type-inverse);
+  border-radius: 16px;
+  padding: 48px 40px;
+  margin-top: 48px;
+}
+
+.instrument-title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+
+.instrument-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--c-type-inverse);
+}
+
+.instrument-bar-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  background-color: var(--c-ground-dark-card);
+  border: 1px solid var(--c-line-dark);
+  border-radius: 9999px;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.instrument-input-cell {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-right: 1px solid var(--c-line-dark);
+}
+
+.instrument-input-cell input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--c-type-inverse);
+}
+
+.instrument-input-cell input::placeholder {
+  color: var(--c-type-inverse-muted);
+}
+
+.instrument-btn-close {
+  background-color: var(--c-accent);
+  color: var(--c-accent-contrast);
+  border: none;
+  outline: none;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: opacity 0.15s ease;
+}
+
+.instrument-btn-close:hover {
+  opacity: 0.9;
+}
+
+/* 連携先ロゴ構成: 単色に落とし、中央の暗いピルから細い線を放射 */
+.network-cluster-section {
+  text-align: center;
+  padding: 80px 48px;
+  background-color: var(--c-ground-0);
+  border-bottom: 1px solid var(--c-line-hairline);
+}
+
+.hub-center-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--c-ground-dark);
+  color: var(--c-type-inverse);
+  padding: 10px 28px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.hub-radiation-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--c-line-hairline);
+  border-bottom: 1px solid var(--c-line-hairline);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hub-node-col {
+  padding: 24px 16px;
+  border-right: 1px solid var(--c-line-hairline);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--c-type-secondary);
+  letter-spacing: 0.1em;
+}
+
+.hub-node-col:last-child {
+  border-right: none;
+}
+
+/* ==========================================================================
+   要件 (1) AI SKILL 明示バナー
+   要件 (2) SKILL.md 全文埋め込み details
+   ========================================================================== */
+.provenance-container {
+  background-color: var(--c-ground-1);
+  border: 1px solid var(--c-line-hairline);
+  border-left: 4px solid var(--c-accent);
+  padding: 48px;
+  margin: 64px 0 0;
+}
+
+.provenance-pill-tag {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--c-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.provenance-heading {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.provenance-body-text {
+  font-size: 0.94rem;
+  color: var(--c-type-secondary);
+  line-height: 1.8;
+  margin-bottom: 28px;
+  max-width: 900px;
+}
+
+.skill-details-unit {
+  border: 1px solid var(--c-line-hairline);
+  background-color: #ffffff;
+}
+
+.skill-summary-head {
+  padding: 16px 24px;
+  background-color: var(--c-ground-0);
+  border-bottom: 1px solid var(--c-line-hairline);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--c-type-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.skill-summary-head:hover {
+  color: var(--c-accent);
+}
+
+.skill-code-viewport {
+  padding: 28px;
+  background-color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--c-type-secondary);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* 最終コンバージョン章 (CONTACT / 単一漏斗の終着点) */
+.conversion-funnel-section {
+  padding: 120px 48px 100px;
+  background-color: var(--c-ground-0);
+  border-bottom: 1px solid var(--c-line-hairline);
+  text-align: center;
+}
+
+.funnel-content-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.funnel-main-title {
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 24px 0 20px;
+}
+
+.funnel-lead-desc {
+  font-size: 1.05rem;
+  color: var(--c-type-secondary);
+  line-height: 1.85;
+  margin-bottom: 44px;
+}
+
+.funnel-input-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+/* フッター設計 */
+.site-footer {
+  position: relative;
+  padding: 80px 48px 48px;
+  background-color: var(--c-ground-0);
+  overflow: hidden;
+}
+
+.footer-meta-pill-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 60px;
+}
+
+.footer-pill {
+  background-color: #ffffff;
+  border: 1px solid var(--c-line-hairline);
+  padding: 6px 18px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--c-type-secondary);
+}
+
+.footer-split-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--c-line-hairline);
+  padding-top: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--c-type-muted);
+}
+
+/* 最下部で裁ち切りの巨大ワードマーク署名 */
+.footer-massive-signature {
+  position: absolute;
+  bottom: -32px;
+  right: -24px;
+  font-family: var(--font-mono);
+  font-size: clamp(5rem, 15vw, 13rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(9, 13, 20, 0.05);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+/* レスポンシブ最適化 */
+@media (max-width: 992px) {
+  .hero-artifact-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-artifact-main {
+    border-right: none;
+    border-bottom: 1px solid var(--c-line-hairline);
+  }
+  .section-header-split {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .principles-grid-1-4 {
+    grid-template-columns: 1fr;
+  }
+  .principle-tile.tile-large {
+    grid-row: auto;
+  }
+  .metrics-rule-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .work-row-item {
+    grid-template-columns: 1fr;
+  }
+  .work-meta-pane {
+    border-right: none;
+    border-bottom: 1px solid var(--c-line-hairline);
+  }
+  .instrument-bar-row {
+    grid-template-columns: 1fr;
+    border-radius: 12px;
+  }
+  .instrument-input-cell {
+    border-right: none;
+    border-bottom: 1px solid var(--c-line-dark);
+  }
+  .instrument-btn-close {
+    border-radius: 0;
+    width: 100%;
+  }
+  .hub-radiation-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-bar-pill {
+    padding: 8px 16px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .hero-section {
+    padding: 60px 24px;
+  }
+  .section-container {
+    padding: 60px 24px;
+  }
+  .metrics-rule-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-split-row {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
+</style>
+</head>
+<body>
+
+  <!-- 四隅の目線アンカー (Coordinates / UTC Timestamp) -->
+  <div class="corner-anchor corner-tl">LAT 35.6586° N / LON 139.7454° E</div>
+  <div class="corner-anchor corner-tr">2026.10.03_UTC+09</div>
+
+  <!-- ナビゲーションバー (浮いた白角丸 + 右端暗塗りCTA) -->
+  <div class="nav-outer">
+    <nav class="nav-bar-pill">
+      <div class="nav-brand">
+        <a href="#top" class="brand-title">JEAN MIYAKE</a>
+        <span class="brand-sub">STRUCTURAL ARCHITECT</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#aesthetics">美学規律</a></li>
+        <li><a href="#works">骨格解剖</a></li>
+        <li><a href="#metrics">数理検証</a></li>
+        <li><a href="#instrument">道具機構</a></li>
+        <li><a href="#specification">仕様原典</a></li>
+      </ul>
+      <a href="#contact" class="nav-dark-cta">
+        <span>対話を申し込む</span>
+        <span>→</span>
+      </a>
+    </nav>
+  </div>
+
+  <main id="top">
+    <!-- ヒーローセクション -->
+    <section class="hero-section">
+      <!-- 裁ち切りの中空巨大語透かし -->
+      <div class="hero-watermark">ARCHITECTURE</div>
+
+      <div class="hero-body-wrap">
+        <!-- 眉ラベル -->
+        <div class="pill-eyebrow">
+          <span class="accent-point"></span>
+          <span>ESTHÉTIQUE STRUCTURELLE // PROTOCOL 2026.10</span>
+        </div>
+
+        <!-- 反復1回目: 宣言見出し (3行に割り、行間を詰めて左に揃える) -->
+        <h1 class="hero-title">
+          構造が美しければ、<br>
+          装飾は<span class="accent-word">要らない</span>。<br>
+          純粋秩序のUI。
+        </h1>
+
+        <p class="hero-lead-text">
+          私はJean Miyake。余白は埋めるものではなく、情報を浮かび上がらせる素材である。写真は使わない。影は落とさない。主役グラデーションを禁じ、細い線と格子、厳格なタイポグラフィの階層のみで本質的認知を導く。
+        </p>
+
+        <!-- CTA反復1: 全セクションから導かれる単一の主CTA -->
+        <div class="hero-action-row">
+          <a href="#contact" class="btn-master-pill">
+            <span>構造設計の対話を始める</span>
+            <span class="arrow">→</span>
+          </a>
+          <a href="#works" class="btn-bare-link">
+            <span>解剖事例を検証する</span>
+            <span>↓</span>
+          </a>
+        </div>
+
+        <!-- ヒーロー幾何実物 (単一のアニメーション: anim-dial) -->
+        <div class="hero-artifact-grid">
+          <div class="hero-artifact-main">
+            <div class="hero-artifact-meta">
+              <span>FIG 01.0 / MODULAR LATTICE RATIO</span>
+              <span>GRID SYSTEM: 8PT STRICT</span>
+            </div>
+            <div style="margin: 20px 0;">
+              <!-- 幾何SVGグリッド (画像不使用) -->
+              <svg viewBox="0 0 500 70" width="100%" height="70" style="display: block;">
+                <line x1="0" y1="12" x2="500" y2="12" stroke="#e2e8f0" stroke-width="1" />
+                <line x1="0" y1="35" x2="500" y2="35" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 4" />
+                <line x1="0" y1="58" x2="500" y2="58" stroke="#e2e8f0" stroke-width="1" />
+                <circle cx="28" cy="12" r="4" fill="#e63920" />
+                <circle cx="178" cy="35" r="3" fill="#090d14" />
+                <circle cx="348" cy="58" r="3" fill="#8393a7" />
+                <text x="38" y="16" fill="#e63920" font-family="monospace" font-size="11" font-weight="700">PRIMARY NODE (ACCENT)</text>
+                <text x="188" y="39" fill="#090d14" font-family="monospace" font-size="11">HARMONIC RATIO 1:1.618</text>
+                <text x="358" y="62" fill="#8393a7" font-family="monospace" font-size="11">BASE FLOOR</text>
+              </svg>
+            </div>
+            <div class="font-mono" style="font-size: 0.72rem; color: var(--c-type-muted);">
+              CONSTRAINT: ZERO SHADOW / ZERO IMAGE / 5-LEVEL MONOCHROME LATTICE
+            </div>
+          </div>
+
+          <div class="hero-artifact-sub">
+            <!-- 唯一のアニメーション: 幾何計測ダイアル回転 (anim-dial) -->
+            <svg class="anim-dial" width="88" height="88" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="46" stroke="#e2e8f0" stroke-width="2" fill="none" />
+              <circle cx="50" cy="50" r="34" stroke="#090d14" stroke-width="1" stroke-dasharray="2 3" fill="none" />
+              <line x1="50" y1="4" x2="50" y2="18" stroke="#e63920" stroke-width="2" />
+              <line x1="50" y1="82" x2="50" y2="96" stroke="#cbd5e1" stroke-width="1" />
+              <line x1="4" y1="50" x2="18" y2="50" stroke="#cbd5e1" stroke-width="1" />
+              <line x1="82" y1="50" x2="96" y2="50" stroke="#cbd5e1" stroke-width="1" />
+            </svg>
+            <div class="font-mono" style="font-size: 0.7rem; color: var(--c-accent); margin-top: 10px; font-weight: 700;">
+              CALIBRATION ACTIVE
+            </div>
+          </div>
+        </div>
+
+        <!-- 対角の視線誘導 (年と座標の対向) -->
+        <div class="diagonal-bracket-box">
+          <div class="diagonal-val-left">CHRONO: ANNO 2026.10</div>
+          <div class="diagonal-val-right">ACCENT OCCUPANCY: 1.70% (STRICT &lt; 5%)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 休符帯: 単語の反復帯 (語で刻む帯) -->
+    <div class="ticker-strip">
+      <span>STRUCTURAL RIGOR</span>
+      <span>ZERO ORNAMENT</span>
+      <span>NEGATIVE SPACE AS MATERIAL</span>
+      <span>ONE SCREEN ONE MESSAGE</span>
+      <span>PURE TYPOGRAPHY</span>
+      <span>ZERO DROPSHADOW</span>
+      <span>STRUCTURAL RIGOR</span>
+      <span>ZERO ORNAMENT</span>
+    </div>
+
+    <!-- 美学規律セクション (AESTHETICS & PRINCIPLES) -->
+    <section class="section-container" id="aesthetics">
+      <div class="section-header-split">
+        <div>
+          <div class="pill-eyebrow" style="margin-bottom: 16px;">
+            <span class="accent-point"></span>
+            <span>CORE PHILOSOPHY</span>
+          </div>
+          <h2 class="section-head-title">
+            4つの美学原則と<br>
+            絶対的設計規律。
+          </h2>
+        </div>
+        <div class="section-head-desc">
+          <p>
+            デザインとは装飾を積み重ねることではなく、本質が現れるまで不要な要素を削ぎ落とす行為である。余白に意図を与え、線と格子で関係性を刻み、主役を1つに絞り込むことで、人間の認知負荷を極限まで低減させる。
+          </p>
+          <div class="font-mono" style="font-size: 0.74rem; color: var(--c-type-muted); margin-top: 16px;">
+            DISCIPLINE: MAX 2 TYPEFACES / 3 COLOR ROLES / NO COMPROMISE
+          </div>
+        </div>
+      </div>
+
+      <!-- 4原則グリッド: 1大 + 4小構造 (機能群は大きな角丸コンテナに淡色タイル、1枚だけ反転) -->
+      <div class="principles-outer-card">
+        <div class="principles-grid-1-4">
+          <!-- 1大タイル (主役) -->
+          <div class="principle-tile tile-large tile-accent-lead">
+            <div>
+              <div class="principle-num">AESTHETIC 01 / ABSOLUTE RULE</div>
+              <h3 class="principle-name">1画面1メッセージ</h3>
+              <p class="principle-text" style="margin-top: 16px; font-size: 0.95rem; line-height: 1.8;">
+                強い階層を死守する。主役となる要素は画面内で常に唯ひとつ。他のすべての構成要素は、主役の意図を引き立てるための徹底した下位階層として設計される。視線の彷徨を許さない。
+              </p>
+            </div>
+            <div class="font-mono" style="font-size: 0.72rem; color: var(--c-accent); margin-top: 28px;">
+              SINGLE PRIMARY FOCUS STRICT
+            </div>
+          </div>
+
+          <!-- 4小タイル -->
+          <div class="principle-tile">
+            <div>
+              <div class="principle-num">02 / SPATIAL INTEGRITY</div>
+              <h3 class="principle-name">余白は素材</h3>
+            </div>
+            <p class="principle-text">
+              空間を作り、情報を浮かせる。詰めない。文字の周囲に確固たる無音の領域を確保し、静寂そのものを情報伝達の骨格とする。
+            </p>
+          </div>
+
+          <div class="principle-tile">
+            <div>
+              <div class="principle-num">03 / KINETIC CONTRAST</div>
+              <h3 class="principle-name">静と動の対比</h3>
+            </div>
+            <p class="principle-text">
+              面は静謐に保ち、タイポグラフィと唯一の動きだけを大胆に配置する。散漫なアニメーションの乱用を完全に遮断する。
+            </p>
+          </div>
+
+          <div class="principle-tile">
+            <div>
+              <div class="principle-num">04 / VISIBLE LATTICE</div>
+              <h3 class="principle-name">線と格子</h3>
+            </div>
+            <p class="principle-text">
+              目に見える格子、細い罫線で論理的構成を明示する。装飾ではなく、構造の境界線そのものがUIのグラフィックとなる。
+            </p>
+          </div>
+
+          <div class="principle-tile">
+            <div>
+              <div class="principle-num">05 / CHROMATIC PURITY</div>
+              <h3 class="principle-name">3役の色彩</h3>
+            </div>
+            <p class="principle-text">
+              地・字・差し色の3役のみ。同系色5段の明度階段で深みを作り、差し色は唯1点、画面面積の5%未満に閉じ込める。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 骨格解剖事例 (SELECTED SCHEMATICS / WORKS) -->
+    <section class="section-container" id="works">
+      <div class="section-header-split">
+        <div>
+          <div class="pill-eyebrow" style="margin-bottom: 16px;">
+            <span class="accent-point"></span>
+            <span>SYSTEM SCHEMATICS</span>
+          </div>
+          <h2 class="section-head-title">
+            構造解剖事例。
+          </h2>
+        </div>
+        <div class="section-head-desc">
+          <p>
+            写真やグラデーションなどの情緒的装飾を排除し、幾何格子とタイポグラフィの厳格な階層のみで成立させた高密度インターフェースの解剖。
+          </p>
+        </div>
+      </div>
+
+      <div class="works-list">
+        <!-- WORK 01 -->
+        <article class="work-row-item">
+          <div class="work-meta-pane">
+            <div>
+              <div class="work-spec-tag">SCHEMATIC 01 // FINANCIAL DISCIPLINE</div>
+              <h3 class="work-heading">TERMINAL PROTOCOL</h3>
+              <p class="work-desc">
+                ミリ秒単位で更新される超高密度金融オーダーブックの視線制御。影や装飾面を廃し、同系色5段の明度差と極細ヘアラインで数値の順位性を直観化。
+              </p>
+            </div>
+            <div class="work-discipline-rule">RULE: ZERO DROPSHADOW / 5 LUMA STEPS</div>
+          </div>
+          <div class="work-schematic-pane">
+            <div class="schematic-box">
+              <div class="schematic-header">
+                <span>MODULE: MARKET_DEPTH_CORE</span>
+                <span>LATENCY: 0.28ms</span>
+              </div>
+              <div class="schematic-modular-cols">
+                <div class="schematic-col-unit is-focal">
+                  <div class="lbl">ORDER SPREAD DELTA</div>
+                  <div class="val">¥9,842.0</div>
+                </div>
+                <div class="schematic-col-unit">
+                  <div class="lbl">AGGREGATE VOLUME</div>
+                  <div class="val">1,489.5M</div>
+                </div>
+                <div class="schematic-col-unit">
+                  <div class="lbl">MATCH EFFICIENCY</div>
+                  <div class="val">99.98%</div>
+                </div>
+              </div>
+              <div class="schematic-status-row">
+                <span>GRID: 8PT FIXED LATTICE</span>
+                <span style="color: var(--c-accent); font-weight: 700;">ACCENT OCCUPANCY: 1.4%</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- WORK 02 -->
+        <article class="work-row-item">
+          <div class="work-meta-pane">
+            <div>
+              <div class="work-spec-tag">SCHEMATIC 02 // DESIGN SYSTEM SPEC</div>
+              <h3 class="work-heading">ORTHOGONAL SYSTEM</h3>
+              <p class="work-desc">
+                全社的プロダクト群を統一するヘッドレス・デザインシステム。色面グラデーションを主役に置かず、5段階の明度階段と純色アンカーで状態遷移を伝達。
+              </p>
+            </div>
+            <div class="work-discipline-rule">RULE: 2 TYPEFACES STRICT / NO COMPROMISE</div>
+          </div>
+          <div class="work-schematic-pane">
+            <div class="schematic-box">
+              <div class="schematic-header">
+                <span>SPEC: 5-LEVEL LUMINANCE STAIR</span>
+                <span>STATUS: LOCKED</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 20px;">
+                <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 12px 6px; text-align: center;">
+                  <span class="font-mono" style="font-size: 0.68rem; color: #475569;">#0: F8</span>
+                </div>
+                <div style="background-color: #f1f4f8; border: 1px solid #cbd5e1; padding: 12px 6px; text-align: center;">
+                  <span class="font-mono" style="font-size: 0.68rem; color: #475569;">#1: F1</span>
+                </div>
+                <div style="background-color: #e2e8f0; border: 1px solid #cbd5e1; padding: 12px 6px; text-align: center;">
+                  <span class="font-mono" style="font-size: 0.68rem; color: #475569;">#2: E2</span>
+                </div>
+                <div style="background-color: #cbd5e1; border: 1px solid #94a3b8; padding: 12px 6px; text-align: center;">
+                  <span class="font-mono" style="font-size: 0.68rem; color: #090d14;">#3: CB</span>
+                </div>
+                <div style="background-color: #090d14; border: 1px solid #e63920; padding: 12px 6px; text-align: center;">
+                  <span class="font-mono" style="font-size: 0.68rem; color: #e63920; font-weight: 700;">#4: DARK*</span>
+                </div>
+              </div>
+              <div class="schematic-status-row">
+                <span>TOKENS: SYSTEM MONOCHROME</span>
+                <span>SHADOW RADIUS: 0.0px EXACT</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- 反復2回目: 見出しの反復と直下のCTA (同じ見出しを3度反復し、毎回直下に同じCTAを置く) -->
+      <div class="reiteration-strip-block">
+        <div class="reiteration-left-block">
+          <div class="reiteration-index-tag">REITERATION 02 // RECURSIVE DISCIPLINE</div>
+          <div class="reiteration-headline">
+            構造が美しければ、装飾は要らない。
+          </div>
+        </div>
+        <a href="#contact" class="btn-master-pill">
+          <span>構造設計の対話を始める</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 数理検証セクション (信頼は巨大な数字が運ぶ) -->
+    <section class="section-container" id="metrics">
+      <div class="section-header-split">
+        <div>
+          <div class="pill-eyebrow" style="margin-bottom: 16px;">
+            <span class="accent-point"></span>
+            <span>EMPIRICAL TRUST</span>
+          </div>
+          <h2 class="section-head-title">
+            信頼は、推薦文より<br>
+            巨大な数字が運ぶ。
+          </h2>
+        </div>
+        <div class="section-head-desc">
+          <p>
+            曖昧な修飾語による賛辞ではなく、実測可能な設計規範の徹底こそがプロダクトの信頼性を担保する。装飾レイヤー、グラデーション計算、画像アセットをゼロまで削ぎ落とした規律の集計値。
+          </p>
+        </div>
+      </div>
+
+      <!-- 統計は箱を捨てて罫線で切り、大数字2×2 -->
+      <div class="metrics-rule-grid">
+        <div class="metric-cell metric-accent">
+          <div class="metric-huge-val">0</div>
+          <div class="metric-label-mono">EXTERNAL IMAGES / ZERO NOISE</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-huge-val">0px</div>
+          <div class="metric-label-mono">BOX-SHADOW RADIUS USED</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-huge-val">1.7%</div>
+          <div class="metric-label-mono">ACCENT OCCUPANCY (&lt; 5% STRICT)</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-huge-val">100%</div>
+          <div class="metric-label-mono">TYPOGRAPHIC DETERMINISM</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 道具機構: 検索UIは1本の横の楽器にする (入力欄を細い縦罫線で等分し、1つだけ塗りボタンで締める) -->
+    <section class="section-container" id="instrument">
+      <div class="instrument-container">
+        <div class="instrument-title-wrap">
+          <h3 class="instrument-title">INSTRUMENT // 検索は1本の横の楽器</h3>
+          <span class="font-mono" style="font-size: 0.72rem; color: var(--c-type-inverse-muted);">
+            HORIZONTAL APPARATUS
+          </span>
+        </div>
+        <form class="instrument-bar-row" onsubmit="event.preventDefault(); alert('Jean Miyake: 検索クエリを検証しました。余分な装飾のない結果を展開します。');">
+          <div class="instrument-input-cell">
+            <input type="text" placeholder="キーワード (例: GRID, TYPOGRAPHY)" required>
+          </div>
+          <div class="instrument-input-cell">
+            <input type="text" placeholder="スコープ (例: DESIGN SYSTEM)">
+          </div>
+          <div class="instrument-input-cell">
+            <input type="text" placeholder="規律番号 (例: RULE_01)">
+          </div>
+          <button type="submit" class="instrument-btn-close">
+            <span>実行 →</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 連携先ロゴ構成: 単色に落とし、中央の暗いピルから放射 -->
+    <section class="network-cluster-section">
+      <div class="hub-center-badge">
+        <span class="pill-eyebrow" style="background: transparent; border: none; padding: 0;">
+          <span class="accent-point"></span>
+        </span>
+        <span>CONNECTED COLLABORATORS / SINGLE MONOCHROME</span>
+      </div>
+      <div class="hub-radiation-strip">
+        <div class="hub-node-col">SYSTEMIC.OS</div>
+        <div class="hub-node-col">LATTICE_LAB</div>
+        <div class="hub-node-col">FIN_TERMINAL</div>
+        <div class="hub-node-col">AERO_SPEC</div>
+        <div class="hub-node-col">MONOLITH_UI</div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         要件 (1) AI SKILL 明示
+         要件 (2) SKILL.md 全文埋め込み details
+         ==================================================================== -->
+    <section class="section-container" id="specification">
+      <div class="provenance-container">
+        <div class="provenance-pill-tag">
+          [MANDATORY SPECIFICATION // AUTONOMOUS AI ARTIFACT]
+        </div>
+        <h2 class="provenance-heading">
+          AI SKILL による生成と存在証明
+        </h2>
+        <p class="provenance-body-text">
+          <strong>※ 本ウェブページは AI SKILL「miyake」に基づく成果物です。</strong><br>
+          本画面は、架空のデザイナー人格「<strong>Jean Miyake（ジャン・ミヤケ）</strong>」として定義されたAIプロンプトスキル定義書（<code>/root/.pi/agent/skills/miyake/SKILL.md</code>）の美学・絶対ルール・実装規律に完全準拠して生成されたポートフォリオです。写真・画像の完全排除、影（box-shadow / text-shadow / filter）の全廃、書体数最大2書体、色は地・字・差し色の3役（差し色面積5%未満厳守）、主役要素へのグラデーション禁止、単一アニメーション（幾何ダイアル回転のみ）、および単一CTAへの垂直漏斗導線を遵守しています。
+        </p>
+
+        <!-- SKILL.md 全文の埋め込み (details 要素) -->
+        <details class="skill-details-unit">
+          <summary class="skill-summary-head">
+            <span>▶ 原典定義書: /root/.pi/agent/skills/miyake/SKILL.md (クリックで全文展開)</span>
+            <span class="font-mono" style="font-size: 0.72rem; color: var(--c-type-muted);">[VERBATIM EMBED]</span>
+          </summary>
+          <pre class="skill-code-viewport">---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+# デザイナー Jean Miyake
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+- 実装前に「主役・構成・差し色」を1行で宣言、断る時も理由は1行。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+- パレットは同系色の明度段差5段。階段が深みを運ぶ。
+- 淡い全面に白角丸カードを浮かべ、同系色の霧で包めば影なく階層が立つ。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面に限り、締めで同色に閉じる。
+- 差し色は見出しの1語に置き外周と反響させて締める。語を1つだけ差し色・別書体・幾何グリフへ変え、読む手を一拍止める。面グリッドには差し色のタイルを1枚だけ。
+- 色を足さず明暗で二声を出す。同型の行は塗りと中空を交互に、カード列は淡色で分け、巨大な中空語は裁ち切りで透かしに。
+- 信頼は推薦文より巨大な数字が運ぶ。統計は箱を捨てて罫線で切り、大数字2×2か極小タイル3列。
+- 価格や年のような対の値を画面の対角へ離して置き、視線を往復させる。
+- 検索UIは1本の横の楽器にする。入力欄を細い縦罫線で等分し、1つだけ塗りボタンで締める。
+- 図形の切り抜き(円など)は同寸で等間隔に。下の極小ラベルとタグを揃え、枠も影も付けない。
+- 語を境界の曲線に沿って並べ、面の境目の形をタイポでなぞる。帯の上辺を波で切ったら、その波へワードマークを沿わせる。
+- 写真は左右の細いストリップで挟んで正中だけを主役にする。暗面へ寄せた上では明色の差し色だけを使う。
+- 空白の帯に細い縦罫線を等間隔で並べれば、密度だけ足して他を壊さない。目線の錨になる座標・時刻・種別は極小モノスペースで四隅にだけ置く。
+- 見出しは3行に割り、行間を詰めて左に揃える。
+- ピルは主CTA・眉ラベル・ナビ・入力に限る。ナビは浮いた白角丸+右端暗塗りCTA、主CTAは塗りピル+矢印。
+- ヒーローは単語1つを巨大に。見出しは背景面に重ね裁ち切りからはみ出し、字が面を貫く。視線は眉→見出し→CTA→実物。章は左上に巨大見出し、右上に小文、右下にCTA。
+- 濃い角丸面は淡い地に1枚だけ浮かせ白字+造形物1点、章は明暗交互、帯の1行コピーは休符。境界は波で刳る。
+- 機能群は大きな角丸コンテナに淡色タイル、色相交替で1タイル1主題、円を境界に跨らせる。グリッドは1大+4小。
+- 主題の形は低彩度の模様に散らせば地が物語る。差し色は太い曲線1本か造形物を半分外へ走らせ、出血が深さを生む。
+- 複数画面は傾きと重なりでポスターに編集し、下端で裁ち切りの巨大ワードマークが署名。比較の2面は同一構図を等倍。
+</pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- 最終コンバージョン章 (CONTACT / 単一漏斗の終着点) -->
+    <section class="conversion-funnel-section" id="contact">
+      <div class="funnel-content-inner">
+        <div class="pill-eyebrow">
+          <span class="accent-point"></span>
+          <span>CONVERGENCE // REITERATION 03</span>
+        </div>
+
+        <!-- 反復3回目: 同じ見出しを3度反復し、毎回直下に同じCTAを置く -->
+        <h2 class="funnel-main-title">
+          構造が美しければ、<br>
+          装飾は<span style="color: var(--c-accent);">要らない</span>。
+        </h2>
+
+        <p class="funnel-lead-desc">
+          新機能の追加ではなく、不要な装飾の削ぎ落としから始めます。UIアーキテクチャの刷新、高密度業務システムの構造設計、極限まで認知負荷を削ぎ落としたデザインシステムの構築をご相談ください。
+        </p>
+
+        <!-- 入力は白ピルを暗ボタンで締める -->
+        <div class="funnel-input-row">
+          <form class="input-instrument-pill" onsubmit="event.preventDefault(); alert('Jean Miyake: 依頼メッセージを受信しました。骨格の検証に入ります。');">
+            <input type="email" placeholder="your.name@company.domain" required>
+            <button type="submit">送信する →</button>
+          </form>
+        </div>
+
+        <div>
+          <a href="mailto:jean.miyake@example.com?subject=Structural%20Design%20Inquiry" class="btn-master-pill">
+            <span>構造設計の対話を始める</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター (メタは白ピル横列を足元に束ねる + 裁ち切り巨大ワードマーク署名) -->
+  <footer class="site-footer">
+    <div class="footer-meta-pill-cluster">
+      <div class="footer-pill">JEAN MIYAKE PORTFOLIO 2026.10</div>
+      <div class="footer-pill">ZERO SHADOW SPECIFICATION</div>
+      <div class="footer-pill">ACCENT: VERMILION #E63920 (1.7%)</div>
+      <div class="footer-pill">FONTS: SYSTEM SANS / SYSTEM MONO</div>
+      <div class="footer-pill">AI SKILL: /root/.pi/agent/skills/miyake/SKILL.md</div>
+    </div>
+
+    <div class="footer-split-row">
+      <div class="footer-copy">
+        &copy; 2026 JEAN MIYAKE. ARCHITECTURE OVER ORNAMENT. ALL RIGHTS RESERVED.
+      </div>
+      <div class="font-mono" style="font-size: 0.72rem; color: var(--c-type-muted);">
+        BUILT STRICTLY UNDER AI SKILL DISCIPLINE
+      </div>
+    </div>
+
+    <!-- 最下部で裁ち切りの巨大ワードマーク署名 -->
+    <div class="footer-massive-signature">MIYAKE</div>
+  </footer>
+
+  <script>
+    // 単一CTAへのスムーススクロール処理
+    document.querySelectorAll("a[href^='#']").forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href");
+        if (!targetId || targetId === "#") return;
+        const targetElem = document.querySelector(targetId);
+        if (targetElem) {
+          e.preventDefault();
+          targetElem.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
