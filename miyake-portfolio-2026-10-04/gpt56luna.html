@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jean Miyake — Structure is enough</title>
+<style>
+:root{
+  --paper:#ece9e1;
+  --ink:#202421;
+  --accent:#d64a32;
+  --mist:#d9d6cd;
+  --white:#f7f5ef;
+  --line:rgba(32,36,33,.22);
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --sans:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);letter-spacing:.015em}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.page{overflow:hidden}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0}
+.mono{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+header{height:78px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding:0 32px}
+.brand{font-weight:700;letter-spacing:.08em;font-size:13px}
+.brand b{color:var(--accent)}
+.header-mid{text-align:center}
+.header-nav{justify-self:end;display:flex;gap:22px;align-items:center}
+.header-nav a{font-size:11px;border-bottom:1px solid transparent;padding-bottom:3px}
+.header-nav a:hover{border-color:var(--ink)}
+.hero{min-height:calc(100vh - 78px);position:relative;border-bottom:1px solid var(--line);display:grid;grid-template-rows:1fr auto; padding:30px 32px 0}
+.hero-meta{display:flex;justify-content:space-between;align-items:flex-start}
+.hero-meta span:last-child{writing-mode:vertical-rl;line-height:1.8}
+.hero-main{align-self:end;position:relative;padding-bottom:50px}
+.hero-main h1{font-size:clamp(80px,18vw,270px);line-height:.75;letter-spacing:-.09em;margin:0 0 28px -10px;font-weight:700}
+.hero-main h1 span{display:block}
+.hero-main h1 span:last-child{color:transparent;-webkit-text-stroke:1px var(--ink)}
+.hero-copy{display:grid;grid-template-columns:repeat(12,1fr);border-top:1px solid var(--line);padding-top:17px;gap:16px}
+.hero-copy p{grid-column:1 / span 4;line-height:1.8;margin:0;font-size:13px}
+.hero-copy .note{grid-column:10 / -1;text-align:right;color:#575b54}
+.dot{position:absolute;width:13px;height:13px;background:var(--accent);border-radius:50%;right:11%;top:35%;animation:breath 4s ease-in-out infinite}
+@keyframes breath{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+.index{padding:17px 32px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.index a{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:#656962}
+.index a:hover{color:var(--accent)}
+.section{padding:110px 32px;border-bottom:1px solid var(--line)}
+.section-head{grid-column:1 / span 4}
+.section-num{color:var(--accent);font-family:var(--mono);font-size:11px;margin-bottom:25px}
+.section h2{font-size:clamp(42px,7vw,92px);line-height:.88;letter-spacing:-.07em;margin:0;font-weight:700}
+.section h2 span{display:block}
+.section-side{grid-column:9 / -1;align-self:start;line-height:1.8;font-size:13px;max-width:260px}
+.section-side strong{font-size:11px;font-family:var(--mono);display:block;margin-bottom:16px}
+.rule-copy{grid-column:1 / -1;margin-top:86px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:20px 0;display:flex;justify-content:space-between;gap:30px;font-size:14px}
+.rule-copy b{font-weight:400;color:var(--accent)}
+.work{background:var(--ink);color:var(--white);padding-bottom:120px}
+.work .section-num{color:var(--accent)}
+.work .section-side{color:#c9c9c0}
+.work .section-head{grid-column:1 / span 5}
+.work-grid{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#555850;margin-top:85px;border:1px solid #555850}
+.work-card{background:var(--ink);min-height:300px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.work-card:nth-child(2){background:#272b27}
+.work-card:nth-child(3){background:#30342e}
+.work-card:nth-child(4){background:var(--ink)}
+.work-card .shape{height:140px;display:flex;align-items:center;justify-content:center;font-size:58px;letter-spacing:-.09em;font-weight:700;color:var(--white)}
+.work-card:nth-child(2) .shape{color:transparent;-webkit-text-stroke:1px var(--white)}
+.work-card:nth-child(3) .shape:before{content:"◯";font-size:130px;font-weight:200;line-height:0;color:var(--accent)}
+.work-card:nth-child(4) .shape:before{content:"///";font-family:var(--mono);font-size:100px;letter-spacing:-.18em}
+.work-card footer{border-top:1px solid rgba(247,245,239,.3);padding-top:14px;display:flex;justify-content:space-between;font-size:11px}
+.method{background:#e4e1d8}
+.method-list{grid-column:5 / -1;border-top:1px solid var(--ink);margin-top:2px}
+.method-row{display:grid;grid-template-columns:70px 1fr 30px;gap:20px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
+.method-row .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.method-row h3{font-size:22px;font-weight:400;margin:0 0 7px;letter-spacing:-.04em}
+.method-row p{margin:0;font-size:12px;line-height:1.8;color:#585c55;max-width:450px}
+.method-row .plus{text-align:right;font-family:var(--mono)}
+.manifesto{min-height:75vh;display:flex;align-items:center;position:relative}
+.manifesto .huge{font-size:clamp(62px,12vw,170px);line-height:.8;letter-spacing:-.1em;margin:0 0 0 -8px}
+.manifesto .huge em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--ink)}
+.manifesto small{position:absolute;right:5%;bottom:15%;font-size:11px;line-height:1.8;width:150px}
+.manifesto small b{color:var(--accent);font-family:var(--mono);display:block;margin-bottom:10px}
+.cta-section{background:var(--accent);color:var(--white);min-height:62vh;padding:80px 32px 30px;display:grid;grid-template-rows:auto 1fr auto}
+.cta-section h2{font-size:clamp(50px,10vw,140px);line-height:.82;letter-spacing:-.09em;margin:0;max-width:900px}
+.cta-section h2 span{display:block}
+.cta-link{align-self:center;justify-self:end;background:var(--white);color:var(--ink);padding:17px 22px;min-width:210px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;border:0;cursor:pointer;transition:background .2s,color .2s}
+.cta-link:hover{background:var(--ink);color:var(--white)}
+.cta-footer{border-top:1px solid rgba(247,245,239,.5);padding-top:14px;display:flex;justify-content:space-between;font-size:10px;font-family:var(--mono)}
+.skill-details{padding:32px;border-bottom:1px solid var(--line);background:#e4e1d8}
+.skill-details summary{cursor:pointer;font-family:var(--mono);font-size:11px;color:var(--accent);list-style-position:inside}
+.skill-details pre{white-space:pre-wrap;font-family:var(--mono);font-size:11px;line-height:1.7;max-width:1000px;margin:25px 0 0;color:#4e534c}
+@media(max-width:700px){
+ header{height:65px;padding:0 18px;grid-template-columns:1fr auto}.header-mid{display:none}.header-nav{gap:12px}.header-nav a:not(:last-child){display:none}
+ .hero{min-height:calc(100svh - 65px);padding:20px 18px 0}.hero-main h1{font-size:25vw;margin-left:-4px}.hero-copy{display:block}.hero-copy p{margin-bottom:18px}.hero-copy .note{text-align:left}.dot{right:15%;top:31%}
+ .index{padding:14px 18px;grid-template-columns:1fr 1fr;row-gap:10px}.section{padding:75px 18px}.section-head,.work .section-head{grid-column:1 / -1}.section-side{grid-column:1 / -1;margin-top:40px}.rule-copy{margin-top:60px;display:block}.rule-copy b{display:block;margin-bottom:10px}.work-grid{grid-template-columns:1fr;margin-top:60px}.work-card{min-height:260px}.method-list{grid-column:1 / -1;margin-top:55px}.method-row{grid-template-columns:38px 1fr 20px;gap:10px}.method-row h3{font-size:19px}.manifesto{min-height:60vh}.manifesto .huge{font-size:22vw}.manifesto small{right:0;bottom:10%;width:130px}.cta-section{padding:55px 18px 22px;min-height:68vh}.cta-link{justify-self:stretch}.skill-details{padding:25px 18px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <a class="brand" href="#top">JEAN <b>MIYAKE</b></a>
+  <div class="header-mid mono">AI SKILL / PORTFOLIO 2026</div>
+  <nav class="header-nav"><a href="#work">WORK</a><a href="#method">METHOD</a><a href="#contact">CONTACT</a></nav>
+</header>
+<main id="top">
+<section class="hero">
+  <div class="hero-meta mono"><span>DESIGNER / 001</span><span>37° 46′ N<br>122° 25′ W</span></div>
+  <div class="hero-main">
+    <i class="dot" aria-hidden="true"></i>
+    <h1><span>FORM</span><span>FOLLOWS</span></h1>
+    <div class="hero-copy">
+      <p>私はJean Miyake。<br>構造が美しければ、装飾は要らない。</p>
+      <p class="note mono">UI / WEB / SYSTEM<br>空間を設計し、意味を残す。</p>
+    </div>
+  </div>
+</section>
+<nav class="index" aria-label="章索引"><a href="#work"><span>01</span><span>WORK</span></a><a href="#method"><span>02</span><span>METHOD</span></a><a href="#belief"><span>03</span><span>BELIEF</span></a><a href="#contact"><span>04</span><span>CONTACT</span></a></nav>
+<section class="section work grid" id="work">
+  <div class="section-head"><div class="section-num">01 / SELECTED WORK</div><h2><span>THE</span><span>QUIET</span><span>EDGE</span></h2></div>
+  <div class="section-side"><strong>成果物は、主張ではない。</strong>余白と罫線を編集し、使う人の判断が速くなる画面をつくる。これは写真ではなく、構造そのものの展示。</div>
+  <div class="work-grid">
+    <article class="work-card"><div class="shape">NORTH</div><footer><span>01 / WAYFINDING</span><span>2026</span></footer></article>
+    <article class="work-card"><div class="shape">SILENCE</div><footer><span>02 / EDITORIAL UI</span><span>2025</span></footer></article>
+    <article class="work-card"><div class="shape"></div><footer><span>03 / MOTION SYSTEM</span><span>2025</span></footer></article>
+    <article class="work-card"><div class="shape"></div><footer><span>04 / TYPE STUDY</span><span>2024</span></footer></article>
+  </div>
+</section>
+<section class="section method grid" id="method">
+  <div class="section-head"><div class="section-num">02 / METHOD</div><h2><span>MAKE</span><span>ROOM</span></h2></div>
+  <div class="section-side"><strong>強いものを、ひとつ。</strong>色を足す前に明暗を決める。動きを足す前に静けさを決める。設計は削る順番で決まる。</div>
+  <div class="method-list">
+    <div class="method-row"><span class="num">01</span><div><h3>余白は素材</h3><p>空間をつくり、情報を浮かせる。詰めないことで、視線の速度を設計する。</p></div><span class="plus">+</span></div>
+    <div class="method-row"><span class="num">02</span><div><h3>一画面一メッセージ</h3><p>主役をひとつに限定する。他の要素は、主役を正しく読むためにだけ置く。</p></div><span class="plus">+</span></div>
+    <div class="method-row"><span class="num">03</span><div><h3>線と格子</h3><p>目に見える骨格が、迷いを減らす。細い罫線は境界ではなく、次の場所への指示。</p></div><span class="plus">+</span></div>
+  </div>
+</section>
+<section class="section manifesto grid" id="belief">
+  <p class="huge">LESS<br><em>IS</em><br>MORE</p>
+  <small><b>03 / BELIEF</b>AI SKILLとしてのJean Miyake。私はコードの中に、判断の基準と余白の感覚を実装する。</small>
+</section>
+<section class="cta-section" id="contact">
+  <div class="mono">04 / ONE OPEN DOOR</div>
+  <h2><span>LET'S MAKE</span><span>ROOM.</span></h2>
+  <a class="cta-link" href="mailto:hello@jeanmiyake.ai"><span>START A PROJECT</span><span>↗</span></a>
+  <div class="cta-footer"><span>JEAN MIYAKE / AI SKILL</span><span>© 2026</span></div>
+</section>
+<section class="skill-details">
+<details>
+<summary>AI SKILL / miyake — DESIGN RULES を読む</summary>
+<pre>---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+# デザイナー Jean Miyake
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+- 実装前に「主役・構成・差し色」を1行で宣言、断る時も理由は1行。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+- パレットは同系色の明度段差5段。階段が深みを運ぶ。
+- 淡い全面に白角丸カードを浮かべ、同系色の霧で包めば影なく階層が立つ。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面に限り締めで同色に閉じる。
+- 差し色は見出しの1語に置き、別書体か幾何グリフへ変えて読む手を一拍止める。面グリッドには差し色タイルを1枚だけ。
+- 色を足さず明暗で二声を出す。同型の行は塗りと中空を交互に、カード列は淡色で分け、巨大な中空語は透かしに。
+- 信頼は巨大な数字が運ぶ。統計は箱を捨てて罫線で切り、大数字2×2か極小タイル3列。仕様はラベル左・値右寄せの罫線行。
+- 対の値は画面の対角へ離して置き、視線を往復させる。
+- 検索UIは1本の横の楽器にする。入力欄を細い縦罫線で等分し、1つだけ塗りボタンで締める。
+- 図形の切り抜きは同寸で等間隔に。下の極小ラベルを揃え、枠も影も付けない。
+- 語は面の境目の曲線に沿って並べ、波で切った帯の上辺へワードマークを沿わせる。
+- 写真は左右の細い帯で挟んで正中だけを主役にする。
+- 全面単色地のファーストビューは主役を下端から生い出る地形に沈め、上を空の色面に残す。ロゴ・ナビは四隅の極小へ、端の縦書き語は細い縦線+点で着地させる。
+- 空白の帯に細い縦罫線を等間隔で並べれば密度だけ足せる。座標・時刻・種別の錨は極小モノスペースで四隅にだけ置く。
+- 章索引は番号付き極小ラベルの横一列を等間隔で並べページの地図にする。
+- 見出しは3行に割り、行間を詰め左に揃える。
+- ヒーローは単語1つを巨大に、背景面に重ね裁ち切りからはみ出させ字が面を貫く。章は左上に巨大見出し、右上に小文、右下にCTA。
+- 暗面ヒーローは巨大見出しを左下に沈め、差し色は画面内の光源から借りる。出口カードは下端に白塗り帯ラベル+▶を貼る。
+- 濃い角丸面は淡い地に1枚だけ浮かせ白字+造形物1点、章は明暗交互、帯の1行コピーは休符。
+- 機能群は大きな角丸コンテナに淡色タイル、色相交替で1タイル1主題、円を境界に跨らせる。グリッドは1大+4小。
+- 主題の形は低彩度の模様に散らせば地が物語る。差し色は太い曲線1本か、造形物を半分外へ走らせ出血が深さを生む。
+- 複数画面は傾きと重なりでポスターに編集し、下端で裁ち切りの巨大ワードマークが署名。比較の2面は同一構図を等倍。</pre>
+</details>
+</section>
+</main>
+</div>
+<script>
+document.querySelectorAll('.header-nav a,.index a').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();document.querySelector(link.getAttribute('href')).scrollIntoView({behavior:'smooth'})}));
+</script>
+</body>
+</html>
