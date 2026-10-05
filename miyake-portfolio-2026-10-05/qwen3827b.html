@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Miyake — デザイナー</title>
+<style>
+:root{
+  --bg:#F4F1EA;      /* 地 */
+  --bg2:#ECE7DC;     /* 地・段2 */
+  --ink:#1E1B16;     /* 字 */
+  --ink2:#6E675B;    /* 字・弱 */
+  --line:#CFC8B8;    /* 罫線 */
+  --accent:#D8432B;  /* 差し色・朱(5%未満に封じる) */
+  --band:#1E1B16;    /* 端帯 */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
+  line-height:1.7;
+  /* 細い縦罫線を等間隔に:格子は目に見える */
+  background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(100% - 1px),rgba(110,103,91,.12) calc(100% - 1px));
+}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+/* 錨:極小モノスペース、四隅にだけ */
+.anchor{position:fixed;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;color:var(--ink2);z-index:9;pointer-events:none}
+.anchor.tl{top:14px;left:18px}
+.anchor.tr{top:14px;right:18px}
+.anchor.bl{bottom:14px;left:18px;color:var(--bg)}
+.anchor.br{bottom:14px;right:18px;color:var(--bg)}
+/* 極小タグ:四隅ブラケットの枠 */
+.tag{position:relative;display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.2em;color:var(--ink2);padding:6px 14px}
+.tag::before,.tag::after{content:"";position:absolute;width:8px;height:8px}
+.tag::before{top:0;left:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.tag::after{bottom:0;right:0;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+/* ── ヒーロー:全面単色地に主役を下端から生い出る地形に沈め、頂点は上寄り中央 ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;position:relative}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;padding-top:32px}
+.logo{font-size:13px;font-weight:700;letter-spacing:.28em}
+.logo b{color:var(--accent);font-weight:700}
+.nav{display:flex;gap:24px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;color:var(--ink2)}
+.nav a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
+.nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.hero-main{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:7vh}
+.hero-char{
+  font-size:clamp(220px,42vw,460px);
+  line-height:.95;font-weight:700;
+  letter-spacing:-.04em;
+  color:var(--bg2);
+  position:relative;
+}
+/* 唯一の動き:主役の字が静かに呼吸 */
+@keyframes breathe{from{transform:scale(1)}to{transform:scale(1.015)}}
+.hero-char{animation:breathe 5s ease-in-out infinite alternate}
+.hero-meta{display:flex;justify-content:space-between;width:100%;padding:0 24px;margin-top:-18px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;color:var(--ink2)}
+.hero-meta em{font-style:normal;color:var(--accent)}
+.side-word{position:absolute;right:24px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:10px;letter-spacing:.4em;color:var(--ink2);font-family:ui-monospace,Menlo,monospace;display:flex;align-items:center;gap:10px}
+.side-word::before{content:"";width:1px;height:64px;background:var(--line);display:block}
+/* 章索引:番号付き極小ラベルを等間隔に横一列 */
+.index{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex}
+.index a{flex:1;text-decoration:none;color:var(--ink2);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;padding:10px 0;text-align:center}
+.index a:not(:last-child){border-right:1px solid var(--line)}
+.index a:hover{color:var(--ink);background:var(--bg2)}
+/* ── 各章:左上に巨大見出し、右上に小文、右下にCTA ── */
+section.chapter{padding:120px 0 110px;border-top:1px solid var(--line)}
+.ch-head{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
+.ch-num{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.2em;color:var(--ink2);margin-bottom:14px}
+h2.ch-title{font-size:clamp(44px,7vw,88px);line-height:1.08;letter-spacing:-.02em;font-weight:700}
+h2.ch-title .accent{color:var(--accent)}
+.ch-note{max-width:220px;font-size:12px;color:var(--ink2);text-align:right;padding-top:8px}
+.ch-body{margin-top:56px}
+/* 理念:塗りと中空を交互に、巨大な中空語は透かしに */
+.principles{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.pr{padding:34px 24px 34px 0;border-bottom:1px solid var(--line)}
+.pr:nth-child(odd){border-right:1px solid var(--line)}
+.pr .n{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.2em;color:var(--ink2);display:block;margin-bottom:10px}
+.pr h3{font-size:20px;font-weight:700;letter-spacing:.04em;margin-bottom:8px}
+.pr p{font-size:13px;color:var(--ink2)}
+.pr.dark{background:var(--ink);color:var(--bg)}
+.pr.dark .n,.pr.dark p{color:var(--ink2)}
+.pr.dark p{color:#B5AC9C}
+.pr.dark .n{color:#8A8274}
+/* 経歴:ラベル左・値右寄せの罫線行 */
+.timeline{border-top:1px solid var(--line)}
+.tl-row{display:grid;grid-template-columns:130px 1fr 1fr;border-bottom:1px solid var(--line);padding:18px 0;gap:16px;align-items:baseline}
+.tl-year{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.1em;color:var(--ink2)}
+.tl-role{font-size:14px;font-weight:700}
+.tl-desc{font-size:12px;color:var(--ink2);text-align:right}
+/* CTA:1つだけ、全セクションがここへ漏斗に導く */
+.cta{background:var(--ink);color:var(--bg);padding:130px 0 120px;position:relative}
+.cta .ch-num{color:#8A8274}
+.cta .ch-title{color:var(--bg)}
+.cta .ch-note{color:#8A8274}
+.cta-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:72px;gap:24px;flex-wrap:wrap}
+.mail{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.1em;color:#B5AC9C}
+.btn{
+  display:inline-block;background:var(--accent);color:#FFF;
+  font-size:14px;font-weight:700;letter-spacing:.1em;
+  padding:20px 52px;text-decoration:none;
+}
+.btn:hover{color:#000}
+/* AI生成の明示 */
+.ai-note{border-top:1px solid var(--line);padding:14px 24px;text-align:center;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;color:var(--ink2);background:var(--bg2)}
+/* 出典:SKILL.md 本文 */
+.source{padding:90px 0 110px;border-top:1px solid var(--line)}
+details.source-box{border:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;color:var(--ink2)}
+summary::-webkit-details-marker{display:none}
+summary .plus{transition:transform .2s}
+details[open] summary .plus{transform:rotate(45deg)}
+details[open] summary{border-bottom:1px solid var(--line)}
+pre.skill-src{
+  padding:28px 24px;overflow-x:auto;
+  font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.9;
+  color:var(--ink);white-space:pre-wrap;word-break:break-all;
+  background:var(--bg2);
+}
+/* 下端:画面幅の濃色1行帯 */
+.band{background:var(--band);color:var(--bg);padding:16px 0;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.18em;display:flex;justify-content:space-between;padding-left:24px;padding-right:24px}
+@media (max-width:720px){
+  .ch-head{grid-template-columns:1fr}
+  .ch-note{text-align:left;max-width:none;padding-top:0}
+  .principles{grid-template-columns:1fr}
+  .pr:nth-child(odd){border-right:none}
+  .tl-row{grid-template-columns:1fr;gap:2px}
+  .tl-desc{text-align:left}
+  .side-word{display:none}
+  .nav{display:none}
+}
+</style>
+</head>
+<body>
+<span class="anchor tl">JM / 2026</span>
+<span class="anchor tr">PORTFOLIO — 01</span>
+<span class="anchor bl">JP — 35.6°N</span>
+<span class="anchor br">END /■</span>
+
+<!-- ═══ ヒーロー:主役は「構」の1字 ═══ -->
+<header class="hero">
+  <div class="hero-top wrap">
+    <div class="logo">JEAN<b>·</b>Miyake</div>
+    <nav class="nav">
+      <a href="#idea">IDEA</a>
+      <a href="#career">CAREER</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </div>
+  <div class="hero-main">
+    <div class="hero-char" aria-label="構">構</div>
+  </div>
+  <div class="hero-meta">
+    <span>UI / WEB DESIGN</span>
+    <span><em>■</em> 構造が美しければ、装飾は要らない</span>
+    <span>SCROLL ↓</span>
+  </div>
+  <span class="side-word">構造と空白の間</span>
+  <nav class="index wrap" aria-label="章索引">
+    <a href="#idea">01 / 作品理念</a>
+    <a href="#career">02 / 経歴</a>
+    <a href="#contact">03 / 連絡</a>
+    <a href="#source">04 / 出典</a>
+  </nav>
+</header>
+
+<div class="ai-note">※ このページはAI SKILLにより生成されたデザイナーのポートフォリオである。デザイン規定は本ページ下部「出典」に全文掲載する。</div>
+
+<!-- ═══ 01 作品理念 ═══ -->
+<section class="chapter" id="idea">
+  <div class="wrap">
+    <div class="ch-head">
+      <div>
+        <div class="ch-num">01 / IDEA</div>
+        <h2 class="ch-title">余白は<br>素材。装飾は<br>要らない<span class="accent">。</span></h2>
+      </div>
+      <p class="ch-note">空間を作り、情報を浮かせる。詰めない。1画面に1メッセージだけ。</p>
+    </div>
+    <div class="ch-body">
+      <div class="principles">
+        <div class="pr">
+          <span class="n">P-01</span>
+          <h3>静と動の対比</h3>
+          <p>面は静かに。タイポグラフィと、1つの動きだけ大胆に。</p>
+        </div>
+        <div class="pr dark">
+          <span class="n">P-02</span>
+          <h3>線と格子</h3>
+          <p>目に見える格子。細い罫線で構成を示し、距離は影ではなく余白で作る。</p>
+        </div>
+        <div class="pr">
+          <span class="n">P-03</span>
+          <h3>差し色は点に</h3>
+          <p>色は地・字・差し色の3役まで。朱は1語と1枚のボタンにしか使わない。</p>
+        </div>
+        <div class="pr dark">
+          <span class="n">P-04</span>
+          <h3>タイポグラフィで描く</h3>
+          <p>写真も画像も使わない。文字と幾何学だけで、画面を語る。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 経歴 ═══ -->
+<section class="chapter" id="career">
+  <div class="wrap">
+    <div class="ch-head">
+      <div>
+        <div class="ch-num">02 / CAREER</div>
+        <h2 class="ch-title">経歴は<br>罫線で<br>切る<span class="accent">。</span></h2>
+      </div>
+      <p class="ch-note">年月は左、役職と実績は右。往復する視線が記録を運ぶ。</p>
+    </div>
+    <div class="ch-body">
+      <div class="timeline">
+        <div class="tl-row"><span class="tl-year">2024 —</span><span class="tl-role">インディー・デザイナー</span><span class="tl-desc">個人でのUI/WEB設計。構造主義の制作を続ける。</span></div>
+        <div class="tl-row"><span class="tl-year">2020 — 2024</span><span class="tl-role">プロダクトUIデザイナー</span><span class="tl-desc">SaaSのデザインシステム構築。余白の設計を軸に。</span></div>
+        <div class="tl-row"><span class="tl-year">2017 — 2020</span><span class="tl-role">デジタルデザイナー</span><span class="tl-desc">ブランドとWebの架橋。タイポグラフィ中心の表現。</span></div>
+        <div class="tl-row"><span class="tl-year">2017</span><span class="tl-role">デザイン専門学校 卒業</span><span class="tl-desc">グラフィックデザイン科。</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 CTA ═══ -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="ch-head">
+      <div>
+        <div class="ch-num">03 / CONTACT</div>
+        <h2 class="ch-title">次の構造を<br>一緒に<br>建てよう。</h2>
+      </div>
+      <p class="ch-note">受託・相談は1年に数件。まず、言葉で構想を聞かせてください。</p>
+    </div>
+    <div class="cta-row">
+      <span class="mail">CONTACT — jean.miyake@example.jp</span>
+      <a class="btn" href="mailto:jean.miyake@example.jp">お問い合わせ ▶</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 出典:SKILL.md 全文(コードエスケープ) ═══ -->
+<section class="source" id="source">
+  <div class="wrap">
+    <details class="source-box">
+      <summary><span>出典 / このページを生成したAI SKILLの全文(SKILL.md)</span><span class="plus">＋</span></summary>
+      <pre class="skill-src">---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+# デザイナー Jean Miyake
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+- 実装前に「主役・構成・差し色」を1行で宣言、断る時も理由は1行。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+- パレットは同系色の明度段差5段。階段が深みを運ぶ。
+- 淡い全面に白角丸カードを浮かべ、同系色の霧で包めば影なく階層が立つ。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面に限る。
+- 差し色は見出しの1語に置き、別書体か幾何グリフに変える。面グリッドには差し色タイルを1枚だけ。
+- 色を足さず明暗で二声。同型の行は塗りと中空を交互に、巨大な中空語は透かしに。
+- 信頼は巨大な数字が運ぶ。統計は罫線で切り、大数字2×2か極小タイル3列。見出しの右隣に極小モノスペースの実績2行。
+- データ図形は輪郭1本にぼかした色の雲を重ねる。棒の並びは強調1本だけ差し色。
+- 対の値は画面の対角へ離して置き、視線を往復させる。
+- 検索UIは1本の横の楽器。細い縦罫線で等分し、1つだけ塗りボタンで締める。
+- 切り抜き図形は同寸で等間隔、下の極小ラベルを揃え、枠も影も付けない。
+- 語は面の境目の曲線に沿わせ、波切った帯の上辺へワードマークを沿わせる。
+- 写真は左右の細帯で挟み正中だけを主役に。
+- 全面単色地は主役を下端から生い出る地形に沈め、頂点は上寄り中央に置き上の空をナビの余白に。ロゴ・ナビは四隅の極小、端の縦書き語は細い縦線+点で着地。
+- 空白に細い縦罫線を等間隔で並べ密度を足す。錨は極小モノスペースで四隅にだけ。
+- 章索引は番号付き極小ラベルの横一列を等間隔で並べページの地図にする。
+- 見出しは3行に割り、行間を詰め左に揃える。
+- ヒーローは単語1つを巨大に、裁ち切りからはみ出させ字が面を貫く。章は左上に巨大見出し、右上に小文、右下にCTA。
+- 暗面ヒーローは巨大見出しを左下に沈め、差し色は画面内の光源から借りる。出口カードは白塗り帯ラベル+▶を貼る。
+- 濃い角丸面は淡い地に1枚だけ浮かせ白字+造形物1点。章は明暗交互。
+- 極小タグは四隅ブラケットの枠で作る。仕様はラベル左・値右寄せの罫線行。
+- 下端に画面幅の濃色1行帯を敷くと、淡いカード群が明暗の締めで閉じる。
+- 機能群は大きな角丸コンテナに淡色タイル、色相交替で1タイル1主題。グリッドは1大+4小。
+- 主題の形は低彩度の模様に散らせば地が物語る。差し色は太い曲線1本か、造形物を半分外へ走らせる。
+- 複数画面は傾きと重なりでポスターに編集し、下端で裁ち切りの巨大ワードマークが署名。</pre>
+    </details>
+  </div>
+</section>
+
+<footer class="band">
+  <span>© 2026 JEAN MIYAKE</span>
+  <span>構 — 構造が美しければ、装飾は要らない。</span>
+</footer>
+</body>
+</html>
