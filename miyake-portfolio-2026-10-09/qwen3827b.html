@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIYAKE — Portfolio</title>
+<style>
+  :root{
+    --paper:#F2F0EB;      /* 地: 紙白 */
+    --ink:#1A1917;        /* 字: 墨 */
+    --line:rgba(26,25,23,.28);
+    --line-soft:rgba(26,25,23,.12);
+    --accent:#C8402A;     /* 差し色: 朱 */
+    --tone2:#E4E0D8;      /* 同系明度段差 */
+    --tone3:#D6D1C6;
+    --tone4:#C4BEB1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,"Hiragino Kaku Gothic ProN",YuGothic,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+  .container{width:min(1120px,92vw);margin:0 auto;position:relative;}
+
+  /* ===== 空白に並ぶ細い縦罫線(格子) ===== */
+  .grid-lines{position:absolute;inset:0;pointer-events:none;
+    background-image:repeating-linear-gradient(90deg,var(--line-soft) 0,var(--line-soft) 1px,transparent 1px,transparent calc(100%/6));}
+
+  /* ===== 上端の空: ナビ ===== */
+  nav{position:fixed;top:0;left:0;right:0;z-index:10;
+    background:var(--paper);border-bottom:1px solid var(--line);}
+  nav .container{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .brand{font-size:13px;letter-spacing:.35em;font-weight:700;}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-size:11px;letter-spacing:.18em;text-decoration:none;color:var(--ink);opacity:.7;}
+  .nav-links a:hover{opacity:1;}
+  .corner{position:fixed;font-size:9px;opacity:.45;z-index:11;letter-spacing:.2em;}
+  .corner.tl{top:74px;left:12px;} .corner.tr{top:74px;right:12px;}
+  .corner.bl{bottom:12px;left:12px;} .corner.br{bottom:12px;right:12px;}
+
+  /* ===== ヒーロー: 主役は下端から生い出る ===== */
+  .hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;}
+  .hero-words{font-size:clamp(96px,17vw,220px);line-height:.9;letter-spacing:-.03em;
+    font-weight:700;transform:translateY(18%);white-space:nowrap;user-select:none;}
+  .hero .accent-word{color:var(--accent);}
+  .hero-note{position:absolute;top:20vh;right:4vw;text-align:right;font-size:12px;
+    letter-spacing:.15em;line-height:2.2;}
+  .hero-band{position:absolute;top:0;bottom:0;right:0;width:6px;background:var(--accent);}
+  .hero-vertical{position:absolute;top:24vh;left:4vw;writing-mode:vertical-rl;font-size:11px;
+    letter-spacing:.4em;display:flex;align-items:center;gap:14px;}
+  .hero-vertical::after{content:"";width:1px;height:72px;background:var(--ink);}
+  .hero-vertical i{font-style:normal;width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;}
+
+  /* ===== 章索引: 番号付き極小ラベルの横一列 ===== */
+  .index{border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .index ol{list-style:none;display:flex;}
+  .index li{flex:1;padding:14px 0;text-align:center;font-size:10px;letter-spacing:.25em;
+    border-right:1px solid var(--line);}
+  .index li:last-child{border-right:none;}
+  .index b{font-weight:400;opacity:.5;margin-right:8px;}
+
+  section{padding:110px 0;position:relative;}
+
+  /* ===== 章共通: 左上巨大見出し / 右上小文 / 右下CTA ===== */
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:64px;gap:40px;}
+  .sec-head h2{font-size:clamp(40px,5.5vw,68px);line-height:1.08;letter-spacing:-.02em;font-weight:700;}
+  .sec-head p{font-size:12px;line-height:2.1;letter-spacing:.1em;max-width:260px;opacity:.75;padding-top:14px;text-align:right;}
+
+  /* ===== 白角丸カード(淡い地に浮かぶ) ===== */
+  .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;}
+  .card{background:#fff;border-radius:18px;padding:36px;
+    transition:transform .3s ease;}
+  .card:hover{transform:translateY(-6px);}
+  .card .tag{display:inline-block;font-size:9px;letter-spacing:.2em;
+    border:1px solid var(--ink);padding:5px 10px;margin-bottom:20px;position:relative;}
+  /* 極小タグ: 四隅ブラケット */
+  .card .tag::before,.card .tag::after,
+  .card .tag span::before,.card .tag span::after{
+    content:"";position:absolute;width:5px;height:5px;border:1px solid var(--accent);}
+  .card .tag::before{top:-4px;left:-4px;border-right:none;border-bottom:none;}
+  .card .tag::after{top:-4px;right:-4px;border-left:none;border-bottom:none;}
+  .card .tag span::before{bottom:-4px;left:-4px;border-right:none;border-top:none;}
+  .card .tag span::after{bottom:-4px;right:-4px;border-left:none;border-top:none;}
+  .card h3{font-size:22px;letter-spacing:.02em;margin-bottom:10px;}
+  .card p{font-size:12px;line-height:2;opacity:.7;}
+  .c-wide{grid-column:span 8;} .c-narrow{grid-column:span 4;}
+  .c-third{grid-column:span 4;}
+
+  /* ===== 濃い角丸面: 淡い地に1枚だけ、白字+造形物 ===== */
+  .dark-card{grid-column:span 12;background:var(--ink);color:var(--paper);
+    border-radius:24px;padding:56px;display:flex;justify-content:space-between;align-items:center;gap:40px;}
+  .dark-card h3{font-size:clamp(28px,3.4vw,44px);line-height:1.2;letter-spacing:-.01em;margin-bottom:14px;}
+  .dark-card p{font-size:12px;line-height:2.2;opacity:.65;max-width:420px;}
+  .sphere{width:180px;height:180px;flex:none;animation:spin 26s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ===== 信頼を運ぶ巨大な数字: 罫線で切り 2×2 ===== */
+  .stats{display:grid;grid-template-columns:1fr 1fr;}
+  .stat{padding:40px 44px;border-bottom:1px solid var(--line);}
+  .stat:nth-child(odd){border-right:1px solid var(--line);}
+  .stat:nth-child(-n+2){border-top:1px solid var(--line);}
+  .stat .num{font-size:clamp(56px,7vw,96px);line-height:1;font-weight:700;letter-spacing:-.03em;}
+  .stat .num sup{font-size:.32em;font-weight:400;opacity:.5;margin-left:6px;}
+  .stat .cap{font-size:10px;letter-spacing:.3em;margin-top:14px;opacity:.6;}
+
+  /* ===== データ図形: 輪郭1本+ぼかした雲、棒は1本だけ差し色 ===== */
+  .chart{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;align-items:end;height:220px;padding:0 12px;}
+  .bar{position:relative;}
+  .bar .cloud{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:78%;border-radius:40% 40% 30% 30%;filter:blur(14px);opacity:.55;}
+  .bar .outline{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:56%;border:1px solid var(--ink);border-radius:50% 50% 24% 24%;}
+  .bar.hot .cloud{background:var(--accent);opacity:.75;}
+  .bar.hot .outline{border-color:var(--accent);}
+  .bar .lb{position:absolute;bottom:-30px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.2em;opacity:.55;}
+
+  /* ===== 仕様: ラベル左・値右寄せの罫線行 ===== */
+  .specs .row{display:flex;justify-content:space-between;padding:18px 4px;border-bottom:1px solid var(--line);font-size:13px;}
+  .specs .row span:first-child{letter-spacing:.2em;font-size:10px;opacity:.6;padding-top:4px;}
+  .specs .row span:last-child{text-align:right;}
+  /* 同型の行: 塗りと中空を交互に */
+  .specs .row:nth-child(even){background:var(--tone2);border-radius:8px;}
+
+  /* ===== CTA: 1つだけ、白塗り帯+▶ ===== */
+  .cta-band{background:#fff;border-radius:14px;padding:26px 36px;display:flex;
+    justify-content:space-between;align-items:center;margin-top:56px;text-decoration:none;color:var(--ink);}
+  .cta-band .txt{font-size:15px;letter-spacing:.25em;font-weight:700;}
+  .cta-band .tri{font-size:18px;}
+  .cta-band:hover .tri{color:var(--accent);}
+  /* 進行・操作: 塗り正方形の記号ペアと細横線の塗り/中空交互 */
+  .dots{display:flex;gap:8px;align-items:center;}
+  .dots i{width:8px;height:8px;background:var(--ink);display:block;}
+  .dots i:nth-child(2){background:transparent;border:1px solid var(--ink);}
+
+  /* ===== AI生成の明示 ===== */
+  .notice{border:1px solid var(--line);background:var(--tone2);padding:28px 32px;border-radius:12px;}
+  .notice .lbl{font-size:9px;letter-spacing:.3em;color:var(--accent);margin-bottom:10px;}
+  .notice p{font-size:13px;line-height:2;letter-spacing:.05em;}
+  details.miyake-src{margin-top:28px;border:1px solid var(--line);border-radius:12px;background:#fff;}
+  details.miyake-src summary{cursor:pointer;padding:20px 28px;font-size:12px;letter-spacing:.2em;list-style:none;display:flex;justify-content:space-between;}
+  details.miyake-src summary::after{content:"+";font-size:16px;}
+  details.miyake-src[open] summary::after{content:"−";}
+  details.miyake-src pre{padding:0 28px 28px;font-size:11px;line-height:1.9;white-space:pre-wrap;word-break:break-all;border-top:1px solid var(--line-soft);padding-top:20px;max-height:420px;overflow:auto;}
+
+  /* ===== 下端: 画面幅の濃色1行帯 ===== */
+  .footer-band{background:var(--ink);color:var(--paper);padding:26px 0;}
+  .footer-band .container{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.25em;opacity:.85;}
+  .foot-word{font-size:clamp(60px,10vw,120px);font-weight:700;letter-spacing:-.02em;
+    line-height:.8;transform:translateY(38%);white-space:nowrap;user-select:none;padding:0 4vw;}
+  .foot-word-wrap{background:var(--ink);overflow:hidden;}
+  .signline{background:var(--ink);color:var(--paper);padding:0 4vw 14px;font-size:10px;letter-spacing:.3em;opacity:.7;}
+
+  @media(max-width:760px){
+    .c-wide,.c-narrow,.c-third{grid-column:span 12;}
+    .dark-card{flex-direction:column;text-align:center;}
+    .sec-head{flex-direction:column;}
+    .sec-head p{text-align:left;padding-top:0;}
+    .stats{grid-template-columns:1fr;}
+    .stat:nth-child(odd){border-right:none;}
+    .hero-note{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <span class="brand mono">JEAN MIYAKE</span>
+    <div class="nav-links mono">
+      <a href="#work">WORK</a>
+      <a href="#number">NUMBER</a>
+      <a href="#profile">PROFILE</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </div>
+</nav>
+
+<span class="corner tl mono">N-01 / MIYAKE ARCHIVE</span>
+<span class="corner tr mono">EST. 2019 — TOKYO</span>
+<span class="corner bl mono">PRINT 35 / WEB 25</span>
+<span class="corner br mono">SINCE 2026.10</span>
+
+<!-- ============ ヒーロー ============ -->
+<header class="hero">
+  <div class="grid-lines"></div>
+  <div class="hero-vertical mono">構造が美しければ<i></i>装飾は要らない</div>
+  <div class="hero-note mono">
+    UI / VISUAL DESIGNER<br>
+    1 MESSAGE, 1 SCREEN<br>
+    NO SHADOW. NO NOISE.
+  </div>
+  <h1 class="hero-words">MI<span class="accent-word">Y</span>AKE</h1>
+  <div class="hero-band"></div>
+</header>
+
+<!-- ============ 章索引 ============ -->
+<div class="index mono">
+  <div class="container">
+    <ol>
+      <li><b>01</b>WORK</li>
+      <li><b>02</b>NUMBER</li>
+      <li><b>03</b>SIGNAL</li>
+      <li><b>04</b>PROFILE</li>
+      <li><b>05</b>CONTACT</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ 01 WORK ============ -->
+<section id="work">
+  <div class="container">
+    <div class="sec-head">
+      <h2>構造が見える<br>ものを、<br>作った<em style="color:var(--accent);font-style:normal;">だけ。</em></h2>
+      <p class="mono">余白は素材。<br>情報だけを浮かせる。</p>
+    </div>
+    <div class="cards">
+      <div class="card c-wide">
+        <span class="tag mono"><span>CASE 01 / 2026</span></span>
+        <h3>金融ダッシュボード「余白勘定」</h3>
+        <p>影を捨て、罫線だけで階層を立てた資産管理UI。数字が主役、図は引き立て役。棒グラフの差し色は1本だけ、視線は必ずそこへ落ちる。</p>
+      </div>
+      <div class="card c-narrow">
+        <span class="tag mono"><span>CASE 02 / 2025</span></span>
+        <h3>書籍サイト「一画面一言」</h3>
+        <p>見出しは3行に割り、行間を詰め左に揃えた。</p>
+      </div>
+      <div class="dark-card">
+        <div>
+          <h3>パッケージシステム「静と動」</h3>
+          <p>面は静かに、タイポグラフィと1つの動きだけ大胆に。同系色の明度段差5段で階段が深みを運び、塗りと中空の交互が二声を刻む。</p>
+        </div>
+        <svg class="sphere" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+          <circle cx="100" cy="100" r="86" stroke="#F2F0EB" stroke-opacity=".9"/>
+          <ellipse cx="100" cy="100" rx="86" ry="34" stroke="#F2F0EB" stroke-opacity=".55"/>
+          <ellipse cx="100" cy="100" rx="34" ry="86" stroke="#F2F0EB" stroke-opacity=".55"/>
+          <ellipse cx="100" cy="100" rx="62" ry="86" stroke="#C8402A" stroke-opacity=".9" transform="rotate(28 100 100)"/>
+          <circle cx="100" cy="100" r="3" fill="#C8402A"/>
+        </svg>
+      </div>
+      <div class="card c-third">
+        <span class="tag mono"><span>CASE 04 / 2024</span></span>
+        <h3>イベントキービジュアル</h3>
+        <p>単語1つを巨大に、裁ち切りからはみ出させて締めた。</p>
+      </div>
+      <div class="card c-third">
+        <span class="tag mono"><span>CASE 05 / 2024</span></span>
+        <h3>アプリオンボーディング</h3>
+        <p>進行は塗り正方形の記号ペア。細横線は塗り/中空で交互。</p>
+      </div>
+      <div class="card c-third">
+        <span class="tag mono"><span>CASE 06 / 2023</span></span>
+        <h3>ショップサイン</h3>
+        <p>端の縦書き語に細い縦線+点。光は線だけに宿した。</p>
+      </div>
+    </div>
+    <a class="cta-band mono" id="contact" href="mailto:hello@miyake.example">
+      <span class="txt">次の「余白」を、一緒に作る</span>
+      <span class="tri">▶</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 02 NUMBER ============ -->
+<section id="number">
+  <div class="container">
+    <div class="sec-head">
+      <h2>数字は、<br>巨大に<br>据える。</h2>
+      <p class="mono">信頼は巨大な数字が運ぶ。<br>罫線で切り、静かに置く。</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num mono">07<sup>YEARS</sup></div><div class="cap">独立しての年月</div></div>
+      <div class="stat"><div class="num mono">112<sup>WORKS</sup></div><div class="cap">手掛けた案件</div></div>
+      <div class="stat"><div class="num mono">05<sup>COLORS</sup></div><div class="cap">同系明度の段差</div></div>
+      <div class="stat"><div class="num mono">01<sup>CTA</sup></div><div class="cap">画面に残す出口</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 SIGNAL ============ -->
+<section id="signal">
+  <div class="container">
+    <div class="sec-head">
+      <h2>視線は<br>迷わない。<br>往復させる。</h2>
+      <p class="mono">対の値は画面の対角に。<br>棒は強調1本だけ。</p>
+    </div>
+    <div class="chart mono" aria-label="各年の案件構成">
+      <div class="bar" style="height:46%"><div class="cloud" style="height:46%;background:var(--tone4)"></div><div class="outline" style="height:46%"></div><span class="lb">2022</span></div>
+      <div class="bar" style="height:62%"><div class="cloud" style="height:62%;background:var(--tone3)"></div><div class="outline" style="height:62%"></div><span class="lb">2023</span></div>
+      <div class="bar hot" style="height:92%"><div class="cloud" style="height:92%"></div><div class="outline" style="height:92%"></div><span class="lb">2025</span></div>
+      <div class="bar" style="height:54%"><div class="cloud" style="height:54%;background:var(--tone3)"></div><div class="outline" style="height:54%"></div><span class="lb">2026</span></div>
+      <div class="bar" style="height:38%"><div class="cloud" style="height:38%;background:var(--tone4)"></div><div class="outline" style="height:38%"></div><span class="lb">NEXT</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 PROFILE ============ -->
+<section id="profile" class="specs">
+  <div class="container">
+    <div class="sec-head">
+      <h2>ジャン・ミヤケ、<br>と書く。<br>Jeanと読む。</h2>
+      <p class="mono">地・字・差し色。<br>3役で足りる。</p>
+    </div>
+    <div class="row"><span>NAME</span><span class="mono">JEAN MIYAKE</span></div>
+    <div class="row"><span>ROLE</span><span class="mono">UI / VISUAL DESIGNER</span></div>
+    <div class="row"><span>BASE</span><span class="mono">TOKYO, JAPAN</span></div>
+    <div class="row"><span>FONTS</span><span class="mono">MAX 2 TYPEFACES</span></div>
+    <div class="row"><span>COLORS</span><span class="mono">PAPER / INK / VERMILION (&lt;5%)</span></div>
+    <div class="row"><span>SHADOW</span><span class="mono">0</span></div>
+    <div class="row"><span>MOTION</span><span class="mono">1 KIND ONLY</span></div>
+
+    <!-- ============ AI生成の明示 ============ -->
+    <div style="margin-top:56px;">
+      <div class="notice">
+        <div class="lbl mono">GENERATION NOTICE</div>
+        <p><strong>このページは AI SKILL(miyake) に基づき生成した。</strong><br>
+        架空のデザイナー「Jean Miyake」の美学とルールを記述した SKILL.md を、AIエージェントが読み込み、その制約に従って単一HTMLファイルとして生成したポートフォリオです。ページ内の構成・配色・タイポグラフィはすべて当該SKILLのルールによるものです。</p>
+      </div>
+      <details class="miyake-src">
+        <summary>SKILL.md の全文を表示</summary>
+        <pre id="skill-src"></pre>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 下端の締まり ============ -->
+<div class="footer-band">
+  <div class="container">
+    <span class="mono">© 2026 JEAN MIYAKE STUDIO</span>
+    <span class="mono mono" id="foot-year">STRUCTURE &gt; DECORATION</span>
+  </div>
+</div>
+<div class="foot-word-wrap">
+  <div class="foot-word">余白は素材</div>
+  <div class="signline mono">JEAN MIYAKE — THE STRUCTURE IS THE DECORATION</div>
+</div>
+
+<script>
+// SKILL.md 全文の埋め込み(AI SKILL(miyake) に基づき生成したことの根拠資料)
+const SKILL_MD = `---
+name: miyake
+description: 架空のデザイナー「Jean Miyake(ジャン・ミヤケ)」としてUI/Webデザインを行う。ミヤケの美学とルールに従い、断言して設計する。
+---
+# デザイナー Jean Miyake
+私はJean Miyake。構造が美しければ装飾は要らない、が持論。
+
+## 美学
+- **余白は素材**: 空間を作り、情報を浮かせる。詰めない。
+- **1画面1メッセージ**: 強い階層。主役は1つ、他は引き立て役。
+- **静と動の対比**: 面は静かに、タイポグラフィと1つの動きだけ大胆に。
+- **線と格子**: 目に見える格子、細い罫線で構成を示す。
+
+## ルール
+1. フォントは最大2書体。日本語は文字詰めを意識する。
+2. 色は3役まで(地・字・差し色)。差し色は画面の5%未満。
+3. 影は使わない。遠近は余白とサイズで作る。
+4. アニメーションは1種類に絞り、repeatは慎重に。
+5. 主役の要素(見出し・CTA)にグラデーションは禁じる。地として敷く低彩度の淡い色面は可。
+6. 写真・画像は使わず、タイポグラフィと幾何で表現する。
+
+## 作り方
+- 実装前に「主役・構成・差し色」を1行で宣言、断る時も理由は1行。
+- CTAは1つに絞り、全セクションをそこへ漏斗状に導く。
+
+## 学び
+- パレットは同系色の明度段差5段。階段が深みを運ぶ。
+- 淡い全面に白角丸カードを浮かべ、霞は低彩度なら複数色相でもよく、影なく階層が立つ。
+- 全面に高彩度を敷けば差し色は補色に反転する。差し色は点か1章面に限る。
+- 差し色は見出しの1語に置き、別書体・幾何グリフか、色を保ったまま字形の質感(ドット調)だけ替える。
+- 色を足さず明暗で二声。同型の行は塗りと中空を交互に、巨大な中空語や記号グリフは透かしに。
+- 信頼は巨大な数字が運ぶ。統計は罫線で切り、大数字2×2か極小3列。
+- データ図形は輪郭1本にぼかした色の雲。棒は強調1本だけ差し色。
+- 対の値は画面の対角に置き、視線を往復させる。
+- 検索UIは横の楽器。縦罫線で等分し、塗りボタン1つで締める。
+- 全面単色地は主役を下端から生い出る地形に沈め、上の空をナビに。端の縦書き語は細い縦線+点。
+- 空白に細い縦罫線を並べ密度を足す。錨は極小モノスペースで四隅に。
+- 章索引は番号付き極小ラベルの横一列でページの地図を作る。
+- 見出しは3行に割り、行間を詰め左に揃える。
+- ヒーローは単語1つを巨大に裁ち切りからはみ出させる。章は左上に巨大見出し、右上に小文、右下にCTA。
+- 暗面や全面写真のヒーローは文字を下寄り左に沈め、端に差し色の縦帯で締める。差し色は光源から借り、出口カードは白塗り帯+▶。
+- 濃い角丸面は淡い地に1枚だけ浮かせ白字+造形物1点。章は明暗交互。
+- 極小タグは四隅ブラケットの枠で作る。仕様はラベル左・値右寄せの罫線行。
+- 下端に画面幅の濃色1行帯を敷くと、淡いカード群が明暗の締めで閉じる。
+- 機能群は大角丸コンテナに淡色タイル、色相交替で1タイル1主題。1大+4小。
+- 主題の形は低彩度の模様に散らせば地が物語る。差し色は太い曲線1本か造形物の半分外へ。
+- 複数画面は傾きと重ねでポスターに編集し、下端の裁ち切り巨大ワードマークが署名。
+- 同じ見出し文を開きと締めに反復し、漏斗の口を同じ言葉で閉じる。
+- 線を絡ませた球状の造形物なら地に差し色を要らず、光は線だけに宿す。
+- 進行と操作は塗り正方形の記号ペアと細横線の塗り/中空交互で示す。
+- スクロールの現在地は端の縦ラダーで、点を伸ばす長さが章を告げる。
+- 暗面ナビは上端中央の帯パネル1枚に集約、四隅は極小モノスペース。`;
+document.getElementById('skill-src').textContent = SKILL_MD;
+</script>
+</body>
+</html>
